@@ -16,11 +16,13 @@ namespace RPG.Control
 
         void Update()
         {
-            InteractWithCombat();
-            InteractWithMovement();
+            //if you have attacked then you don't move
+            if(InteractWithCombat()) return;
+
+            if(InteractWithMovement()) return;
         }
 
-        private void InteractWithCombat()
+        private bool InteractWithCombat()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
@@ -33,30 +35,40 @@ namespace RPG.Control
                 {
                     GetComponent<Fighter>().Attack(target);
                 }
+
+                return true;
             }
+            return false;
         }
 
-        private void InteractWithMovement()
+        private bool InteractWithMovement()
         {
-            if (Input.GetMouseButton(0))
-            {
-                MoveToCursor();
-            }
+            bool result = false;
+
+            result = MoveToCursor();
 
             if (Input.GetAxis("Horizontal") != 0.0f || Input.GetAxis("Vertical") != 0.0f)
             {
                 MoveWithKeyboard();
             }
+
+            return result;
         }
 
-        void MoveToCursor()
+        bool MoveToCursor()
         {
             RaycastHit hit;
 
             if (Physics.Raycast(GetMouseRay(), out hit))
             {
-                playerMover.MoveTo(hit.point);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    playerMover.StartMoveAction(hit.point);
+                }
+                return true;
             }
+
+            return false;
         }
 
         void MoveWithKeyboard()
