@@ -18,11 +18,13 @@ public class Mover : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             MoveToCursor();
         }
         Debug.DrawRay(lastRay.origin, lastRay.direction * 25.0f, Color.green);
+
+        UpdateAnimator();
     }
 
     private void MoveToCursor()
@@ -36,6 +38,17 @@ public class Mover : MonoBehaviour
         }
 
         lastRay = ray;
+    }
+
+    private void UpdateAnimator()
+    {
+        Vector3 velocity = agent.velocity;
+
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+
+        float speed = localVelocity.z;
+
+        GetComponent<Animator>().SetFloat("ForwardSpeed", speed);
     }
 
 }
