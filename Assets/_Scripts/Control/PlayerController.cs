@@ -2,6 +2,7 @@
 
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control
 {
@@ -16,6 +17,8 @@ namespace RPG.Control
 
         void Update()
         {
+            if (GetComponent<Health>().isDead) return;
+
             //if you have attacked then you don't move
             if(InteractWithCombat()) return;
 
@@ -31,11 +34,15 @@ namespace RPG.Control
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 if (target == null) continue;
 
+                GameObject targetGameObject = target.gameObject;
+
+                if (!GetComponent<Fighter>().CanAttack(target.gameObject)) continue;
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     
-                    GetComponent<Fighter>().Attack(target);
-                    if (!GetComponent<Fighter>().CanAttack()) continue;
+                    GetComponent<Fighter>().Attack(target.gameObject);
+                   
                 }
 
                 return true;

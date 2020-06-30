@@ -14,7 +14,7 @@ namespace RPG.Combat
 
         public Transform target;
 
-        float timeSinceLastAttack = 0.0f;
+        float timeSinceLastAttack = 5.0f;
 
         private Mover fighterMover;
         private NavMeshAgent fighterAgent;
@@ -55,7 +55,7 @@ namespace RPG.Combat
             transform.LookAt(target);
         }
 
-        public void Attack(CombatTarget combatTarget)
+        public void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
 
@@ -88,7 +88,7 @@ namespace RPG.Combat
             }
         }
 
-        public bool CanAttack()
+        public bool CanAttack(GameObject target)
         {
             if(target != null && !target.GetComponent<Health>().isDead)
             {
