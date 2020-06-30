@@ -79,7 +79,7 @@ namespace RPG.Control
             if (horizontalInput != 0.0f || verticalInput != 0.0f)
             {
                 Vector3 newTarget = new Vector3(transform.position.x + horizontalInput, 0.0f, transform.position.z + verticalInput);
-                playerMover.MoveTo(newTarget);
+                playerMover.StartMoveAction(newTarget);
             }
         }
         private static Ray GetMouseRay()

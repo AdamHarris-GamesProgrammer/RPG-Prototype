@@ -1,10 +1,10 @@
-﻿using RPG.Combat;
+﻿using RPG.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, IAction
     {
         private NavMeshAgent agent;
         private Animator animator;
@@ -22,7 +22,7 @@ namespace RPG.Movement
 
         public void StartMoveAction(Vector3 location)
         {
-            GetComponent<Fighter>().Cancel();
+            GetComponent<ActionScheduler>().StartAction(this);
             MoveTo(location);
         }
 
@@ -30,11 +30,6 @@ namespace RPG.Movement
         {
             agent.destination = location;
             agent.isStopped = false;
-        }
-
-        public void Stop()
-        {
-            agent.isStopped = true;
         }
 
         private void UpdateAnimator()
@@ -48,6 +43,11 @@ namespace RPG.Movement
             animator.SetFloat("ForwardSpeed", speed);
         }
 
+        public void Cancel()
+        {
+            agent.isStopped = true;
+            print("Canceling Movement");
+        }
     }
 }
 
