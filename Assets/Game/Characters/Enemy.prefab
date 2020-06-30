@@ -27,6 +27,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseDistance: 5
+  attackRange: 1.5
 --- !u!114 &-1678822277348787825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +62,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2459989572744864994, guid: b1455ee34a0258048b8c40775fe25942,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 2459989572744865006, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -11,16 +11,12 @@ namespace RPG.Control
     public class AIController : MonoBehaviour
     {
         [SerializeField] float chaseDistance = 5.0f;
-        [SerializeField] float attackRange = 1.5f;
 
-        private NavMeshAgent agent;
         private GameObject player;
         private Fighter fighter;
 
         private void Awake()
         {
-            agent = GetComponent<NavMeshAgent>();
-
             player = GameObject.FindGameObjectWithTag("Player");
 
             fighter = GetComponent<Fighter>();
@@ -43,7 +39,8 @@ namespace RPG.Control
             return Vector3.Distance(player.transform.position, transform.position) < distance;
         }
 
-        private void OnDrawGizmos()
+        //Called by Unity Editor
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
