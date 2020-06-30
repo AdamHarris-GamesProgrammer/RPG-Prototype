@@ -46,7 +46,7 @@ namespace RPG.Movement
         public void Cancel()
         {
             agent.isStopped = true;
-            print("Canceling Movement");
+            //print("Canceling Movement");
         }
     }
 }

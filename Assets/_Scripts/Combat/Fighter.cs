@@ -33,7 +33,13 @@ namespace RPG.Combat
             else
             {
                 fighterMover.Cancel();
+                AttackBehaviour();
             }
+        }
+
+        private void AttackBehaviour()
+        {
+            GetComponent<Animator>().SetTrigger("attack");
         }
 
         public void Attack(CombatTarget combatTarget)
@@ -47,6 +53,13 @@ namespace RPG.Combat
         public void Cancel()
         {
             target = null;
+            //print("Canceling Fighter");
+        }
+
+        //Animation Event
+        void Hit()
+        {
+
         }
     }
 }
