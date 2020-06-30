@@ -51,7 +51,6 @@ namespace RPG.Combat
 
         private void AttackBehaviour()
         {
-
             GetComponent<Animator>().SetTrigger("attack");
             
         }
