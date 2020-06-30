@@ -155,6 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 2
+  timeBetweenAttacks: 1
+  weaponDamage: 5
   target: {fileID: 0}
 --- !u!114 &3808452164005012225
 MonoBehaviour:
