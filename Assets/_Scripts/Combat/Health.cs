@@ -9,6 +9,9 @@ namespace RPG.Combat
         [SerializeField] float maxHealth = 100.0f;
         private float health;
 
+        public bool isDead;
+        bool hasDeathAnimPlayed;
+
         private void Start()
         {
             health = maxHealth;
@@ -24,7 +27,19 @@ namespace RPG.Combat
 
             if(health <= 0.0f)
             {
-                print(transform.gameObject.name + " is dead");
+                DeathBehaviour();
+            }
+        }
+
+        void DeathBehaviour()
+        {
+            isDead = true;
+            print(transform.gameObject.name + " is dead");
+
+            if (!hasDeathAnimPlayed)
+            {
+                GetComponent<Animator>().SetTrigger("death");
+                hasDeathAnimPlayed = true;
             }
         }
     }

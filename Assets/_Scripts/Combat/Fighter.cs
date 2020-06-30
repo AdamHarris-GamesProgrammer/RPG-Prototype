@@ -52,7 +52,7 @@ namespace RPG.Combat
         private void AttackBehaviour()
         {
             GetComponent<Animator>().SetTrigger("attack");
-            
+            transform.LookAt(target);
         }
 
         public void Attack(CombatTarget combatTarget)
@@ -66,19 +66,37 @@ namespace RPG.Combat
         public void Cancel()
         {
             target = null;
+            GetComponent<Animator>().SetTrigger("stopAttack");
             //print("Canceling Fighter");
         }
 
         //Animation Event
         void Hit()
         {
-            if(target != null)
+            if(target != null )
             {
                 Health enemyHealthComponent = target.GetComponent<Health>();
                 if (enemyHealthComponent)
                 {
                     enemyHealthComponent.TakeDamage(weaponDamage);
+
+                    if (enemyHealthComponent.isDead)
+                    {
+                        Cancel();
+                    }
                 }
+            }
+        }
+
+        public bool CanAttack()
+        {
+            if(target != null && !target.GetComponent<Health>().isDead)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
