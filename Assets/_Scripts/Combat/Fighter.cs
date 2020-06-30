@@ -27,6 +27,8 @@ namespace RPG.Combat
 
         private void Update()
         {
+            if (GetComponent<Health>().isDead) return;
+
             timeSinceLastAttack += Time.deltaTime;
 
             if (target == null) return;
@@ -66,8 +68,6 @@ namespace RPG.Combat
         public void Cancel()
         {
             target = null;
-            GetComponent<Animator>().SetTrigger("stopAttack");
-            //print("Canceling Fighter");
         }
 
         //Animation Event

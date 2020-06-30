@@ -17,6 +17,8 @@ namespace RPG.Movement
 
         private void Update()
         {
+            agent.enabled = !GetComponent<Health>().isDead;
+
             UpdateAnimator();
         }
 

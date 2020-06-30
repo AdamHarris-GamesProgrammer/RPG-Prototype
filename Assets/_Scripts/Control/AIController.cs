@@ -28,13 +28,6 @@ namespace RPG.Control
 
         private void Update()
         {
-            if (GetComponent<Health>().isDead)
-            {
-                agent.isStopped = true;
-                GetComponent<Fighter>().Cancel();
-                return;
-            }
-
             if (IsPlayerInRange(chaseDistance) && fighter.CanAttack(player))
             {
                 fighter.Attack(player);
@@ -43,8 +36,6 @@ namespace RPG.Control
             {
                 fighter.Cancel();
             }
-
-
         }
 
         private bool IsPlayerInRange(float distance)
