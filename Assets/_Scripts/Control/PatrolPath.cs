@@ -6,7 +6,7 @@ namespace RPG.Control
 {
     public class PatrolPath : MonoBehaviour
     {
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             for(int i = 0; i < transform.childCount; i++)
             {
@@ -31,8 +31,6 @@ namespace RPG.Control
                 {
                     Gizmos.DrawLine(GetWaypointPosition(i), GetWaypointPosition(0));
                 }
-
-
             }
         }
 

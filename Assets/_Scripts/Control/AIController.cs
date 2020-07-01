@@ -16,6 +16,8 @@ namespace RPG.Control
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float waypointTolerance = 1.0f;
         [SerializeField] float dwellTime = 3.5f;
+        [SerializeField] float warningRadius = 12.0f;
+        [SerializeField] float maxDistanceFromPoint = 25.0f;
         int currentWaypoint = 0;
 
         private GameObject player;
@@ -43,19 +45,28 @@ namespace RPG.Control
             {
                 AttackState();
             }
+            else if (IsPlayerInRange(warningRadius))
+            {
+                WarningState();
+            }
             else if (timeSinceLastSeenPlayer < suspiscionDuration)
             {
                 SuspicionState();
             }
             else
             {
-                ReturnToOriginalPosition();
+                PatrolState();
             }
 
             timeSinceLastSeenPlayer += Time.deltaTime;
         }
 
-        private void ReturnToOriginalPosition()
+        private static void WarningState()
+        {
+            Debug.Log("Im warning you, back off!");
+        }
+
+        private void PatrolState()
         {
             Vector3 nextPosition = guardPosition;
 
@@ -102,8 +113,11 @@ namespace RPG.Control
         //Called by Unity Editor
         private void OnDrawGizmosSelected()
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, warningRadius);
         }
 
         private bool AtWaypoint()
