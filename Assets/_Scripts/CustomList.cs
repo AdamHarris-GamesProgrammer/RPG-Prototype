@@ -7,11 +7,8 @@ public class CustomList : MonoBehaviour
     [System.Serializable]
     public class MyClass
     {
-        public GameObject AnGO;
-        public int AnInt;
-        public float AnFloat;
-        public Vector3 AnVector3;
-        public int[] AnIntArray = new int[0];
+        public GameObject propPrefab;
+        [Range(0f, 1f)] public float chanceToSpawn;
     }
 
     public List<MyClass> MyList = new List<MyClass>(1);
