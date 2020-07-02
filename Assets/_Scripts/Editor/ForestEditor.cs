@@ -5,6 +5,7 @@ using UnityEditor;
 using System;
 using System.Linq;
 
+[ExecuteInEditMode]
 public class ForestEditor : EditorWindow
 {
     [MenuItem("Custom/Forest Editor")]
@@ -44,11 +45,7 @@ public class ForestEditor : EditorWindow
 
         if (!listComponent) return;
 
-        for (int i = 0; i < listComponent.MyList.Count; i++)
-        {
-            prefabs.Add(listComponent.MyList.ElementAt(i).propPrefab);
-            prefabsSpawnRate.Add(listComponent.MyList.ElementAt(i).chanceToSpawn);
-        }
+        GetPrefabsValues();
 
         for (int i = 0; i < amountOfObjectsToSpawn; i++)
         {
@@ -64,5 +61,18 @@ public class ForestEditor : EditorWindow
         }
 
         Debug.Log("Finished Spawning");
+
+
+        void GetPrefabsValues()
+        {
+            prefabs.Clear();
+            prefabsSpawnRate.Clear();
+
+            for (int i = 0; i < listComponent.MyList.Count; i++)
+            {
+                prefabs.Add(listComponent.MyList.ElementAt(i).propPrefab);
+                prefabsSpawnRate.Add(listComponent.MyList.ElementAt(i).chanceToSpawn);
+            }
+        }
     }
 }
