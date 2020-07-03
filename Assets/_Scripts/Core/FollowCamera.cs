@@ -28,9 +28,9 @@ namespace RPG.Core
 
             }
 
-            rotY = Mathf.Clamp(rotY, -20f, 20f);
+            rotY = Mathf.Clamp(rotY, -20f, 5f);
 
-            transform.LookAt(target);
+            //transform.LookAt(target);
             target.localRotation = Quaternion.Euler(rotY, rotX, 0f);
             target.position = player.position;
         }

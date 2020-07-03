@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomList : MonoBehaviour
+public class ObjectSpawner : MonoBehaviour
 {
     [System.Serializable]
-    public class MyClass
+    public class ObjectData
     {
         public GameObject propPrefab;
         [Range(0f, 1f)] public float chanceToSpawn;
@@ -23,7 +23,7 @@ public class CustomList : MonoBehaviour
     Vector3 topLeft;
     Vector3 bottomRight;
 
-    public List<MyClass> MyList = new List<MyClass>(1);
+    public List<ObjectData> MyList = new List<ObjectData>(1);
 
     public Vector3 GeneratePosition()
     {

@@ -1,36 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System;
 using System.Linq;
 
 [ExecuteInEditMode]
-public class ForestEditor : EditorWindow
+[CustomEditor(typeof(ObjectSpawner))]
+public class ObjectSpawnerEditor : Editor
 {
-    CustomList listComponent;
+    ObjectSpawner listComponent;
     List<GameObject> prefabs;
     List<float> prefabsSpawnRate;
     int amountOfObjectsToSpawn = 20;
 
-    private void Awake()
+    public override void OnInspectorGUI()
     {
-        listComponent = Selection.gameObjects.First().GetComponent<CustomList>();
+        base.OnInspectorGUI();
+
+        listComponent = (ObjectSpawner)target;
 
         GetPrefabsValues();
-    }
 
-    [MenuItem("Custom/Forest Editor")]
-    public static void ShowWindow()
-    {
-        GetWindow<ForestEditor>("Forest Editor");
-    }
-
-    public void OnGUI()
-    {
         amountOfObjectsToSpawn = EditorGUILayout.IntField(amountOfObjectsToSpawn);
 
-        if(GUILayout.Button("Spawn Forest"))
+        if(GUILayout.Button("Spawn Objects"))
         {
             SpawnForest();
         }
@@ -38,7 +30,7 @@ public class ForestEditor : EditorWindow
 
     void SpawnForest()
     {
-        GameObject selectedObj = Selection.gameObjects.First();
+        GameObject selectedObj = GameObject.Find(target.name);
 
         if(selectedObj.transform.childCount != 0)
         {
@@ -64,8 +56,6 @@ public class ForestEditor : EditorWindow
                 spawned.transform.localScale = new Vector3(newScale, newScale, newScale);
             }
         }
-
-        Debug.Log("Finished Spawning");
     }
     void GetPrefabsValues()
     {
