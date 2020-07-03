@@ -6,7 +6,12 @@ namespace RPG.Core
 {
     public class FollowCamera : MonoBehaviour
     {
-        [SerializeField] private Transform target;
+        private Transform target;
+
+        private void Awake()
+        {
+            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        }
 
         void LateUpdate()
         {

@@ -56,6 +56,7 @@ namespace RPG.Control
 
             result = MoveToCursor();
 
+            //TODO: Fix keyboard input
             if (Input.GetAxis("Horizontal") != 0.0f || Input.GetAxis("Vertical") != 0.0f)
             {
                 MoveWithKeyboard();
@@ -70,7 +71,7 @@ namespace RPG.Control
 
             if (Physics.Raycast(GetMouseRay(), out hit))
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButton(0))
                 {
                     playerMover.StartMoveAction(hit.point);
                 }
@@ -87,7 +88,7 @@ namespace RPG.Control
 
             if (horizontalInput != 0.0f || verticalInput != 0.0f)
             {
-                Vector3 newTarget = new Vector3(transform.position.x + horizontalInput, 0.0f, transform.position.z + verticalInput);
+                Vector3 newTarget = new Vector3(transform.forward.x + horizontalInput, 0.0f, transform.right.z + verticalInput);
                 playerMover.StartMoveAction(newTarget);
             }
         }
