@@ -13,7 +13,6 @@ namespace RPG.Control
     {
         [Header("Distance Settings")]
         [SerializeField] float chaseDistance = 5.0f;
-        [SerializeField] float maxDistanceFromPoint = 25.0f;
         [SerializeField] float warningRadius = 12.0f;
 
         [Header("Timer Settings")]

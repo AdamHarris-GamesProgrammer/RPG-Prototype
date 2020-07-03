@@ -6,16 +6,33 @@ namespace RPG.Core
 {
     public class FollowCamera : MonoBehaviour
     {
-        private Transform target;
+        [SerializeField] private Transform target;
+        private Transform player;
+
+        float rotX, rotY;
+
+        public float mouseSensitivity = 10f;
+        public float rotationSpeed = 5f;
 
         private void Awake()
         {
-            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         }
 
-        void LateUpdate()
+        void Update()
         {
-            transform.position = target.position;
+            if (Input.GetMouseButton(1))
+            {
+                rotX += Input.GetAxis("Mouse X") * mouseSensitivity;
+                rotY += Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+            }
+
+            rotY = Mathf.Clamp(rotY, -20f, 20f);
+
+            transform.LookAt(target);
+            target.localRotation = Quaternion.Euler(rotY, rotX, 0f);
+            target.position = player.position;
         }
     }
 }
