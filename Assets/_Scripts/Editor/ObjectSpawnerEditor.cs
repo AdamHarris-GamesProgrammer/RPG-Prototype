@@ -50,6 +50,11 @@ public class ObjectSpawnerEditor : Editor
             GameObject spawned = Instantiate(prefabs.ElementAt(index), listComponent.GeneratePosition(), Quaternion.identity, selectedObj.transform);
             spawned.transform.Rotate(Vector3.up * UnityEngine.Random.Range(0f, 360f), Space.Self);
 
+
+
+            ValidatePostion(spawned);
+            
+
             if (listComponent.MyList.ElementAt(index).shouldScale)
             {
                 float newScale = UnityEngine.Random.Range(listComponent.MyList.ElementAt(index).minScale, listComponent.MyList.ElementAt(index).maxScale);
@@ -70,5 +75,26 @@ public class ObjectSpawnerEditor : Editor
             prefabs.Add(listComponent.MyList.ElementAt(i).propPrefab);
             prefabsSpawnRate.Add(listComponent.MyList.ElementAt(i).chanceToSpawn);
         }
+    }
+
+    bool ValidatePostion(GameObject spawned)
+    {
+        GameObject selectedObj = GameObject.Find(target.name);
+
+        BoxCollider spawnedCollider = spawned.GetComponent<BoxCollider>();
+
+        for (int j = 0; j < selectedObj.transform.childCount; j++)
+        {
+            GameObject currentChild = selectedObj.transform.GetChild(j).gameObject;
+
+            if (spawnedCollider.bounds.Intersects(currentChild.GetComponent<BoxCollider>().bounds))
+            {
+                Debug.Log("Intersect Found");
+                spawned.transform.position = listComponent.GeneratePosition();
+                //ValidatePostion(spawned);
+            }
+            continue;
+        }
+        return true;
     }
 }

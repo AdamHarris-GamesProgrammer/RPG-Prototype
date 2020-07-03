@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3327586}
   - component: {fileID: 2319964}
   - component: {fileID: 8149731181433796894}
+  - component: {fileID: -1111691648984183756}
   m_Layer: 0
   m_Name: SM_Env_Tree_03
   m_TagString: Untagged
@@ -96,3 +97,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 2.788, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &-1111691648984183756
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190414}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.2270994, y: 5.5757275, z: 2.7304833}
+  m_Center: {x: 0.000004827976, y: 2.7878637, z: 0.00000059604645}

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3308708}
   - component: {fileID: 2377884}
   - component: {fileID: -6208859664929465730}
+  - component: {fileID: -6970430319516539573}
   m_Layer: 0
   m_Name: SM_Env_Flower_01
   m_TagString: Untagged
@@ -96,3 +97,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.16000001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &-6970430319516539573
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.23434135, y: 0.32087857, z: 0.21759725}
+  m_Center: {x: -0.0000002682209, y: 0.16043928, z: 0.00000023841858}

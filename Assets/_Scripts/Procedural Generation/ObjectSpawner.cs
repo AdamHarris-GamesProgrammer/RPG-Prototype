@@ -39,6 +39,8 @@ public class ObjectSpawner : MonoBehaviour
         float yPos = Random.Range(bottomLeft.y, bottomRight.y);
         float zPos = Random.Range(bottomLeft.z, topLeft.z);
 
-        return newPosition = new Vector3(xPos, yPos, zPos);
+        newPosition = new Vector3(xPos, yPos, zPos);
+
+        return newPosition;
     }
 }
