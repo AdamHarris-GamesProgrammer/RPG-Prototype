@@ -8,16 +8,23 @@ using System.Linq;
 [ExecuteInEditMode]
 public class ForestEditor : EditorWindow
 {
+    CustomList listComponent;
+    List<GameObject> prefabs;
+    List<float> prefabsSpawnRate;
+    int amountOfObjectsToSpawn = 20;
+
+    private void Awake()
+    {
+        listComponent = Selection.gameObjects.First().GetComponent<CustomList>();
+
+        GetPrefabsValues();
+    }
+
     [MenuItem("Custom/Forest Editor")]
     public static void ShowWindow()
     {
         GetWindow<ForestEditor>("Forest Editor");
     }
-
-    int amountOfObjectsToSpawn = 20;
-
-    List<GameObject> prefabs;
-    List<float> prefabsSpawnRate;
 
     public void OnGUI()
     {
@@ -41,8 +48,6 @@ public class ForestEditor : EditorWindow
             }
         }
 
-        CustomList listComponent = selectedObj.GetComponent<CustomList>();
-
         if (!listComponent) return;
 
         GetPrefabsValues();
@@ -61,18 +66,19 @@ public class ForestEditor : EditorWindow
         }
 
         Debug.Log("Finished Spawning");
+    }
+    void GetPrefabsValues()
+    {
+        prefabs = new List<GameObject>();
+        prefabsSpawnRate = new List<float>();
 
+        prefabs.Clear();
+        prefabsSpawnRate.Clear();
 
-        void GetPrefabsValues()
+        for (int i = 0; i < listComponent.MyList.Count; i++)
         {
-            prefabs.Clear();
-            prefabsSpawnRate.Clear();
-
-            for (int i = 0; i < listComponent.MyList.Count; i++)
-            {
-                prefabs.Add(listComponent.MyList.ElementAt(i).propPrefab);
-                prefabsSpawnRate.Add(listComponent.MyList.ElementAt(i).chanceToSpawn);
-            }
+            prefabs.Add(listComponent.MyList.ElementAt(i).propPrefab);
+            prefabsSpawnRate.Add(listComponent.MyList.ElementAt(i).chanceToSpawn);
         }
     }
 }
