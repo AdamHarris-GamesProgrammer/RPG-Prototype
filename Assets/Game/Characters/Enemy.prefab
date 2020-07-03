@@ -27,7 +27,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseDistance: 5
-  attackRange: 1.5
+  suspiscionDuration: 5
+  patrolPath: {fileID: 0}
+  waypointTolerance: 1
+  dwellTime: 3.5
+  warningRadius: 12
+  maxDistanceFromPoint: 25
 --- !u!114 &-1678822277348787825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,7 +60,7 @@ PrefabInstance:
     - target: {fileID: -545251983460679016, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}
       propertyPath: maxHealth
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2459989572744864994, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}

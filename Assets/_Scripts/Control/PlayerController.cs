@@ -86,12 +86,21 @@ namespace RPG.Control
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
-            if (horizontalInput != 0.0f || verticalInput != 0.0f)
-            {
-                Vector3 newTarget = new Vector3(transform.forward.x + horizontalInput, 0.0f, transform.right.z + verticalInput);
-                playerMover.StartMoveAction(newTarget);
-            }
+            //if (horizontalInput != 0.0f || verticalInput != 0.0f)
+            //{
+            //    Vector3 newTarget = new Vector3(transform.forward.x + horizontalInput, 0.0f, transform.right.z + verticalInput);
+            //    playerMover.StartMoveAction(newTarget);
+            //}
+
+            Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput);
+
+            movement += transform.position;
+
+            playerMover.StartMoveAction(movement);
+
         }
+
+
         private static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
