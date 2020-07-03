@@ -73,7 +73,7 @@ namespace RPG.Control
             {
                 if (Input.GetMouseButton(0))
                 {
-                    playerMover.StartMoveAction(hit.point);
+                    playerMover.StartMoveAction(hit.point, 1.0f);
                 }
                 return true;
             }
@@ -96,7 +96,7 @@ namespace RPG.Control
 
             movement += transform.position;
 
-            playerMover.StartMoveAction(movement);
+            playerMover.StartMoveAction(movement, 1.0f);
 
         }
 

@@ -6,7 +6,7 @@ namespace RPG.Control
 {
     public class PatrolPath : MonoBehaviour
     {
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
             for(int i = 0; i < transform.childCount; i++)
             {

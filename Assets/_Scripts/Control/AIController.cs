@@ -11,13 +11,23 @@ namespace RPG.Control
 {
     public class AIController : MonoBehaviour
     {
+        [Header("Distance Settings")]
         [SerializeField] float chaseDistance = 5.0f;
+        [SerializeField] float maxDistanceFromPoint = 25.0f;
+        [SerializeField] float warningRadius = 12.0f;
+
+        [Header("Timer Settings")]
         [SerializeField] float suspiscionDuration = 5.0f;
+        [SerializeField] float dwellTime = 3.5f;
+
+        [Header("Patrolling Settings")]
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float waypointTolerance = 1.0f;
-        [SerializeField] float dwellTime = 3.5f;
-        [SerializeField] float warningRadius = 12.0f;
-        [SerializeField] float maxDistanceFromPoint = 25.0f;
+
+        [Header("Speed Settings")]
+        [Range(0f,1f)]
+        [SerializeField] float patrollingSpeedFraction = 0.2f;
+
         int currentWaypoint = 0;
 
         private GameObject player;
@@ -40,6 +50,7 @@ namespace RPG.Control
         private void Update()
         {
             if (GetComponent<Health>().isDead) return;
+
 
             if (IsPlayerInRange(chaseDistance) && fighter.CanAttack(player))
             {
@@ -68,6 +79,7 @@ namespace RPG.Control
 
         private void PatrolState()
         {
+
             Vector3 nextPosition = guardPosition;
 
             if(patrolPath != null)
@@ -90,7 +102,7 @@ namespace RPG.Control
                 nextPosition = patrolPath.GetWaypointPosition(currentWaypoint);
             }
 
-            GetComponent<Mover>().StartMoveAction(nextPosition);
+            GetComponent<Mover>().StartMoveAction(nextPosition, patrollingSpeedFraction);
             
         }
 

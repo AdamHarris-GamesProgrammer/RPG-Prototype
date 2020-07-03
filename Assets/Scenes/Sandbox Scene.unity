@@ -5493,6 +5493,11 @@ PrefabInstance:
       propertyPath: dwellTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -8051229352333543093, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
+        type: 3}
+      propertyPath: patrollingSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1937631078031194931, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: m_Name
