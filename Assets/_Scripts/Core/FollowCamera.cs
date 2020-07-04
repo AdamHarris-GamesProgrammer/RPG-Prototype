@@ -14,6 +14,7 @@ namespace RPG.Core
         public float mouseSensitivity = 10f;
         public float rotationSpeed = 5f;
 
+
         private void Awake()
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -30,8 +31,10 @@ namespace RPG.Core
 
             rotY = Mathf.Clamp(rotY, -20f, 5f);
 
-            //transform.LookAt(target);
             target.localRotation = Quaternion.Euler(rotY, rotX, 0f);
+
+            //transform.LookAt(target);
+
             target.position = player.position;
         }
     }

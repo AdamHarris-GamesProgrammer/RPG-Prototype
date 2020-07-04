@@ -16,7 +16,7 @@ public class ObjectSpawner : MonoBehaviour
 
     public List<ObjectData> MyList = new List<ObjectData>(1);
 
-    public float radius = 2.5f;
+    [Range(0.5f, 10f)] public float radius = 2.5f;
     public Vector2 regionSize = Vector2.one;
 
     public int rejectionSamples = 30;
