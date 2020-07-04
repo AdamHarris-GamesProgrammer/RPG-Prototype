@@ -10,8 +10,6 @@ public class ObjectSpawnerEditor : Editor
     ObjectSpawner listComponent;
     List<GameObject> prefabs;
     List<float> prefabsSpawnRate;
-    int amountOfObjectsToSpawn = 20;
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -20,14 +18,13 @@ public class ObjectSpawnerEditor : Editor
 
         GetPrefabsValues();
 
-        amountOfObjectsToSpawn = EditorGUILayout.IntField(amountOfObjectsToSpawn);
-
         if(GUILayout.Button("Spawn Objects"))
         {
             SpawnForest();
         }
     }
 
+    List<Vector2> points;
     void SpawnForest()
     {
         GameObject selectedObj = GameObject.Find(target.name);
@@ -44,16 +41,21 @@ public class ObjectSpawnerEditor : Editor
 
         GetPrefabsValues();
 
-        for (int i = 0; i < amountOfObjectsToSpawn; i++)
+        points = PoissonDisc.GeneratePoints(listComponent.radius, listComponent.regionSize, listComponent.rejectionSamples);
+
+
+        for (int i = 0; i < points.Count; i++)
         {
             int index = UnityEngine.Random.Range(0, listComponent.MyList.Count);
-            GameObject spawned = Instantiate(prefabs.ElementAt(index), listComponent.GeneratePosition(), Quaternion.identity, selectedObj.transform);
+
+            Vector3 position = new Vector3(points.ElementAt(i).x, 0f, points.ElementAt(i).y);
+
+            position += selectedObj.transform.position;
+
+            GameObject spawned = Instantiate(prefabs.ElementAt(index), position, Quaternion.identity, selectedObj.transform);
             spawned.transform.Rotate(Vector3.up * UnityEngine.Random.Range(0f, 360f), Space.Self);
 
 
-
-            ValidatePostion(spawned);
-            
 
             if (listComponent.MyList.ElementAt(index).shouldScale)
             {
@@ -75,26 +77,5 @@ public class ObjectSpawnerEditor : Editor
             prefabs.Add(listComponent.MyList.ElementAt(i).propPrefab);
             prefabsSpawnRate.Add(listComponent.MyList.ElementAt(i).chanceToSpawn);
         }
-    }
-
-    bool ValidatePostion(GameObject spawned)
-    {
-        GameObject selectedObj = GameObject.Find(target.name);
-
-        BoxCollider spawnedCollider = spawned.GetComponent<BoxCollider>();
-
-        for (int j = 0; j < selectedObj.transform.childCount; j++)
-        {
-            GameObject currentChild = selectedObj.transform.GetChild(j).gameObject;
-
-            if (spawnedCollider.bounds.Intersects(currentChild.GetComponent<BoxCollider>().bounds))
-            {
-                Debug.Log("Intersect Found");
-                spawned.transform.position = listComponent.GeneratePosition();
-                //ValidatePostion(spawned);
-            }
-            continue;
-        }
-        return true;
     }
 }

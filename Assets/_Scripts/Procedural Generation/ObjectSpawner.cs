@@ -14,33 +14,15 @@ public class ObjectSpawner : MonoBehaviour
         [Range(1f, 2f)] public float maxScale = 2f;
     }
 
-
-    public BoxCollider objCollider;
-
-    Vector3 bottomLeft;
-    Vector3 topRight;
-
-    Vector3 topLeft;
-    Vector3 bottomRight;
-
     public List<ObjectData> MyList = new List<ObjectData>(1);
 
-    public Vector3 GeneratePosition()
+    public float radius = 2.5f;
+    public Vector2 regionSize = Vector2.one;
+
+    public int rejectionSamples = 30;
+
+    private void OnDrawGizmosSelected()
     {
-        bottomLeft = objCollider.bounds.min;
-        topRight = objCollider.bounds.max;
-
-        topLeft = new Vector3(bottomLeft.x, bottomLeft.y, topRight.z);
-        bottomRight = new Vector3(topRight.x, topRight.y, bottomLeft.z);
-
-        Vector3 newPosition;
-
-        float xPos = Random.Range(bottomLeft.x, bottomRight.x);
-        float yPos = Random.Range(bottomLeft.y, bottomRight.y);
-        float zPos = Random.Range(bottomLeft.z, topLeft.z);
-
-        newPosition = new Vector3(xPos, yPos, zPos);
-
-        return newPosition;
+        Gizmos.DrawWireCube(new Vector3(transform.position.x + (regionSize.x / 2f), 0f, transform.position.z + (regionSize.y / 2f)), new Vector3(regionSize.x, 0f, regionSize.y)); ;
     }
 }
