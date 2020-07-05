@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2351526}
   - component: {fileID: 5574319232905484989}
   - component: {fileID: -3963094370534950930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Bush_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3303312}
   - component: {fileID: 2305014}
   - component: {fileID: 8441959172279606811}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
