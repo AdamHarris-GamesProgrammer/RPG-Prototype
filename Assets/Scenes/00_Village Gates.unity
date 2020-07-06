@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 47553829}
   - component: {fileID: 47553828}
   - component: {fileID: 47553827}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51484588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 81363898}
   - component: {fileID: 81363897}
   - component: {fileID: 81363896}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 82197587}
   - component: {fileID: 82197586}
   - component: {fileID: 82197585}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Bush_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 157190552}
   - component: {fileID: 157190551}
   - component: {fileID: 157190550}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 271405957}
   - component: {fileID: 271405956}
   - component: {fileID: 271405955}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Tree_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1035,7 +1035,7 @@ GameObject:
   - component: {fileID: 277266838}
   - component: {fileID: 277266837}
   - component: {fileID: 277266836}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1217,7 +1217,7 @@ GameObject:
   - component: {fileID: 366784713}
   - component: {fileID: 366784712}
   - component: {fileID: 366784711}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1379,7 +1379,7 @@ GameObject:
   - component: {fileID: 389630686}
   - component: {fileID: 389630685}
   - component: {fileID: 389630684}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1473,7 +1473,7 @@ GameObject:
   - component: {fileID: 395230932}
   - component: {fileID: 395230931}
   - component: {fileID: 395230930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Tree_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1689,6 +1689,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ForestSpawn
       objectReference: {fileID: 0}
+    - target: {fileID: 8724008816431406891, guid: 5b6694bb48478474c96ce3a9d9ab19f2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b6694bb48478474c96ce3a9d9ab19f2, type: 3}
 --- !u!1 &452771569
@@ -1703,7 +1708,7 @@ GameObject:
   - component: {fileID: 452771573}
   - component: {fileID: 452771572}
   - component: {fileID: 452771571}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1803,7 +1808,7 @@ GameObject:
   - component: {fileID: 482004733}
   - component: {fileID: 482004732}
   - component: {fileID: 482004731}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_TreeLog_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2108,6 +2113,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3648758160771100020, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3648758160771100024, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2180,7 +2190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 594363906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2216,7 +2226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 594394634}
   - component: {fileID: 594394633}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2397,7 +2407,7 @@ GameObject:
   - component: {fileID: 628032901}
   - component: {fileID: 628032900}
   - component: {fileID: 628032899}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2490,7 +2500,7 @@ GameObject:
   - component: {fileID: 630516428}
   - component: {fileID: 630516427}
   - component: {fileID: 630516426}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2582,6 +2592,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648758160771100020, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3648758160771100024, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
@@ -2878,6 +2893,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ForestSpawn (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8724008816431406891, guid: 5b6694bb48478474c96ce3a9d9ab19f2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b6694bb48478474c96ce3a9d9ab19f2, type: 3}
 --- !u!1 &681403429
@@ -2893,7 +2913,7 @@ GameObject:
   - component: {fileID: 681403433}
   - component: {fileID: 681403432}
   - component: {fileID: 681403431}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Tree_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3276,6 +3296,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 195246, guid: f0d166010146cdc4eb7c784d54eda812, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 480658, guid: f0d166010146cdc4eb7c784d54eda812, type: 3}
       propertyPath: m_LocalPosition.x
       value: 88.75106
@@ -3364,7 +3388,7 @@ GameObject:
   - component: {fileID: 734262330}
   - component: {fileID: 734262329}
   - component: {fileID: 734262328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_Large_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3457,7 +3481,7 @@ GameObject:
   - component: {fileID: 734492549}
   - component: {fileID: 734492548}
   - component: {fileID: 734492547}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3547,7 +3571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 751183039}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Crates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3668,7 +3692,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 756316046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3703,7 +3727,7 @@ GameObject:
   - component: {fileID: 777303266}
   - component: {fileID: 777303265}
   - component: {fileID: 777303264}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Tree_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3813,7 +3837,7 @@ GameObject:
   - component: {fileID: 781534878}
   - component: {fileID: 781534877}
   - component: {fileID: 781534876}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Crate_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3922,7 +3946,7 @@ GameObject:
   - component: {fileID: 789114602}
   - component: {fileID: 789114601}
   - component: {fileID: 789114600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Flower_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4097,7 +4121,7 @@ GameObject:
   - component: {fileID: 805226646}
   - component: {fileID: 805226645}
   - component: {fileID: 805226644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_Large_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4196,7 +4220,7 @@ GameObject:
   - component: {fileID: 889884586}
   - component: {fileID: 889884585}
   - component: {fileID: 889884584}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Rock_015(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4410,7 +4434,7 @@ GameObject:
   - component: {fileID: 942089971}
   - component: {fileID: 942089970}
   - component: {fileID: 942089969}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Tree_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4591,6 +4615,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 195246, guid: f0d166010146cdc4eb7c784d54eda812, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 480658, guid: f0d166010146cdc4eb7c784d54eda812, type: 3}
       propertyPath: m_LocalPosition.x
       value: 85.880135
@@ -4707,6 +4735,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3648758160771100020, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3648758160771100024, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4789,7 +4822,7 @@ GameObject:
   - component: {fileID: 1066592435}
   - component: {fileID: 1066592434}
   - component: {fileID: 1066592433}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Crate_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4958,7 +4991,7 @@ GameObject:
   - component: {fileID: 1098663093}
   - component: {fileID: 1098663092}
   - component: {fileID: 1098663091}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5064,7 +5097,7 @@ GameObject:
   - component: {fileID: 1117360483}
   - component: {fileID: 1117360482}
   - component: {fileID: 1117360481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_TreeLog_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5209,7 +5242,7 @@ GameObject:
   - component: {fileID: 1135353850}
   - component: {fileID: 1135353849}
   - component: {fileID: 1135353848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Bush_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5380,7 +5413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1144642978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5481,7 +5514,8 @@ GameObject:
   - component: {fileID: 1196763268}
   - component: {fileID: 1196763267}
   - component: {fileID: 1196763266}
-  m_Layer: 0
+  - component: {fileID: 1196763269}
+  m_Layer: 8
   m_Name: Town Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5562,6 +5596,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196763264}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1196763269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196763264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29f9d6c00c0dfb4fb61703211bcb865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Sandbox Scene
 --- !u!1001 &1201519415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5639,17 +5686,32 @@ PrefabInstance:
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.01924637
+      value: 0.014783055
       objectReference: {fileID: 0}
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0041010305
+      value: -0.0031499634
       objectReference: {fileID: 0}
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97785413
+      value: 0.9779318
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.20837732
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3507857708707583180, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -5709,32 +5771,32 @@ PrefabInstance:
     - target: {fileID: 3507857709530799348, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.019317806
+      value: 0.01483804
       objectReference: {fileID: 0}
     - target: {fileID: 3507857709530799348, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.33053398
+      value: -0.25390244
       objectReference: {fileID: 0}
     - target: {fileID: 3507857709530799348, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.19053972
+      value: 0.1905548
       objectReference: {fileID: 0}
     - target: {fileID: 3507857709530799348, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.393495
+      value: -8.396163
       objectReference: {fileID: 0}
     - target: {fileID: 3507857709530799348, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0037502646
+      value: -0.0028805658
       objectReference: {fileID: 0}
     - target: {fileID: 3507857709530799348, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98148227
+      value: 0.9815602
       objectReference: {fileID: 0}
     - target: {fileID: 3507857709530799350, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -5764,7 +5826,7 @@ PrefabInstance:
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 85
+      value: 67.02536
       objectReference: {fileID: 0}
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -5774,7 +5836,7 @@ PrefabInstance:
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.5
+      value: 59.5
       objectReference: {fileID: 0}
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -5784,7 +5846,7 @@ PrefabInstance:
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.70710576
+      value: 0.7071058
       objectReference: {fileID: 0}
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -5794,7 +5856,7 @@ PrefabInstance:
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70710784
+      value: 0.7071078
       objectReference: {fileID: 0}
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -5809,27 +5871,42 @@ PrefabInstance:
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.00001
+      value: 90.00001
       objectReference: {fileID: 0}
     - target: {fileID: 3507857710140025687, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3647775678579810335, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_XAxis.Value
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775775596950175309, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25390244
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775775596950175309, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.396163
+      objectReference: {fileID: 0}
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.019382656
+      value: 0.01488775
       objectReference: {fileID: 0}
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0033992007
+      value: -0.0026109144
       objectReference: {fileID: 0}
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17270282
+      value: 0.17271653
       objectReference: {fileID: 0}
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -5844,22 +5921,27 @@ PrefabInstance:
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98477745
+      value: 0.98485565
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789020069703696016, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: interactionRange
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9106660902145615505, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1905397
+      value: 0.1905548
       objectReference: {fileID: 0}
     - target: {fileID: 9106660902145615505, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.019317806
+      value: 0.01483798
       objectReference: {fileID: 0}
     - target: {fileID: 9106660902145615505, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0037502572
+      value: -0.0028805733
       objectReference: {fileID: 0}
     - target: {fileID: 9106660902145615505, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -5870,6 +5952,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106660902145615505, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98156023
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3507857709530799351, guid: e24197e9db2041242b25fa80e8f912a5, type: 3}
@@ -5888,7 +5975,7 @@ GameObject:
   - component: {fileID: 1226218125}
   - component: {fileID: 1226218124}
   - component: {fileID: 1226218123}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Rock_015(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5981,7 +6068,8 @@ GameObject:
   - component: {fileID: 1268249437}
   - component: {fileID: 1268249436}
   - component: {fileID: 1268249435}
-  m_Layer: 0
+  - component: {fileID: 1268249438}
+  m_Layer: 8
   m_Name: Sewers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6062,6 +6150,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268249433}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1268249438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268249433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29f9d6c00c0dfb4fb61703211bcb865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: 
 --- !u!1 &1284204444
 GameObject:
   m_ObjectHideFlags: 0
@@ -6105,7 +6206,7 @@ GameObject:
   - component: {fileID: 1284661232}
   - component: {fileID: 1284661231}
   - component: {fileID: 1284661230}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Bush_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6227,7 +6328,7 @@ GameObject:
   - component: {fileID: 1306196240}
   - component: {fileID: 1306196239}
   - component: {fileID: 1306196238}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_TreeLog_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6336,7 +6437,7 @@ GameObject:
   - component: {fileID: 1325192603}
   - component: {fileID: 1325192602}
   - component: {fileID: 1325192601}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6497,7 +6598,7 @@ GameObject:
   - component: {fileID: 1371479311}
   - component: {fileID: 1371479310}
   - component: {fileID: 1371479309}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Flower_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6892,7 +6993,7 @@ GameObject:
   - component: {fileID: 1418137608}
   - component: {fileID: 1418137607}
   - component: {fileID: 1418137606}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Tree_010(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7144,7 +7245,7 @@ GameObject:
   - component: {fileID: 1487302580}
   - component: {fileID: 1487302579}
   - component: {fileID: 1487302578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_TreeLog_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7253,7 +7354,7 @@ GameObject:
   - component: {fileID: 1513149731}
   - component: {fileID: 1513149730}
   - component: {fileID: 1513149729}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7346,7 +7447,7 @@ GameObject:
   - component: {fileID: 1543951690}
   - component: {fileID: 1543951689}
   - component: {fileID: 1543951688}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Rock_015(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7439,7 +7540,7 @@ GameObject:
   - component: {fileID: 1550985166}
   - component: {fileID: 1550985165}
   - component: {fileID: 1550985164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_Large_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7532,7 +7633,7 @@ GameObject:
   - component: {fileID: 1563797913}
   - component: {fileID: 1563797912}
   - component: {fileID: 1563797911}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7907,7 +8008,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1707907063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Forests
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7942,7 +8043,7 @@ GameObject:
   - component: {fileID: 1709557893}
   - component: {fileID: 1709557892}
   - component: {fileID: 1709557891}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Town Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8136,7 +8237,7 @@ GameObject:
   - component: {fileID: 1739783619}
   - component: {fileID: 1739783618}
   - component: {fileID: 1739783617}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Rock_015(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8235,7 +8336,7 @@ GameObject:
   - component: {fileID: 1779213863}
   - component: {fileID: 1779213862}
   - component: {fileID: 1779213861}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Rock_015(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8329,7 +8430,7 @@ GameObject:
   - component: {fileID: 1792773633}
   - component: {fileID: 1792773632}
   - component: {fileID: 1792773631}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Crate_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8454,6 +8555,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3648758160771100020, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3648758160771100024, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8559,7 +8665,7 @@ GameObject:
   - component: {fileID: 1858917171}
   - component: {fileID: 1858917170}
   - component: {fileID: 1858917169}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Rock_015(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8709,7 +8815,7 @@ GameObject:
   - component: {fileID: 1877908777}
   - component: {fileID: 1877908776}
   - component: {fileID: 1877908775}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Rock_015(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8803,7 +8909,7 @@ GameObject:
   - component: {fileID: 1878103570}
   - component: {fileID: 1878103569}
   - component: {fileID: 1878103568}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Bush_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8941,6 +9047,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648758160771100020, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3648758160771100024, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
@@ -9237,7 +9348,7 @@ GameObject:
   - component: {fileID: 2022460261}
   - component: {fileID: 2022460260}
   - component: {fileID: 2022460259}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Bush_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9376,7 +9487,7 @@ GameObject:
   - component: {fileID: 2059050279}
   - component: {fileID: 2059050278}
   - component: {fileID: 2059050277}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Pumpkin_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9469,7 +9580,7 @@ GameObject:
   - component: {fileID: 2073016837}
   - component: {fileID: 2073016836}
   - component: {fileID: 2073016835}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Env_Grass_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9616,7 +9727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2103133109}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Map Transitions
   m_TagString: Untagged
   m_Icon: {fileID: 0}

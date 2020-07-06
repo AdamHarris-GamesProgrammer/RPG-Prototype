@@ -3,12 +3,15 @@
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Core;
+using RPG.SceneManagement;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
         private Mover playerMover;
+
+        public float interactionRange = 1.5f;
 
         void Awake()
         {
@@ -21,6 +24,8 @@ namespace RPG.Control
 
             //if you have attacked then you don't move
             if(InteractWithCombat()) return;
+
+            if(InteractWithTransition()) return;
 
             if(InteractWithMovement()) return;
         }
@@ -46,6 +51,34 @@ namespace RPG.Control
                 }
 
                 return true;
+            }
+            return false;
+        }
+
+        private bool InteractWithTransition()
+        {
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+
+            foreach (RaycastHit hit in hits)
+            {
+                SceneTarget target = hit.transform.GetComponent<SceneTarget>();
+                if (target == null) continue;
+
+                GameObject targetGameObject = target.gameObject;
+
+                if(Vector3.Distance(targetGameObject.transform.position, transform.position) > interactionRange)
+                {
+                    playerMover.MoveTo(targetGameObject.transform.position, 1.0f);
+                }
+                else
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        target.TransitionTo();
+                    }
+
+                    return true;
+                }
             }
             return false;
         }
