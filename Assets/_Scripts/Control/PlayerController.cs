@@ -17,24 +17,23 @@ namespace RPG.Control
         {
             playerMover = GetComponent<Mover>();
         }
-
         void Update()
         {
             if (GetComponent<Health>().isDead) return;
 
             //if you have attacked then you don't move
-            if(InteractWithCombat()) return;
+            if (InteractWithCombat()) return;
 
-            if(InteractWithTransition()) return;
+            if (InteractWithTransition()) return;
 
-            if(InteractWithMovement()) return;
+            if (InteractWithMovement()) return;
         }
 
         private bool InteractWithCombat()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
-            foreach(RaycastHit hit in hits)
+            foreach (RaycastHit hit in hits)
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 if (target == null) continue;
@@ -45,9 +44,9 @@ namespace RPG.Control
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    
+
                     GetComponent<Fighter>().Attack(target.gameObject);
-                   
+
                 }
 
                 return true;
@@ -66,19 +65,24 @@ namespace RPG.Control
 
                 GameObject targetGameObject = target.gameObject;
 
-                if(Vector3.Distance(targetGameObject.transform.position, transform.position) > interactionRange)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    playerMover.MoveTo(targetGameObject.transform.position, 1.0f);
-                }
-                else
-                {
-                    if (Input.GetMouseButtonDown(0))
+                    if (Vector3.Distance(targetGameObject.transform.position, transform.position) > interactionRange)
                     {
+                        playerMover.MoveTo(targetGameObject.transform.position, 1.0f);
+                    }
+                    else
+                    {
+                        GetComponent<ActionScheduler>().CancelCurrentAction();
                         target.TransitionTo();
                     }
 
-                    return true;
+
+
                 }
+
+                return true;
+
             }
             return false;
         }
