@@ -10,6 +10,15 @@ namespace RPG.SceneManagement
     {
         const string saveFile = "save";
 
+        IEnumerator Start()
+        {
+            Fader fade = FindObjectOfType<Fader>();
+            fade.FadeOutImmediate();
+            
+            yield return GetComponent<SavingSystem>().LoadLastScene(saveFile);
+            yield return fade.FadeOut();
+        }
+
         void Update()
         {
             //L Key loads the save file
@@ -24,13 +33,13 @@ namespace RPG.SceneManagement
             }
         }
 
-        private void Save()
+        public void Save()
         {
             Debug.Log(Application.persistentDataPath);
             GetComponent<SavingSystem>().Save(saveFile);
         }
 
-        private void Load()
+        public void Load()
         {
             GetComponent<SavingSystem>().Load(saveFile);
         }

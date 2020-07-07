@@ -37,47 +37,56 @@ namespace RPG.SceneManagement
             }
         }
 
-            private IEnumerator Transition()
-            {
-                Fader fader = FindObjectOfType<Fader>();
+        private IEnumerator Transition()
+        {
+            Fader fader = FindObjectOfType<Fader>();
 
-                DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
-                yield return StartCoroutine(fader.FadeIn());
+            yield return StartCoroutine(fader.FadeIn());
 
-                yield return SceneManager.LoadSceneAsync(sceneName);
+            //Save current level
+            SavingWrapper saveComponent = FindObjectOfType<SavingWrapper>();
+            saveComponent.Save();
 
-                SceneTarget target = GetOtherSceneTarget();
-                UpdatePlayer(target);
+            yield return SceneManager.LoadSceneAsync(sceneName);
 
-                yield return StartCoroutine(fader.FadeWait());
+            //Load current level
+            saveComponent.Load();
 
-                yield return StartCoroutine(fader.FadeOut());
 
-                Destroy(gameObject);
-            }
+            SceneTarget target = GetOtherSceneTarget();
+            UpdatePlayer(target);
+            saveComponent.Save();
 
-            //This method moves the player to the spawnpoint of the new portal
-            private void UpdatePlayer(SceneTarget target)
-            {
-                GameObject player = GameObject.FindWithTag("Player");
-                player.transform.parent.position = target.spawnPoint.position;
-                player.GetComponent<NavMeshAgent>().Warp(target.spawnPoint.position);
-                player.transform.rotation = target.spawnPoint.rotation;
-            }
+            yield return StartCoroutine(fader.FadeWait());
 
-            private SceneTarget GetOtherSceneTarget()
-            {
-                foreach (SceneTarget target in FindObjectsOfType<SceneTarget>())
-                {
-                    if (target == this) continue;
-                    if (target.destination != destinationToGo) continue;
+            yield return StartCoroutine(fader.FadeOut());
 
-                    return target;
-                }
-                return null;
-            }
-
+            Destroy(gameObject);
         }
+
+        //This method moves the player to the spawnpoint of the new portal
+        private void UpdatePlayer(SceneTarget target)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            player.transform.parent.position = target.spawnPoint.position;
+            player.GetComponent<NavMeshAgent>().Warp(target.spawnPoint.position);
+            player.transform.rotation = target.spawnPoint.rotation;
+        }
+
+        private SceneTarget GetOtherSceneTarget()
+        {
+            foreach (SceneTarget target in FindObjectsOfType<SceneTarget>())
+            {
+                if (target == this) continue;
+                if (target.destination != destinationToGo) continue;
+
+                return target;
+            }
+            return null;
+        }
+
     }
+}
 

@@ -6,7 +6,7 @@ namespace RPG.Core
 {
     public class PersistantObjectSpawner : MonoBehaviour
     {
-        [SerializeField] GameObject FaderObjectPrefab;
+        [SerializeField] GameObject persistantObject;
 
         static bool hasSpawned = false;
 
@@ -21,8 +21,8 @@ namespace RPG.Core
 
         private void SpawnObjects()
         {
-            GameObject fader = Instantiate(FaderObjectPrefab);
-            DontDestroyOnLoad(fader);
+            GameObject objectInstance = Instantiate(persistantObject);
+            DontDestroyOnLoad(objectInstance);
         }
 
     }

@@ -13,7 +13,7 @@ namespace RPG.Core
 
         public bool isDead;
 
-        private void Start()
+        private void Awake()
         {
             health = maxHealth;
         }
@@ -42,34 +42,20 @@ namespace RPG.Core
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
-        void Revive()
-        {
-            isDead = false;
-
-            GetComponent<Animator>().SetTrigger("revive");
-
-        }
-
         public object CaptureState()
         {
-            Debug.Log("Health amount at saving: " + health);
             return health;
         }
 
         public void RestoreState(object state)
         {
+            Debug.Log(gameObject.name + " health is: " + (float)state);
             health = (float)state;
 
             if(health <= 0)
             {
                 DeathBehaviour();
             }
-            else
-            {
-                Revive();
-            }
-
-            Debug.Log("Health amount at loading: " + health);
         }
     }
 }
