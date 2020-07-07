@@ -1,10 +1,11 @@
 ﻿using RPG.Core;
+using RPG.Saving;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour, IAction
+    public class Mover : MonoBehaviour, IAction, ISaveable
     {
         private NavMeshAgent agent;
         private Animator animator;
@@ -53,6 +54,22 @@ namespace RPG.Movement
         {
             agent.isStopped = true;
             //print("Canceling Movement");
+        }
+
+        public object CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+
+        public void RestoreState(object state)
+        {
+            SerializableVector3 positon = (SerializableVector3)state;
+
+            agent.enabled = false;
+
+            transform.position = positon.ToVector();
+
+            agent.enabled = true;
         }
     }
 }
