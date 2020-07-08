@@ -32,8 +32,7 @@ namespace RPG.Combat
             timeSinceLastAttack += Time.deltaTime;
 
             if (target == null) return;
-
-            bool inRange = Vector3.Distance(transform.position, target.position) < attackRange;
+            bool inRange = IsInRange(target);
 
             if (target != null && !inRange)
             {
@@ -43,12 +42,23 @@ namespace RPG.Combat
             {
                 fighterMover.Cancel();
 
-                if(timeSinceLastAttack >= timeBetweenAttacks)
+                if (timeSinceLastAttack >= timeBetweenAttacks)
                 {
                     AttackBehaviour();
                     timeSinceLastAttack = 0.0f;
                 }
             }
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
+
+        private bool IsInRange(Transform target)
+        {
+            return Vector3.Distance(transform.position, target.position) < attackRange;
         }
 
         private void AttackBehaviour()
