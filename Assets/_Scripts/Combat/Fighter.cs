@@ -21,12 +21,10 @@ namespace RPG.Combat
         float timeSinceLastAttack = 5.0f;
 
         private Mover fighterMover;
-        private NavMeshAgent fighterAgent;
 
         private void Awake()
         {
             fighterMover = GetComponent<Mover>();
-            fighterAgent = GetComponent<NavMeshAgent>();
         }
 
         void Start()
@@ -41,31 +39,34 @@ namespace RPG.Combat
 
             timeSinceLastAttack += Time.deltaTime;
 
+            //if the target has not been assigned then return
             if (target == null) return;
-            bool inRange = IsInRange(target);
 
+            //checks if the target is in range
+            bool inRange = IsInRange();
+
+            //if the target is not in range
             if (!inRange)
             {
+                //then move to the target
                 fighterMover.MoveTo(target.position, 1.0f);
             }
             else
             {
+                //cancel the mover
                 fighterMover.Cancel();
 
+                //if the time since last attacked is greater than the cooldown
                 if (timeSinceLastAttack >= timeBetweenAttacks)
                 {
+                    //then attack
                     AttackBehaviour();
                     timeSinceLastAttack = 0.0f;
                 }
             }
         }
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, attackRange);
-        }
 
-        private bool IsInRange(Transform target)
+        private bool IsInRange()
         {
             return Vector3.Distance(transform.position, target.position) < attackRange;
         }
@@ -88,7 +89,7 @@ namespace RPG.Combat
         {
             target = null;
             GetComponent<Mover>().Cancel();
-            print(gameObject.name + " fighter canceling");
+            //print(gameObject.name + " fighter canceling");
         }
 
         //Animation Event
@@ -96,11 +97,15 @@ namespace RPG.Combat
         {
             if(target != null )
             {
+                //Gets the health component from the target
                 Health enemyHealthComponent = target.GetComponent<Health>();
-                if (enemyHealthComponent)
+                if (enemyHealthComponent) //if health component found
                 {
+                    //Deals damage
                     enemyHealthComponent.TakeDamage(weaponDamage);
 
+
+                    //if the enemy is dead cancel the fighter state
                     if (enemyHealthComponent.isDead)
                     {
                         Cancel();
@@ -111,12 +116,15 @@ namespace RPG.Combat
 
         public bool CanAttack(GameObject target)
         {
+            //if target is set and target is not dead
             if(target != null && !target.GetComponent<Health>().isDead)
             {
+                //player can attack
                 return true;
             }
             else
             {
+                //player cannot attack
                 return false;
             }
         }
@@ -124,7 +132,10 @@ namespace RPG.Combat
         {
             if (weaponPrefab != null)
             {
+                //spawn the desired weapon
                 Instantiate(weaponPrefab, handTransform);
+
+                //override the animator controller with the animation controller for the weapon
                 GetComponent<Animator>().runtimeAnimatorController = weaponOverride;
             }
         }

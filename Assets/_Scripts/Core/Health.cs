@@ -10,6 +10,8 @@ namespace RPG.Core
     {
         [SerializeField] float maxHealth = 100.0f;
         [SerializeField] [ReadOnly] private float health;
+        public float healthPoints { get { return health; }  set { health = value; } }
+        public float totalHealthPoints {  get { return maxHealth; } }
 
         public bool isDead;
 

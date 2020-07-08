@@ -53,7 +53,7 @@ namespace RPG.Movement
         public void Cancel()
         {
             agent.isStopped = true;
-            print(gameObject.name + " Canceling Movement");
+            //print(gameObject.name + " Canceling Movement");
         }
 
         public object CaptureState()

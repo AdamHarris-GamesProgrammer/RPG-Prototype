@@ -11,6 +11,8 @@ namespace RPG.Control
     {
         private Mover playerMover;
 
+        private Health playerHealth;
+
         public float interactionRange = 1.5f;
 
         bool inCombat;
@@ -18,22 +20,23 @@ namespace RPG.Control
         void Awake()
         {
             playerMover = GetComponent<Mover>();
+            playerHealth = GetComponent<Health>();
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
         void Update()
         {
-            if (GetComponent<Health>().isDead) return;
+            //if the player is dead then dont continue 
+            if (playerHealth.isDead) return;
 
-            //if you have attacked then you don't move
+            Debug.Log("In Combat: " + inCombat);
+
             if (InteractWithCombat()) return;
-
+            
             if (InteractWithTransition()) return;
 
-            if (InteractWithMovement()) return;
-
-
+            MoveWithKeyboard();
         }
 
         private bool InteractWithCombat()
@@ -43,24 +46,21 @@ namespace RPG.Control
             foreach (RaycastHit hit in hits)
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if (target == null)
-                {
-                    inCombat = false;
-                    continue;
-                }
-                GameObject targetGameObject = target.gameObject;
+                //if no CombatTarget component found, then continue
+                if (target == null) continue;
 
+                //if they cant attack then the player is not in combat
                 if (!GetComponent<Fighter>().CanAttack(target.gameObject))
                 {
-                    inCombat = false;
                     continue;
-
                 }
 
                 if (Input.GetMouseButtonDown(0))
                 {
+                    //Attack the targeted object 
                     GetComponent<Fighter>().Attack(target.gameObject);
 
+                    //player is now in combat
                     inCombat = true;
 
                     return true;
@@ -75,6 +75,8 @@ namespace RPG.Control
                     return false;
                 }
             }
+            inCombat = false;
+
             return false;
         }
 
@@ -87,10 +89,11 @@ namespace RPG.Control
                 SceneTarget target = hit.transform.GetComponent<SceneTarget>();
                 if (target == null) continue;
 
-                GameObject targetGameObject = target.gameObject;
 
                 if (Input.GetMouseButtonDown(0))
                 {
+                    GameObject targetGameObject = target.gameObject;
+
                     if (Vector3.Distance(targetGameObject.transform.position, transform.position) > interactionRange)
                     {
                         playerMover.MoveTo(targetGameObject.transform.position, 1.0f);
@@ -107,40 +110,11 @@ namespace RPG.Control
             return false;
         }
 
-        private bool InteractWithMovement()
-        {
-            bool result = false;
-
-            result = MoveToCursor();
-
-            //TODO: Fix keyboard input
-            if (Input.GetAxis("Horizontal") != 0.0f || Input.GetAxis("Vertical") != 0.0f)
-            {
-                MoveWithKeyboard();
-            }
-
-            return result;
-        }
-
-        bool MoveToCursor()
-        {
-            RaycastHit hit;
-
-            if (Physics.Raycast(GetMouseRay(), out hit))
-            {
-                if (Input.GetMouseButton(0))
-                {
-                    playerMover.StartMoveAction(hit.point, 1.0f);
-                }
-                return true;
-            }
-
-            return false;
-        }
-
         void MoveWithKeyboard()
         {
             Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+            if (input == Vector2.zero) return;
 
             Vector3 movement = Camera.main.transform.forward * input.y + Camera.main.transform.right * input.x;
 
@@ -148,7 +122,6 @@ namespace RPG.Control
 
             playerMover.StartMoveAction(movement, 1.0f);
         }
-
 
         private static Ray GetMouseRay()
         {
