@@ -16,6 +16,9 @@ namespace RPG.Control
         void Awake()
         {
             playerMover = GetComponent<Mover>();
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         void Update()
         {
@@ -140,7 +143,7 @@ namespace RPG.Control
 
         private static Ray GetMouseRay()
         {
-            return Camera.main.ScreenPointToRay(Input.mousePosition);
+            return Camera.main.ScreenPointToRay(new Vector2(Screen.width /2, Screen.height /2));
         }
     }
 }

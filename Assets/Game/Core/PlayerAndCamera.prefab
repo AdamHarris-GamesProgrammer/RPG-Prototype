@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4775775596950175309}
   - component: {fileID: 3647775678579810335}
   - component: {fileID: 5983296410561937304}
-  - component: {fileID: 4593059923711820698}
+  - component: {fileID: 9066571943930451946}
   m_Layer: 0
   m_Name: Camera Controller
   m_TagString: Untagged
@@ -203,7 +203,7 @@ MonoBehaviour:
     m_MaxSpeed: 2
     m_AccelTime: 0.2
     m_DecelTime: 0.1
-    m_InputAxisName: 
+    m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 0
     m_MinValue: 0
@@ -227,7 +227,7 @@ MonoBehaviour:
     m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
-    m_InputAxisName: 
+    m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
     m_MinValue: -180
@@ -252,9 +252,9 @@ MonoBehaviour:
   m_BindingMode: 5
   m_SplineCurvature: 0.2
   m_Orbits:
-  - m_Height: 7.45
+  - m_Height: 4.95
     m_Radius: 3.85
-  - m_Height: 4.75
+  - m_Height: 1.95
     m_Radius: 8.4
   - m_Height: 0.4
     m_Radius: 3.11
@@ -282,18 +282,18 @@ MonoBehaviour:
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_MinimumDistanceFromTarget: 0.2
+  m_MinimumDistanceFromTarget: 0.1
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 0.1
   m_Strategy: 0
   m_MaximumEffort: 4
-  m_SmoothingTime: 0.16
-  m_Damping: 0
+  m_SmoothingTime: 0.15
+  m_Damping: 0.3
   m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
---- !u!114 &4593059923711820698
+--- !u!114 &9066571943930451946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,9 +302,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 320643996786784857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f05d5b14438624c84eb8c13e4bb5a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Offset: {x: 1, y: 0.35, z: 0}
+  m_ApplyAfter: 1
+  m_PreserveComposition: 0
 --- !u!136 &3507857708920360529
 CapsuleCollider:
   m_ObjectHideFlags: 0
