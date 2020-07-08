@@ -80,12 +80,8 @@ namespace RPG.Control
                         target.TransitionTo();
                     }
 
-
-
+                    return true;
                 }
-
-                return true;
-
             }
             return false;
         }
@@ -123,21 +119,13 @@ namespace RPG.Control
 
         void MoveWithKeyboard()
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-            //if (horizontalInput != 0.0f || verticalInput != 0.0f)
-            //{
-            //    Vector3 newTarget = new Vector3(transform.forward.x + horizontalInput, 0.0f, transform.right.z + verticalInput);
-            //    playerMover.StartMoveAction(newTarget);
-            //}
-
-            Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput);
+            Vector3 movement = Camera.main.transform.forward * input.y + Camera.main.transform.right * input.x;
 
             movement += transform.position;
 
             playerMover.StartMoveAction(movement, 1.0f);
-
         }
 
 
