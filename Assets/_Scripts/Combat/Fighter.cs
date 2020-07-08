@@ -10,6 +10,10 @@ namespace RPG.Combat
         [SerializeField] private float attackRange = 2.5f;
         [SerializeField] private float timeBetweenAttacks = 1.0f;
         [SerializeField] private float weaponDamage = 5.0f;
+        [SerializeField] private GameObject weaponPrefab = null;
+        [SerializeField] private Transform handTransform = null;
+
+        [SerializeField] private AnimatorOverrideController weaponOverride = null;
 
 
         public Transform target;
@@ -24,6 +28,12 @@ namespace RPG.Combat
             fighterMover = GetComponent<Mover>();
             fighterAgent = GetComponent<NavMeshAgent>();
         }
+
+        void Start()
+        {
+            SpawnWeapon();
+        }
+
 
         private void Update()
         {
@@ -49,7 +59,6 @@ namespace RPG.Combat
                 }
             }
         }
-
         void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
@@ -108,6 +117,14 @@ namespace RPG.Combat
             else
             {
                 return false;
+            }
+        }
+        private void SpawnWeapon()
+        {
+            if (weaponPrefab != null)
+            {
+                Instantiate(weaponPrefab, handTransform);
+                GetComponent<Animator>().runtimeAnimatorController = weaponOverride;
             }
         }
     }
