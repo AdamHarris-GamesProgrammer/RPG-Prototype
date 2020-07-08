@@ -73,7 +73,7 @@ namespace RPG.Control
 
         private static void WarningState()
         {
-            Debug.Log("Im warning you, back off!");
+            //Debug.Log("Im warning you, back off!");
         }
 
         private void PatrolState()

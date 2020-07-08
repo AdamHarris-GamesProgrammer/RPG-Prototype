@@ -24,7 +24,7 @@ namespace RPG.Core
 
             health = Mathf.Clamp(health, 0.0f, maxHealth);
 
-            print("Health: " + health);
+            //print("Health: " + health);
 
             if (health <= 0.0f)
             {

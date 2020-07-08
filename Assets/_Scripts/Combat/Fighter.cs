@@ -44,7 +44,7 @@ namespace RPG.Combat
             if (target == null) return;
             bool inRange = IsInRange(target);
 
-            if (target != null && !inRange)
+            if (!inRange)
             {
                 fighterMover.MoveTo(target.position, 1.0f);
             }
@@ -88,6 +88,7 @@ namespace RPG.Combat
         {
             target = null;
             GetComponent<Mover>().Cancel();
+            print(gameObject.name + " fighter canceling");
         }
 
         //Animation Event
