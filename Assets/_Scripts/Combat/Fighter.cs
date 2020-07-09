@@ -7,16 +7,14 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
-        [SerializeField] private float attackRange = 2.5f;
         [SerializeField] private float timeBetweenAttacks = 1.0f;
-        [SerializeField] private float weaponDamage = 5.0f;
-        [SerializeField] private GameObject weaponPrefab = null;
+        
         [SerializeField] private Transform handTransform = null;
+        [SerializeField] private Weapon defaultWeapon;
+        private Weapon equippedWeapon = null;
 
-        [SerializeField] private AnimatorOverrideController weaponOverride = null;
 
-
-        public Transform target;
+        [HideInInspector] public Transform target;
 
         float timeSinceLastAttack = 5.0f;
 
@@ -29,7 +27,7 @@ namespace RPG.Combat
 
         void Start()
         {
-            SpawnWeapon();
+            EquipWeapon(defaultWeapon);
         }
 
 
@@ -68,7 +66,7 @@ namespace RPG.Combat
 
         private bool IsInRange()
         {
-            return Vector3.Distance(transform.position, target.position) < attackRange;
+            return Vector3.Distance(transform.position, target.position) < equippedWeapon.AttackRange;
         }
 
         private void AttackBehaviour()
@@ -102,7 +100,7 @@ namespace RPG.Combat
                 if (enemyHealthComponent) //if health component found
                 {
                     //Deals damage
-                    enemyHealthComponent.TakeDamage(weaponDamage);
+                    enemyHealthComponent.TakeDamage(equippedWeapon.WeaponDamage);
 
 
                     //if the enemy is dead cancel the fighter state
@@ -116,28 +114,16 @@ namespace RPG.Combat
 
         public bool CanAttack(GameObject target)
         {
-            //if target is set and target is not dead
-            if(target != null && !target.GetComponent<Health>().isDead)
-            {
-                //player can attack
-                return true;
-            }
-            else
-            {
-                //player cannot attack
-                return false;
-            }
-        }
-        private void SpawnWeapon()
-        {
-            if (weaponPrefab != null)
-            {
-                //spawn the desired weapon
-                Instantiate(weaponPrefab, handTransform);
+            //if the target does not exist and target is dead then return false
+            if (target == null && target.GetComponent<Health>().isDead) return false;
 
-                //override the animator controller with the animation controller for the weapon
-                GetComponent<Animator>().runtimeAnimatorController = weaponOverride;
-            }
+            return true;
+        }
+        
+        public void EquipWeapon(Weapon weapon)
+        {
+            equippedWeapon = weapon;
+            equippedWeapon.Spawn(handTransform, GetComponent<Animator>());
         }
     }
 }

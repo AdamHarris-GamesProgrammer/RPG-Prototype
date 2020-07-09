@@ -30,7 +30,7 @@ namespace RPG.Control
             //if the player is dead then dont continue 
             if (playerHealth.isDead) return;
 
-            Debug.Log("In Combat: " + inCombat);
+            //Debug.Log("In Combat: " + inCombat);
 
             if (InteractWithCombat()) return;
             

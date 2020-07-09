@@ -19,11 +19,13 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        healthBar.fillAmount = healthComponent.healthPoints / healthComponent.totalHealthPoints;
-
         if (healthComponent.isDead)
         {
             GUI.SetActive(false);
+            return;
         }
+
+        healthBar.fillAmount = healthComponent.healthPoints / healthComponent.totalHealthPoints;
+
     }
 }
