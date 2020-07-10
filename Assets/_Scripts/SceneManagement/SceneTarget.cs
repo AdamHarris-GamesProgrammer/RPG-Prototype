@@ -9,7 +9,7 @@ namespace RPG.SceneManagement
 {
     public class SceneTarget : MonoBehaviour
     {
-        [SerializeField] private string sceneName;
+        [SerializeField] private string sceneName = null;
         [SerializeField] public Transform spawnPoint;
 
 

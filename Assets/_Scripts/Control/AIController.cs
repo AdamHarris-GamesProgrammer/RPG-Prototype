@@ -20,7 +20,7 @@ namespace RPG.Control
         [SerializeField] float dwellTime = 3.5f;
 
         [Header("Patrolling Settings")]
-        [SerializeField] PatrolPath patrolPath;
+        [SerializeField] PatrolPath patrolPath = null;
         [SerializeField] float waypointTolerance = 1.0f;
 
         [Header("Speed Settings")]

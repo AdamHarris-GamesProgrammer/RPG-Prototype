@@ -8,9 +8,9 @@ using RPG.Core;
 [RequireComponent(typeof(Health))]
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] Image healthBar;
+    [SerializeField] Image healthBar = null;
     Health healthComponent;
-    [SerializeField] GameObject GUI;
+    [SerializeField] GameObject GUI = null;
 
     private void Awake()
     {

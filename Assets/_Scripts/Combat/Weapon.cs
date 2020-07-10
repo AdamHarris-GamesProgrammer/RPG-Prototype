@@ -12,15 +12,24 @@ namespace RPG.Combat
         [SerializeField] private float weaponDamage = 5.0f;
         [SerializeField] private float attackRange = 2.5f;
 
+        [SerializeField] bool isRightHanded = true;
+
         public float WeaponDamage { get { return weaponDamage; } }
         public float AttackRange { get { return attackRange; } }
 
-        public void Spawn(Transform handTransform, Animator animator)
+        public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
         {
             if(weaponPrefab != null)
             {
                 //spawn the weapon prefab
-                Instantiate(weaponPrefab, handTransform);
+                if (isRightHanded)
+                {
+                    Instantiate(weaponPrefab, rightHand);
+                }
+                else
+                {
+                    Instantiate(weaponPrefab, leftHand);
+                }
             }
 
             if(weaponOverride != null)

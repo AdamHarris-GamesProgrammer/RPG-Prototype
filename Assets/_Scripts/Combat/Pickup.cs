@@ -5,11 +5,11 @@ using RPG.Combat;
 
 public class Pickup : MonoBehaviour
 {
-    [SerializeField] private Weapon pickup;
+    [SerializeField] private Weapon pickup = null;
 
     private void Start()
     {
-        pickup.Spawn(transform, null);
+        pickup.Spawn(transform, transform, null);
     }
 
     private void OnTriggerEnter(Collider other)
