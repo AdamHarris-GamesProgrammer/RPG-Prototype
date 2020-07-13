@@ -53,6 +53,7 @@ namespace RPG.Combat
 
         public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target)
         {
+            //Creates a projectile instance and sets the target
             Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
             projectileInstance.SetTarget(target, weaponDamage);
         }
@@ -71,12 +72,12 @@ namespace RPG.Combat
             }
             if (oldWeapon == null) return;
 
-
+            //renames the old weapon for debugging purposes
             oldWeapon.name = "DESTROYING WEAPON";
+
+            //Destrys the old weapon's game object
             Destroy(oldWeapon.gameObject);
-
         }
-
     }
 
 }

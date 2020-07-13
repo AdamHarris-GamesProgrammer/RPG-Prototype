@@ -221,7 +221,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 0
+    Value: -8
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -252,9 +252,9 @@ MonoBehaviour:
   m_SplineCurvature: 0.2
   m_Orbits:
   - m_Height: 4.95
-    m_Radius: 3.9
+    m_Radius: 4.62
   - m_Height: 1.95
-    m_Radius: 4.6
+    m_Radius: 6.15
   - m_Height: 0.4
     m_Radius: 3.11
   m_LegacyHeadingBias: 3.4028235e+38

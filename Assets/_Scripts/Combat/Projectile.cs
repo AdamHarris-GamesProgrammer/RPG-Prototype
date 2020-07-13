@@ -11,6 +11,7 @@ namespace RPG.Combat
         [SerializeField] private float projectileSpeed = 5.0f;
         [SerializeField] float projectileDamage = 4f;
         [SerializeField] bool isHoming = false;
+        [SerializeField] float destructionTime = 1.0f;
         Health target = null;
 
         bool isMoving = false;
@@ -49,14 +50,18 @@ namespace RPG.Combat
 
         private void OnTriggerEnter(Collider other)
         {
+
             isMoving = false;
             GetComponent<BoxCollider>().enabled = false;
             
             transform.parent = other.transform;
 
-            GetComponentInChildren<TrailRenderer>().enabled = false;
+            if (GetComponentInChildren<TrailRenderer>())
+            {
+                GetComponentInChildren<TrailRenderer>().enabled = false;
+            }
 
-            Destroy(this.gameObject, 1f);
+            Destroy(this.gameObject, destructionTime);
 
             print("Trigger enter");
             Health targetHealth = other.gameObject.GetComponent<Health>();
@@ -66,7 +71,6 @@ namespace RPG.Combat
             print("Target Health found");
 
             targetHealth.TakeDamage(damage);
-
            
         }
     }
