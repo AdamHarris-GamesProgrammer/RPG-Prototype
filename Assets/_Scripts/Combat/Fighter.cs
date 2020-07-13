@@ -91,27 +91,7 @@ namespace RPG.Combat
             //print(gameObject.name + " fighter canceling");
         }
 
-        //Animation Event
-        void Hit()
-        {
-            if(target != null )
-            {
-                //Gets the health component from the target
-                Health enemyHealthComponent = target.GetComponent<Health>();
-                if (enemyHealthComponent) //if health component found
-                {
-                    //Deals damage
-                    enemyHealthComponent.TakeDamage(equippedWeapon.WeaponDamage);
 
-
-                    //if the enemy is dead cancel the fighter state
-                    if (enemyHealthComponent.isDead)
-                    {
-                        Cancel();
-                    }
-                }
-            }
-        }
 
         public bool CanAttack(GameObject target)
         {
@@ -125,6 +105,41 @@ namespace RPG.Combat
         {
             equippedWeapon = weapon;
             equippedWeapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
+        }
+
+        //Animation Event
+        void Hit()
+        {
+            if (target != null)
+            {
+                //Gets the health component from the target
+                Health enemyHealthComponent = target.GetComponent<Health>();
+                if (enemyHealthComponent) //if health component found
+                {
+                    if (equippedWeapon.HasProjectile())
+                    {
+                        equippedWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, enemyHealthComponent);
+                    }
+                    else
+                    {
+                        //Deals damage
+                        enemyHealthComponent.TakeDamage(equippedWeapon.WeaponDamage);
+                    }
+
+
+                    //if the enemy is dead cancel the fighter state
+                    if (enemyHealthComponent.isDead)
+                    {
+                        Cancel();
+                    }
+                }
+            }
+        }
+
+        //Animation Event
+        void Shoot()
+        {
+            Hit();
         }
     }
 }
