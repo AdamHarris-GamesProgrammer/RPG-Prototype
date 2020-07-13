@@ -10,6 +10,7 @@ namespace RPG.Combat
     {
         [SerializeField] private float projectileSpeed = 5.0f;
         [SerializeField] float projectileDamage = 4f;
+        [SerializeField] bool isHoming = false;
         Health target = null;
 
         bool isMoving = false;
@@ -21,6 +22,10 @@ namespace RPG.Combat
             if (!isMoving) return;
             if (target == null) return;
 
+            if (isHoming && !target.isDead)
+            {
+                transform.LookAt(GetAimLocation());
+            }
             transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
         }
 
@@ -46,8 +51,10 @@ namespace RPG.Combat
         {
             isMoving = false;
             GetComponent<BoxCollider>().enabled = false;
-
+            
             transform.parent = other.transform;
+
+            GetComponentInChildren<TrailRenderer>().enabled = false;
 
             Destroy(this.gameObject, 1f);
 

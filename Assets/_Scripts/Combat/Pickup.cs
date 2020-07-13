@@ -7,11 +7,6 @@ public class Pickup : MonoBehaviour
 {
     [SerializeField] private Weapon pickup = null;
 
-    private void Start()
-    {
-        pickup.Spawn(transform, transform, null);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
