@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3938761607703344490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2613334420404155721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 882c93a2f9573fe4f81c57a69a6970a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionRange: 4
 --- !u!1 &1302289830122100683
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +30,19 @@ Transform:
   m_Father: {fileID: 2613334420404155717}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3938761607703344490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613334420404155721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882c93a2f9573fe4f81c57a69a6970a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 4
 --- !u!1 &4018551266318067040
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +186,12 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 5873163579202592708}
+    - target: {fileID: 7878368480476391472, guid: b1455ee34a0258048b8c40775fe25942,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 6e51c3ea18622674598be1d33baf2442,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1455ee34a0258048b8c40775fe25942, type: 3}
 --- !u!1 &2613334420404155721 stripped

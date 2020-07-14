@@ -1,17 +1,19 @@
 ﻿using RPG.Core;
 using RPG.Movement;
+using RPG.Saving;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] private float timeBetweenAttacks = 1.0f;
 
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Weapon defaultWeapon = null;
+        [SerializeField] string defaultWeaponName = "Unarmed";
         private Weapon equippedWeapon = null;
 
 
@@ -24,11 +26,17 @@ namespace RPG.Combat
         private void Awake()
         {
             fighterMover = GetComponent<Mover>();
+
+            if (equippedWeapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+
+            }
         }
 
         void Start()
         {
-            EquipWeapon(defaultWeapon);
+
         }
 
 
@@ -141,6 +149,18 @@ namespace RPG.Combat
         void Shoot()
         {
             Hit();
+        }
+
+        public object CaptureState()
+        {
+            return equippedWeapon.name;
+        }
+
+        public void RestoreState(object state)
+        {
+            string weaponName = (string)state;
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            EquipWeapon(weapon);
         }
     }
 }

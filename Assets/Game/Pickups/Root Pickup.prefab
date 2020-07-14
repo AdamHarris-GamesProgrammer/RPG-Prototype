@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickup: {fileID: 11400000, guid: ee44e3eb2cd849547b91a5e5f61f7c8a, type: 2}
+  respawnTimer: 5
 --- !u!54 &2805314353613633022
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ namespace RPG.Combat
         [SerializeField] GameObject projectileTail = null;
         [SerializeField] float headDestructionTime = 0.1f;
         [SerializeField] float tailDestructionTime = 0.2f;
-
+        
         Health target = null;
 
         bool isMoving = false;

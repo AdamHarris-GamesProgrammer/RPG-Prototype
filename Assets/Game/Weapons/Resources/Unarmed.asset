@@ -16,3 +16,5 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   weaponDamage: 5
   attackRange: 2.5
+  projectile: {fileID: 0}
+  isRightHanded: 1
