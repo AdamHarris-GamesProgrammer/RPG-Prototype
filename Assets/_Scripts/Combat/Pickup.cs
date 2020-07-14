@@ -2,18 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Combat;
+using RPG.Control;
 
 public class Pickup : MonoBehaviour
 {
     [SerializeField] private Weapon pickup = null;
     [SerializeField] private float respawnTimer;
+
+    bool playerInRange = false;
+
+    private void Update()
+    {
+        if(playerInRange && Input.GetKeyDown(KeyCode.E))
+        {
+            playerInRange = false;
+            Debug.Log(gameObject.name + " is calling fighter.equipweapon(" + pickup.name + ")");
+            FindObjectOfType<PlayerController>().gameObject.GetComponent<Fighter>().EquipWeapon(pickup);
+
+            StartCoroutine(HideForSeconds(respawnTimer));
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Fighter>().EquipWeapon(pickup);
+            playerInRange = true;
+        }
+    }
 
-            StartCoroutine(HideForSeconds(respawnTimer));
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerInRange = false;
         }
     }
 

@@ -111,7 +111,6 @@ namespace RPG.Combat
         
         public void EquipWeapon(Weapon weapon)
         {
-            
             equippedWeapon = weapon;
             equippedWeapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
         }
