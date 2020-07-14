@@ -11,7 +11,16 @@ namespace RPG.Combat
         [SerializeField] private float projectileSpeed = 5.0f;
         [SerializeField] float projectileDamage = 4f;
         [SerializeField] bool isHoming = false;
+        [SerializeField] float maxDuration = 10.0f;
         [SerializeField] float destructionTime = 1.0f;
+        [SerializeField] GameObject hitEffect = null;
+
+        [Header("Head and Tail properties")]
+        [SerializeField] GameObject projectileHead = null;
+        [SerializeField] GameObject projectileTail = null;
+        [SerializeField] float headDestructionTime = 0.1f;
+        [SerializeField] float tailDestructionTime = 0.2f;
+
         Health target = null;
 
         bool isMoving = false;
@@ -36,6 +45,8 @@ namespace RPG.Combat
             target = inTarget;
             transform.LookAt(GetAimLocation());
             damage = inDamage + projectileDamage;
+
+            Destroy(gameObject, maxDuration);
         }
 
         private Vector3 GetAimLocation()
@@ -50,6 +61,10 @@ namespace RPG.Combat
 
         private void OnTriggerEnter(Collider other)
         {
+            if(hitEffect != null)
+            {
+                GameObject hitImpact = Instantiate(hitEffect, transform.position, Quaternion.identity);
+            }
 
             isMoving = false;
             GetComponent<BoxCollider>().enabled = false;
@@ -61,14 +76,12 @@ namespace RPG.Combat
                 GetComponentInChildren<TrailRenderer>().enabled = false;
             }
 
-            Destroy(this.gameObject, destructionTime);
+            if (projectileHead != null) Destroy(projectileHead, headDestructionTime);
+            if (projectileTail != null) Destroy(projectileTail, tailDestructionTime);
 
-            print("Trigger enter");
             Health targetHealth = other.gameObject.GetComponent<Health>();
 
             if (targetHealth == null) return;
-
-            print("Target Health found");
 
             targetHealth.TakeDamage(damage);
            

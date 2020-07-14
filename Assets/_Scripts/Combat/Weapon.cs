@@ -41,6 +41,12 @@ namespace RPG.Combat
                     //override the animator controller with the animation controller for the weapon
                     animator.runtimeAnimatorController = weaponOverride;
                 }
+                else
+                {
+                    var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
+
+                    if (overrideController != null) animator.runtimeAnimatorController = weaponOverride.runtimeAnimatorController;
+                }
             }
         }
 
