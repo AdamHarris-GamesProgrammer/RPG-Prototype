@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using RPG.Combat;
 using RPG.Control;
 
@@ -9,14 +10,20 @@ public class Pickup : MonoBehaviour
     [SerializeField] private Weapon pickup = null;
     [SerializeField] private float respawnTimer;
 
+    [SerializeField] GameObject interactImage;
+
     bool playerInRange = false;
+
+    private void Awake()
+    {
+    }
 
     private void Update()
     {
         if(playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             playerInRange = false;
-            Debug.Log(gameObject.name + " is calling fighter.equipweapon(" + pickup.name + ")");
+            interactImage.SetActive(false);
             FindObjectOfType<PlayerController>().gameObject.GetComponent<Fighter>().EquipWeapon(pickup);
 
             StartCoroutine(HideForSeconds(respawnTimer));
@@ -28,6 +35,7 @@ public class Pickup : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerInRange = true;
+            interactImage.SetActive(true);
         }
     }
 
@@ -36,6 +44,7 @@ public class Pickup : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerInRange = false;
+            interactImage.SetActive(false);
         }
     }
 
