@@ -14,12 +14,8 @@ namespace RPG.Combat
         [SerializeField] float maxDuration = 10.0f;
         [SerializeField] float destructionTime = 1.0f;
         [SerializeField] GameObject hitEffect = null;
-
-        [Header("Head and Tail properties")]
-        [SerializeField] GameObject projectileHead = null;
-        [SerializeField] GameObject projectileTail = null;
-        [SerializeField] float headDestructionTime = 0.1f;
-        [SerializeField] float tailDestructionTime = 0.2f;
+        [SerializeField] GameObject[] destroyOnHit;
+        [SerializeField] float lifeAfterImpact = 0.2f;
         
         Health target = null;
 
@@ -76,8 +72,10 @@ namespace RPG.Combat
                 GetComponentInChildren<TrailRenderer>().enabled = false;
             }
 
-            if (projectileHead != null) Destroy(projectileHead, headDestructionTime);
-            if (projectileTail != null) Destroy(projectileTail, tailDestructionTime);
+            foreach(GameObject toDestroy in destroyOnHit)
+            {
+                Destroy(toDestroy, lifeAfterImpact);
+            }
 
             Health targetHealth = other.gameObject.GetComponent<Health>();
 

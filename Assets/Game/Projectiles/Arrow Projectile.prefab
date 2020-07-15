@@ -50,9 +50,12 @@ MonoBehaviour:
   projectileSpeed: 25
   projectileDamage: 4
   isHoming: 0
-  destructionTime: 1
+  maxDuration: 10
+  destructionTime: 0.1
   hitEffect: {fileID: 3492195901099683176, guid: 22eed91552289bb4cae2765fae1221ea,
     type: 3}
+  destroyOnHit: []
+  lifeAfterImpact: 0
 --- !u!65 &6338848092395769063
 BoxCollider:
   m_ObjectHideFlags: 0

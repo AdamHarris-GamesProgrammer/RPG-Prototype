@@ -30,11 +30,7 @@ namespace RPG.Control
             //if the player is dead then dont continue 
             if (playerHealth.isDead) return;
 
-            //Debug.Log("In Combat: " + inCombat);
-
             if (InteractWithCombat()) return;
-            
-            if (InteractWithTransition()) return;
 
             MoveWithKeyboard();
         }
@@ -77,36 +73,6 @@ namespace RPG.Control
             }
             inCombat = false;
 
-            return false;
-        }
-
-        private bool InteractWithTransition()
-        {
-            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-
-            foreach (RaycastHit hit in hits)
-            {
-                SceneTarget target = hit.transform.GetComponent<SceneTarget>();
-                if (target == null) continue;
-
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    GameObject targetGameObject = target.gameObject;
-
-                    if (Vector3.Distance(targetGameObject.transform.position, transform.position) > interactionRange)
-                    {
-                        playerMover.MoveTo(targetGameObject.transform.position, 1.0f);
-                    }
-                    else
-                    {
-                        GetComponent<ActionScheduler>().CancelCurrentAction();
-                        target.TransitionTo();
-                    }
-
-                    return true;
-                }
-            }
             return false;
         }
 

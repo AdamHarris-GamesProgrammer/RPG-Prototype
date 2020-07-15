@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 
 namespace RPG.SceneManagement
 {
-    public class SceneTarget : MonoBehaviour
+    public class SceneTarget : MonoBehaviour, IInteractive
     {
         [SerializeField] private string sceneName = null;
         [SerializeField] public Transform spawnPoint;
+        [SerializeField] private GameObject uiGroup;
 
 
         public enum DestinationIdentifier
@@ -44,6 +45,9 @@ namespace RPG.SceneManagement
             DontDestroyOnLoad(gameObject);
 
             yield return StartCoroutine(fader.FadeIn());
+
+            //Destroys the serialized image 
+            Destroy(uiGroup);
 
             //Save current level
             SavingWrapper saveComponent = FindObjectOfType<SavingWrapper>();
@@ -87,6 +91,19 @@ namespace RPG.SceneManagement
             return null;
         }
 
+        public void Interact()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                TransitionTo();
+                GetComponent<Collider>().enabled = false;
+            }
+        }
+
+        public void ShowUI(bool isActive)
+        {
+            uiGroup.SetActive(isActive);
+        }
     }
 }
 
