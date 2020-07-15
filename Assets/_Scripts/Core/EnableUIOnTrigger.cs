@@ -11,6 +11,10 @@ public class EnableUIOnTrigger : MonoBehaviour
     private void Start()
     {
         interactable = GetComponent<IInteractive>();
+        if(interactable == null)
+        {
+            Debug.LogError(gameObject.name + " is missing a component that implements IInteractive");
+        }
     }
 
 
@@ -21,7 +25,6 @@ public class EnableUIOnTrigger : MonoBehaviour
             interactable.Interact();
         }
     }
-
 
     private void OnTriggerEnter(Collider other)
     {

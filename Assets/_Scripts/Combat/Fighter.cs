@@ -99,8 +99,6 @@ namespace RPG.Combat
             //print(gameObject.name + " fighter canceling");
         }
 
-
-
         public bool CanAttack(GameObject target)
         {
             //if the target does not exist and target is dead then return false

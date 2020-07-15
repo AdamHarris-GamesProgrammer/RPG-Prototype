@@ -22,8 +22,6 @@ namespace RPG.SceneManagement
         [SerializeField] public DestinationIdentifier destination;
         [SerializeField] public DestinationIdentifier destinationToGo;
 
-
-
         public void TransitionTo()
         {
             //Safety Check
@@ -91,6 +89,8 @@ namespace RPG.SceneManagement
             return null;
         }
 
+
+        //IInteractive interface implementation
         public void Interact()
         {
             if (Input.GetKeyDown(KeyCode.E))

@@ -51,7 +51,7 @@ namespace RPG.Control
             if (GetComponent<Health>().isDead) return;
 
 
-            if (IsPlayerInRange(chaseDistance) && fighter.CanAttack(player))
+            if (IsPlayerInRange(chaseDistance) && fighter.CanAttack(player) && !player.GetComponent<Health>().isDead)
             {
                 AttackState();
             }

@@ -27,6 +27,7 @@ public class Pickup : MonoBehaviour, IInteractive
         }
     }
 
+    //IInteractive interface implementation
     public void Interact()
     {
         if (Input.GetKeyDown(KeyCode.E))
