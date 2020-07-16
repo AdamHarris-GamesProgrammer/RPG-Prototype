@@ -1,23 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using RPG.Saving;
-using Unity.Collections;
+using RPG.Core;
+using RPG.Stats;
 
-namespace RPG.Core
+namespace RPG.Resources
 {
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float maxHealth = 100.0f;
-        [SerializeField] [ReadOnly] private float health;
+        [SerializeField] private float health;
         public float healthPoints { get { return health; }  set { health = value; } }
         public float totalHealthPoints {  get { return maxHealth; } }
 
         public bool isDead;
 
+
         private void Awake()
         {
-            health = maxHealth;
+            health = GetComponent<BaseStats>().GetHealth();
         }
 
         public void TakeDamage(float damageIn)

@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 1152251782447351818, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: characterClass
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1152251782447351818, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 3648758160771100020, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: m_Name
-      value: Archer Enemy
+      value: Mage Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3648758160771100024, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
@@ -92,17 +92,12 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 0badc3c82a547e74dbd17a758141b127,
+      objectReference: {fileID: 11400000, guid: 6e51c3ea18622674598be1d33baf2442,
         type: 2}
     - target: {fileID: 9067095325799555494, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: defaultWeaponName
-      value: Bow
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067095325799555494, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
-        type: 3}
-      propertyPath: timeBetweenAttacks
-      value: 2.8
+      value: Fireball
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f9fa0c33641e7d4bae7dce2424c57a4, type: 3}

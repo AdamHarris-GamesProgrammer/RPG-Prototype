@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IInteractive 
+﻿public interface IInteractive 
 {
     /// <summary>
     /// The interaction method for the object
