@@ -7,17 +7,15 @@ namespace RPG.Resources
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        [SerializeField] float maxHealth = 100.0f;
+        float maxHealth;
         [SerializeField] private float health;
-        public float healthPoints { get { return health; }  set { health = value; } }
-        public float totalHealthPoints {  get { return maxHealth; } }
 
         public bool isDead;
-
 
         private void Awake()
         {
             health = GetComponent<BaseStats>().GetHealth();
+            maxHealth = health;
         }
 
         public void TakeDamage(float damageIn)
@@ -44,6 +42,11 @@ namespace RPG.Resources
             GetComponent<CapsuleCollider>().enabled = false;
 
             GetComponent<ActionScheduler>().CancelCurrentAction();
+        }
+
+        public float GetHealthPercentage()
+        {
+            return health / maxHealth;
         }
 
         public object CaptureState()

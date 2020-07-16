@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour
             return;
         }
 
-        healthBar.fillAmount = healthComponent.healthPoints / healthComponent.totalHealthPoints;
+        healthBar.fillAmount = healthComponent.GetHealthPercentage();
 
     }
 }

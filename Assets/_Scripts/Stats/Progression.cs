@@ -18,6 +18,11 @@ namespace RPG.Stats
                 calculatedHealth = classType.baseHealth * Mathf.Pow((1 + classType.healthIncreasePerLevel / 1), level);
             }
 
+            if(calculatedHealth == 0)
+            {
+                Debug.LogError("[Error]: Progression.cs calculatedHealth is 0, passed in type not found in progression object");
+            }
+
             return calculatedHealth;
         }
 
