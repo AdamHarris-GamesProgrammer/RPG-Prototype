@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Saving;
 
-namespace RPG.Resources
+namespace RPG.Stats
 {
     public class Experience : MonoBehaviour, ISaveable
     {
@@ -19,6 +19,16 @@ namespace RPG.Resources
         public float GetExperiencePoints()
         {
             return experiencePoints;
+        }
+
+        public float GetExperiencePercentage()
+        {
+            return experiencePoints / GetComponent<BaseStats>().GetExperienceRequirment();
+        }
+
+        public void ResetExperiencePoints()
+        {
+            experiencePoints = 0f;
         }
 
         public object CaptureState()

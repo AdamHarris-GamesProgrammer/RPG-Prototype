@@ -32,10 +32,12 @@ namespace RPG.Stats
 
             lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
 
+            //Cycles through all classes
             foreach(ProgressionCharacterClass classType in characterDevelopment)
             {
                 var statLookUpTable = new Dictionary<Stat, float[]>();
 
+                //Cycles through all stats in a class
                 foreach (ProgressionStats currentStat in classType.stats)
                 {
                     statLookUpTable[currentStat.stat] = new float[] { currentStat.baseValue, currentStat.valueIncresePerLevel };
@@ -45,6 +47,7 @@ namespace RPG.Stats
             }
             
         }
+
 
         [System.Serializable]
         class ProgressionCharacterClass

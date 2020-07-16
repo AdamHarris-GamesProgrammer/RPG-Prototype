@@ -24,6 +24,8 @@ namespace RPG.Resources
 
             health = Mathf.Clamp(health, 0.0f, maxHealth);
 
+            GetComponent<HealthBar>().UpdateBar();
+
             //print("Health: " + health);
 
             if (health <= 0.0f)
@@ -36,7 +38,6 @@ namespace RPG.Resources
         void DeathBehaviour()
         {
             if (isDead) return;
-
 
 
             isDead = true;

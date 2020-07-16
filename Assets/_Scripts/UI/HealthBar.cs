@@ -15,7 +15,7 @@ public class HealthBar : MonoBehaviour
         healthComponent = GetComponent<Health>();
     }
 
-    void Update()
+    public void UpdateBar()
     {
         if (healthComponent.isDead)
         {

@@ -5,7 +5,7 @@ namespace RPG.Stats
 {
     public class BaseStats : MonoBehaviour
     {
-        [Range(1, 99)]
+        [Range(0, 99)]
         [SerializeField] int startingLevel = 1;
 
 
@@ -32,6 +32,37 @@ namespace RPG.Stats
             return 0;
         }
 
+        private void Update()
+        {
+            if (gameObject.CompareTag("Player"))
+            {
+                GetLevel();
+            }
+        }
+
+        public float GetExperienceRequirment()
+        {
+            return progression.GetStat(characterClass, Stat.ExperienceToLevelUp, startingLevel);
+        }
+
+        public int GetLevel()
+        {
+            float currentXp = GetComponent<Experience>().GetExperiencePoints();
+
+            //Debug.Log("XP to level up: " + progression.GetStat(characterClass, Stat.ExperienceToLevelUp, startingLevel));
+
+            if(currentXp > GetExperienceRequirment())
+            {
+                //LEVEL UP
+                startingLevel++;
+                GetComponent<Experience>().ResetExperiencePoints();
+                Debug.Log("Level Up: " + startingLevel);
+            }
+
+            GetComponent<ExperienceBar>().UpdateBar();
+
+            return startingLevel;
+        }
     }
 }
 
