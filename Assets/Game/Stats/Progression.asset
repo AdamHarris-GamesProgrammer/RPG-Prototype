@@ -22,14 +22,18 @@ MonoBehaviour:
     healthIncreasePerLevel: 0.1
     damageIncreasePerLevel: 0.08
   - characterType: 2
-    baseHealth: 40
+    baseHealth: 45
     healthIncreasePerLevel: 0.1
     damageIncreasePerLevel: 0.08
   - characterType: 3
-    baseHealth: 60
+    baseHealth: 45
     healthIncreasePerLevel: 0.12
     damageIncreasePerLevel: 0.12
   - characterType: 4
+    baseHealth: 60
+    healthIncreasePerLevel: 0.25
+    damageIncreasePerLevel: 0.2
+  - characterType: 5
     baseHealth: 80
     healthIncreasePerLevel: 0.25
     damageIncreasePerLevel: 0.2

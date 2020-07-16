@@ -18,6 +18,8 @@ namespace RPG.Combat
 
         bool isMoving = false;
 
+        GameObject instigator = null;
+
         float damage = 0;
 
         void Update()
@@ -32,12 +34,14 @@ namespace RPG.Combat
             transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
         }
 
-        public void SetTarget(Health inTarget, float inDamage)
+        public void SetTarget(Health inTarget, GameObject instigator, float inDamage)
         {
             isMoving = true;
             target = inTarget;
             transform.LookAt(GetAimLocation());
             damage = inDamage + projectileDamage;
+
+            this.instigator = instigator;
 
             Destroy(gameObject, maxDuration);
         }
@@ -78,7 +82,7 @@ namespace RPG.Combat
 
             if (targetHealth == null) return;
 
-            targetHealth.TakeDamage(damage);
+            targetHealth.TakeDamage(instigator, damage);
            
         }
     }

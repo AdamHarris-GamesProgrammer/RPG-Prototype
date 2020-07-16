@@ -124,12 +124,12 @@ namespace RPG.Combat
                 {
                     if (equippedWeapon.HasProjectile())
                     {
-                        equippedWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, enemyHealthComponent);
+                        equippedWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, enemyHealthComponent, gameObject);
                     }
                     else
                     {
                         //Deals damage
-                        enemyHealthComponent.TakeDamage(equippedWeapon.WeaponDamage);
+                        enemyHealthComponent.TakeDamage(gameObject, equippedWeapon.WeaponDamage);
                     }
 
 

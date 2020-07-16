@@ -18,7 +18,7 @@ namespace RPG.Resources
             maxHealth = health;
         }
 
-        public void TakeDamage(float damageIn)
+        public void TakeDamage(GameObject instigator, float damageIn)
         {
             health -= damageIn;
 
@@ -29,12 +29,15 @@ namespace RPG.Resources
             if (health <= 0.0f)
             {
                 DeathBehaviour();
+                instigator.GetComponent<Experience>().GainExperience(GetComponent<BaseStats>().GetExperianceReward());
             }
         }
 
         void DeathBehaviour()
         {
             if (isDead) return;
+
+
 
             isDead = true;
             GetComponent<Animator>().SetTrigger("death");

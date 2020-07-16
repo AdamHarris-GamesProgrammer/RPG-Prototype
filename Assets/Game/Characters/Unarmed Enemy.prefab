@@ -324,10 +324,15 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 2268903441530814876, guid: b1455ee34a0258048b8c40775fe25942,
+        type: 3}
+      propertyPath: characterClass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2459989572744864994, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Unarmed Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2459989572744864994, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}

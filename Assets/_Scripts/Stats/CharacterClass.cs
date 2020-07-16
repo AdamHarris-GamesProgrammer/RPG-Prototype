@@ -2,7 +2,8 @@
 {
     public enum CharacterClass
     {
-        Player, 
+        Player,
+        Unarmed,
         Swordman,
         Archer,
         Mage,
