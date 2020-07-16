@@ -13,20 +13,25 @@ namespace RPG.Stats
 
         [SerializeField] Progression progression = null;
 
-        public float GetHealth()
+        private bool ProgressionValid()
         {
-            if(progression == null)
+            if (progression == null)
             {
                 Debug.LogError("[Error]: BaseStats.cs progression variable is null");
+                return false;
             }
-
-            return progression.GetHealth(characterClass, startingLevel);
+            return true;
         }
 
-        public float GetExperianceReward()
+        public float GetStat(Stat desiredStat)
         {
-            return 10f;
+            if (ProgressionValid())
+            {
+                return progression.GetStat(characterClass, desiredStat, startingLevel);
+            }
+            return 0;
         }
+
     }
 }
 

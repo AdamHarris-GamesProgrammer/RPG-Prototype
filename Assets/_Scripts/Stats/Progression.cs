@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System;
 namespace RPG.Stats
 {
     [CreateAssetMenu(menuName = "RPG/Progression")]
@@ -7,35 +7,48 @@ namespace RPG.Stats
     {
         [SerializeField] ProgressionCharacterClass[] characterDevelopment;
        
-        public float GetHealth(CharacterClass type, int level)
+        public float GetStat(CharacterClass type, Stat stat, int level)
         {
-            float calculatedHealth = 0;
+            float calculatedValue = 0;
 
             foreach (ProgressionCharacterClass classType in characterDevelopment)
             {
                 if (type != classType.characterType) continue;
 
-                calculatedHealth = classType.baseHealth * Mathf.Pow((1 + classType.healthIncreasePerLevel / 1), level);
+                foreach(ProgressionStats currentStat in classType.stats)
+                {
+                    if (stat != currentStat.stat) continue;
+
+                    calculatedValue = currentStat.baseValue * Mathf.Pow((1 + currentStat.valueIncresePerLevel / 1), level);
+
+                    break;
+                }
+
+                break;
             }
 
-            if(calculatedHealth == 0)
+            if(calculatedValue == 0)
             {
-                Debug.LogError("[Error]: Progression.cs calculatedHealth is 0, passed in type not found in progression object");
+                Debug.LogError("[Error]: Progression.cs calculatedValue is 0, passed in type not found in progression object");
             }
 
-            return calculatedHealth;
+            return calculatedValue;
         }
 
         [System.Serializable]
         class ProgressionCharacterClass
         {
             [SerializeField] public CharacterClass characterType;
-            [Header("Health Settings")]
-            [SerializeField] public float baseHealth = 100f;
-            [SerializeField] public float healthIncreasePerLevel = 0.15f;
-            [Header("Damage Settings")]
-            [SerializeField] float damageIncreasePerLevel = 0.1f;
 
+            public ProgressionStats[] stats;
+        }
+
+        [System.Serializable]
+        class ProgressionStats
+        {
+            public Stat stat;
+            public float baseValue = 100f;
+            public float valueIncresePerLevel = 0.15f;
         }
     }
 }
