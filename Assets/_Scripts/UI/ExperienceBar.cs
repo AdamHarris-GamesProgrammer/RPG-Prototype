@@ -14,6 +14,8 @@ namespace RPG.Stats
         private void Awake()
         {
             experienceComponent = GetComponent<Experience>();
+
+            experienceComponent.onExperienceGained += UpdateBar;
         }
 
         public void UpdateBar()

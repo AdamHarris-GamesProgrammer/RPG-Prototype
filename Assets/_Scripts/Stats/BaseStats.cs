@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
 
 namespace RPG.Stats
 {
@@ -8,10 +8,49 @@ namespace RPG.Stats
         [Range(0, 99)]
         [SerializeField] int startingLevel = 1;
 
+        int currentLevel = 0;
 
         [SerializeField] CharacterClass characterClass;
 
         [SerializeField] Progression progression = null;
+
+
+        //TODO Remove later, programmer UI
+        [SerializeField] Text levelText = null;
+
+        void Awake()
+        {
+            if (gameObject.CompareTag("Player"))
+            {
+                currentLevel = CalculateLevel();
+                Experience experience = GetComponent<Experience>();
+                if (experience != null)
+                {
+                    experience.onExperienceGained += UpdateLevel;
+                }
+            }
+        }
+
+
+        private void UpdateLevel()
+        {
+            int newLevel = CalculateLevel();
+            if(newLevel > currentLevel)
+            {
+                currentLevel = newLevel;
+                print("Leveled up");
+            }
+        }
+
+        public float GetExperienceRequirment()
+        {
+            return progression.GetStat(characterClass, Stat.ExperienceToLevelUp, startingLevel);
+        }
+
+        public int GetLevel()
+        {
+            return currentLevel;
+        }
 
         private bool ProgressionValid()
         {
@@ -32,34 +71,30 @@ namespace RPG.Stats
             return 0;
         }
 
-        private void Update()
-        {
-            if (gameObject.CompareTag("Player"))
-            {
-                GetLevel();
-            }
-        }
 
-        public float GetExperienceRequirment()
-        {
-            return progression.GetStat(characterClass, Stat.ExperienceToLevelUp, startingLevel);
-        }
-
-        public int GetLevel()
+        public int CalculateLevel()
         {
             float currentXp = GetComponent<Experience>().GetExperiencePoints();
 
-            //Debug.Log("XP to level up: " + progression.GetStat(characterClass, Stat.ExperienceToLevelUp, startingLevel));
 
             if(currentXp > GetExperienceRequirment())
             {
                 //LEVEL UP
-                startingLevel++;
-                GetComponent<Experience>().ResetExperiencePoints();
+                currentLevel++;
+                levelText.text = startingLevel.ToString();
+
+                currentXp -= GetExperienceRequirment();
+
+
+                if(currentXp < 0)
+                {
+                    GetComponent<Experience>().ResetExperiencePoints();
+                }
+
                 Debug.Log("Level Up: " + startingLevel);
             }
 
-            GetComponent<ExperienceBar>().UpdateBar();
+            
 
             return startingLevel;
         }
