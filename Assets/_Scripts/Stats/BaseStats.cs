@@ -16,21 +16,15 @@ namespace RPG.Stats
             return progression.GetStat(characterClass, Stat.ExperienceToLevelUp, startingLevel);
         }
 
-        private bool ProgressionValid()
-        {
-            if (progression == null)
-            {
-                Debug.LogError("[Error]: BaseStats.cs progression variable is null");
-                return false;
-            }
-            return true;
-        }
-
         public float GetStat(Stat desiredStat)
         {
-            if (ProgressionValid())
+            if (progression != null)
             {
                 return progression.GetStat(characterClass, desiredStat, startingLevel);
+            }
+            else
+            {
+                Debug.LogError("[Error]: BaseStats.cs progression variable is null");
             }
             return 0;
         }

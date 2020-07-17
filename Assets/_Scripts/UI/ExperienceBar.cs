@@ -18,6 +18,12 @@ namespace RPG.Stats
             experienceComponent.onExperienceGained += UpdateBar;
         }
 
+
+        private void Start()
+        {
+            UpdateBar();
+        }
+
         public void UpdateBar()
         {
             experienceBar.fillAmount = experienceComponent.GetExperiencePercentage();

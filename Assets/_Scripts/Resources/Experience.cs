@@ -73,7 +73,10 @@ namespace RPG.Stats
 
         public void RestoreState(object state)
         {
+            if (!gameObject.CompareTag("Player")) return;
+
             experiencePoints = (float)state;
+            onExperienceGained();
         }
     }
 }
