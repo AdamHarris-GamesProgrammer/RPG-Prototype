@@ -19,7 +19,7 @@ MonoBehaviour:
       baseValue: 150
       valueIncresePerLevel: 0.15
     - stat: 2
-      baseValue: 50
+      baseValue: 15
       valueIncresePerLevel: 0.8
   - characterType: 1
     stats:

@@ -1,7 +1,5 @@
-﻿
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using RPG.Saving;
 using System;
 
@@ -11,7 +9,30 @@ namespace RPG.Stats
     {
         [SerializeField] float experiencePoints = 0;
 
+        int currentLevel = 0;
+
         public event Action onExperienceGained;
+
+        //TODO Remove later, programmer UI
+        [SerializeField] Text levelText = null;
+
+        void Awake()
+        {
+            if (gameObject.CompareTag("Player"))
+            {
+                onExperienceGained += UpdateLevel;
+            }
+        }
+
+        private void UpdateLevel()
+        {
+            int newLevel = CalculateLevel();
+            if (newLevel > currentLevel)
+            {
+                currentLevel = newLevel;
+                print("Leveled up");
+            }
+        }
 
         public void GainExperience(float xpIn)
         {
@@ -19,9 +40,9 @@ namespace RPG.Stats
             onExperienceGained();
         }
 
-        public float GetExperiencePoints()
+        public int GetLevel()
         {
-            return experiencePoints;
+            return currentLevel;
         }
 
         public float GetExperiencePercentage()
@@ -29,9 +50,20 @@ namespace RPG.Stats
             return experiencePoints / GetComponent<BaseStats>().GetExperienceRequirment();
         }
 
-        public void ResetExperiencePoints()
+        public int CalculateLevel()
         {
-            experiencePoints = 0f;
+            if (experiencePoints > GetComponent<BaseStats>().GetExperienceRequirment())
+            {
+                //LEVEL UP
+                currentLevel++;
+                levelText.text = currentLevel.ToString();
+
+                experiencePoints = 0;
+
+                Debug.Log("Level Up: " + currentLevel);
+            }
+
+            return currentLevel;
         }
 
         public object CaptureState()
@@ -45,4 +77,3 @@ namespace RPG.Stats
         }
     }
 }
-
