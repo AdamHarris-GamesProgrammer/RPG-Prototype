@@ -56,7 +56,8 @@ namespace RPG.Combat
             if (!inRange)
             {
                 //then move to the target
-                fighterMover.MoveTo(target.position, 1.0f);
+                //TODO: enemy runs if player is further away
+                fighterMover.MoveTo(target.position, 1.0f, false);
             }
             else
             {

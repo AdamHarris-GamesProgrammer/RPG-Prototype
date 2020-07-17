@@ -1,6 +1,7 @@
 ﻿using RPG.Core;
 using RPG.Resources;
 using RPG.Saving;
+using RPG.Stats;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,29 +14,76 @@ namespace RPG.Movement
 
         [SerializeField] private float maxSpeed = 4.0f;
 
+        [Header("Sprint Settings")]
+        [SerializeField] float sprintingFactor = 1.2f;
+        [Tooltip("Amount of stamina used per second while sprinting")]
+        [SerializeField] float sprintEnergy = 12.5f;
+        [Tooltip("Amount of time between using stamina and it starting to regenerate")]
+        [SerializeField] float sprintCooldown = 3.5f;
+
+        float stamina = 0.0f;
+        float maxStamina = 0.0f;
+        bool staminaRegenerating = false;
+        float timeSinceLastUsedStamina = Mathf.Infinity;
+        bool sprinting = false;
+
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
+
+            maxStamina = GetComponent<BaseStats>().GetStat(Stat.Stamina);
+            stamina = maxStamina;
         }
 
         private void Update()
         {
             agent.enabled = !GetComponent<Health>().isDead;
 
+            if (staminaRegenerating)
+            {
+                timeSinceLastUsedStamina += Time.deltaTime;
+                if (timeSinceLastUsedStamina >= sprintCooldown)
+                {
+                    stamina += sprintEnergy * Time.deltaTime;
+                }
+            }
+
             UpdateAnimator();
         }
 
-        public void StartMoveAction(Vector3 location, float speedFraction)
+        public void StartMoveAction(Vector3 location, float speedFraction, bool isSprinting)
         {
             
             GetComponent<ActionScheduler>().StartAction(this);
-            MoveTo(location, speedFraction);
+            MoveTo(location, speedFraction, isSprinting);
         }
 
-        public void MoveTo(Vector3 location, float speedFraction)
+        public void MoveTo(Vector3 location, float speedFraction, bool isSprinting)
         {
-            agent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
+            sprinting = isSprinting;
+
+            if (stamina <= 0.0f)
+            {
+                sprinting = false;
+                staminaRegenerating = true;
+            }
+
+            if (sprinting)
+            {
+                timeSinceLastUsedStamina = 0.0f;
+                staminaRegenerating = false;
+                speedFraction = sprintingFactor;
+                stamina -= sprintEnergy * Time.deltaTime;
+            }
+            else
+            {
+                staminaRegenerating = true;
+            }
+
+            stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+
+            agent.speed = maxSpeed * speedFraction;
             agent.destination = location;
             agent.isStopped = false;
         }
@@ -74,4 +122,3 @@ namespace RPG.Movement
         }
     }
 }
-

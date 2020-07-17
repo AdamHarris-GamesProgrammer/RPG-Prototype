@@ -15,6 +15,7 @@ namespace RPG.Control
         public float interactionRange = 1.5f;
 
         bool inCombat;
+        bool isSprinting = false;
 
         void Awake()
         {
@@ -81,11 +82,20 @@ namespace RPG.Control
 
             if (input == Vector2.zero) return;
 
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                isSprinting = true;
+            }
+            else
+            {
+                isSprinting = false;
+            }
+
             Vector3 movement = Camera.main.transform.forward * input.y + Camera.main.transform.right * input.x;
 
             movement += transform.position;
 
-            playerMover.StartMoveAction(movement, 1.0f);
+            playerMover.StartMoveAction(movement, 1.0f, isSprinting);
         }
 
         private static Ray GetMouseRay()

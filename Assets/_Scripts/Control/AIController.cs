@@ -99,7 +99,7 @@ namespace RPG.Control
                 nextPosition = patrolPath.GetWaypointPosition(currentWaypoint);
             }
 
-            GetComponent<Mover>().StartMoveAction(nextPosition, patrollingSpeedFraction);
+            GetComponent<Mover>().StartMoveAction(nextPosition, patrollingSpeedFraction, false);
             
         }
 

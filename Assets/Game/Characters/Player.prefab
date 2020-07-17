@@ -107,6 +107,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5091349890102418887, guid: 1cdec7db868ab1340b65480244b88b34,
         type: 3}
+    - target: {fileID: 1846435121703726386, guid: b1455ee34a0258048b8c40775fe25942,
+        type: 3}
+      propertyPath: sprintingFactor
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1955410746883646074, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}
       propertyPath: uniqueIdentifier
