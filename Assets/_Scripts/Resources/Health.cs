@@ -16,6 +16,7 @@ namespace RPG.Resources
         {
             health = GetComponent<BaseStats>().GetStat(Stat.Health);
             maxHealth = health;
+            GetComponent<Experience>().onLevelUp += FillHealth;
         }
 
         public void TakeDamage(GameObject instigator, float damageIn)
@@ -56,6 +57,13 @@ namespace RPG.Resources
         public object CaptureState()
         {
             return health;
+        }
+
+        public void FillHealth()
+        {
+            maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health, GetComponent<Experience>().GetLevel());
+            health = maxHealth;
+            GetComponent<HealthBar>().UpdateBar();
         }
 
         public void RestoreState(object state)

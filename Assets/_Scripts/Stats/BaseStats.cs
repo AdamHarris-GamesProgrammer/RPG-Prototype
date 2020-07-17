@@ -16,11 +16,16 @@ namespace RPG.Stats
             return progression.GetStat(characterClass, Stat.ExperienceToLevelUp, startingLevel);
         }
 
-        public float GetStat(Stat desiredStat)
+        public int GetLevel()
+        {
+            return startingLevel;
+        }
+
+        public float GetStat(Stat desiredStat, int level = 1)
         {
             if (progression != null)
             {
-                return progression.GetStat(characterClass, desiredStat, startingLevel);
+                return progression.GetStat(characterClass, desiredStat, level);
             }
             else
             {

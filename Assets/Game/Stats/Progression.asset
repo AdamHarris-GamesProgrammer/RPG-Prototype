@@ -21,6 +21,15 @@ MonoBehaviour:
     - stat: 2
       baseValue: 15
       valueIncresePerLevel: 0.8
+    - stat: 3
+      baseValue: 15
+      valueIncresePerLevel: 0.8
+    - stat: 4
+      baseValue: 15
+      valueIncresePerLevel: 0.8
+    - stat: 5
+      baseValue: 15
+      valueIncresePerLevel: 0.8
   - characterType: 1
     stats:
     - stat: 0

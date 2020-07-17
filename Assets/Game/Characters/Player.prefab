@@ -101,6 +101,12 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 129029259315100616, guid: b1455ee34a0258048b8c40775fe25942,
+        type: 3}
+      propertyPath: levelUpEffects
+      value: 
+      objectReference: {fileID: 5091349890102418887, guid: 1cdec7db868ab1340b65480244b88b34,
+        type: 3}
     - target: {fileID: 1955410746883646074, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -109,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 2268903441530814876, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}
       propertyPath: startingLevel
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2459989572744864994, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}

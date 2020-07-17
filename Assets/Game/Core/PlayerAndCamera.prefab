@@ -57,8 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 1.95, z: -8.4}
+  m_BindingMode: 4
+  m_FollowOffset: {x: 0, y: 1.95, z: -6.15}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -152,7 +152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320643996786784857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.33053395, y: 1.95, z: -8.393494}
+  m_LocalPosition: {x: 0, y: 1.95, z: -6.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1992959787395009378}
@@ -221,7 +221,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -8
+    Value: 0
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -330,7 +330,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048330900304924107}
-  m_LocalRotation: {x: 0.016998736, y: 0.07851344, z: -0.0013389579, w: 0.9967672}
+  m_LocalRotation: {x: 0.0321302, y: 0.080466405, z: -0.0025951702, w: 0.99623597}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 35
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -437,8 +437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 1.95, z: -8.4}
+  m_BindingMode: 4
+  m_FollowOffset: {x: 0, y: 1.95, z: -6.15}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -575,8 +575,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3507857709530799353}
-  m_LocalRotation: {x: 0.017933669, y: 0.03868168, z: -0.0006943361, w: 0.99909043}
-  m_LocalPosition: {x: 0.5176388, y: 1.8017007, z: -49.360004}
+  m_LocalRotation: {x: 0.0321302, y: 0.08046643, z: -0.0025951713, w: 0.996236}
+  m_LocalPosition: {x: 0, y: 1.95, z: -6.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3507857709480473645}
@@ -608,7 +608,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 35
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -758,8 +758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 1.95, z: -8.4}
+  m_BindingMode: 4
+  m_FollowOffset: {x: 0, y: 1.95, z: -6.15}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -851,7 +851,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7587351619462841343}
-  m_LocalRotation: {x: 0.019970229, y: 0.019674527, z: -0.0003930593, w: 0.9996069}
+  m_LocalRotation: {x: 0.045126576, y: 1e-45, z: -0, w: 0.9989813}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -887,7 +887,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 35
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -925,7 +925,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8426907828796117052}
-  m_LocalRotation: {x: 0.01606212, y: 0.019675933, z: -0.00031613922, w: 0.99967736}
+  m_LocalRotation: {x: 0.021935381, y: -0.0000000010751408, z: 2.3589292e-11, w: 0.99975944}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -961,7 +961,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 372849936730297481}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 35
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -982,6 +982,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3507857710140025687}
     m_Modifications:
+    - target: {fileID: 553285082114779747, guid: b1d8f82a1dbf47341b9f89cb41d4337e,
+        type: 3}
+      propertyPath: levelUpParticle
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2303613480618851481, guid: b1d8f82a1dbf47341b9f89cb41d4337e,
         type: 3}
       propertyPath: maxSpeed

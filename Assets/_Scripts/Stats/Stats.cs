@@ -4,6 +4,9 @@
     {
         Health,
         ExperienceReward,
-        ExperienceToLevelUp
+        ExperienceToLevelUp,
+        Damage,
+        Stamina,
+        Magic
     }
 }
