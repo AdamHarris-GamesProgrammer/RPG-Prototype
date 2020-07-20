@@ -131,7 +131,7 @@ namespace RPG.Combat
                     else
                     {
                         //Deals damage
-                        enemyHealthComponent.TakeDamage(gameObject, equippedWeapon.WeaponDamage);
+                        enemyHealthComponent.TakeDamage(gameObject, equippedWeapon.CalculateDamage());
                     }
 
 

@@ -18,4 +18,8 @@ MonoBehaviour:
   weaponDamage: 12
   attackRange: 2.5
   projectile: {fileID: 0}
+  mininumDamage: 6
+  maxinumDamage: 15
+  criticalChance: 0.1
+  criticalDamage: 85
   isRightHanded: 1

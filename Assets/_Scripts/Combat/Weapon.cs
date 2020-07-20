@@ -8,15 +8,25 @@ namespace RPG.Combat
     {
         public AnimatorOverrideController weaponOverride = null;
         public GameObject weaponPrefab = null;
-        [SerializeField] private float weaponDamage = 5.0f;
         [SerializeField] private float attackRange = 2.5f;
         [SerializeField] private Projectile projectile = null;
+
+        [Header("Damage Settings")]
+        [SerializeField] private float mininumDamage = 8.0f;
+        [SerializeField] private float maxinumDamage = 12.0f;
+
+
+        [Header("Critical Settings")]
+        [SerializeField] float criticalChance = 0.05f;
+        [Tooltip("This is a percentage boost to damage, 80 means there will be an additional 80% damage when theres a crit")]
+        [SerializeField] float criticalDamage = 80.0f;
+
+
 
         [SerializeField] bool isRightHanded = true;
 
         const string weaponName = "Weapon";
 
-        public float WeaponDamage { get { return weaponDamage; } }
         public float AttackRange { get { return attackRange; } }
 
         public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
@@ -59,7 +69,7 @@ namespace RPG.Combat
         {
             //Creates a projectile instance and sets the target
             Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
-            projectileInstance.SetTarget(target, instigator, weaponDamage);
+            projectileInstance.SetTarget(target, instigator, CalculateDamage());
         }
 
         public bool HasProjectile()
@@ -79,8 +89,25 @@ namespace RPG.Combat
             //renames the old weapon for debugging purposes
             oldWeapon.name = "DESTROYING WEAPON";
 
-            //Destrys the old weapon's game object
+            //Destroys the old weapon's game object
             Destroy(oldWeapon.gameObject);
+        }
+
+        public float CalculateDamage()
+        {
+            float damage = UnityEngine.Random.Range(mininumDamage, maxinumDamage);
+
+            bool isCritHit = UnityEngine.Random.Range(0.0f, 1.0f) < criticalChance;
+
+            if (isCritHit)
+            {
+                damage += (damage / 100) * criticalDamage;
+                return damage;
+            }
+            else
+            {
+                return damage;
+            }
         }
     }
 
