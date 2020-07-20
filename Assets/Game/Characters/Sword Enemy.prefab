@@ -82,12 +82,12 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: cf05b8b4b14eba8429a8397e61de44f6,
+      objectReference: {fileID: 11400000, guid: fe9c85ae31cec6f44b30dd2678c802fa,
         type: 2}
     - target: {fileID: 9067095325799555494, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: defaultWeaponName
-      value: Sword
+      value: Iron Sword
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f9fa0c33641e7d4bae7dce2424c57a4, type: 3}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589f48009734aeb4e93231c016197d1f, type: 3}
+  m_Name: Exquisite Steel Sword
+  m_EditorClassIdentifier: 
+  weaponOverride: {fileID: 22100000, guid: 972dfce2d277cc644bd2adf4ec1ba63c, type: 2}
+  weaponPrefab: {fileID: 1274479589098683101, guid: 99e6e3735cce805479b7ed2412aa6816,
+    type: 3}
+  weaponDamage: 12
+  attackRange: 2.5
+  projectile: {fileID: 0}
+  isRightHanded: 1

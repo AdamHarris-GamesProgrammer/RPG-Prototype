@@ -147,12 +147,15 @@ namespace RPG.Control
 
         private void AttackState()
         {
+            Aggrevate();
             timeSinceLastSeenPlayer = 0.0f;
             fighter.Attack(player);
         }
 
         public void Aggrevate()
         {
+            if (aggrevated) return;
+
             timeSinceAggrevated = 0.0f;
 
             aggrevated = true;
