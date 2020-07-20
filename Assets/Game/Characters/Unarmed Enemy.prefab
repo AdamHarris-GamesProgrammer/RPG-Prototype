@@ -129,10 +129,12 @@ MonoBehaviour:
   chaseDistance: 5
   warningRadius: 12
   suspiscionDuration: 5
+  aggrevatedDuration: 15
   dwellTime: 3.5
   patrolPath: {fileID: 0}
   waypointTolerance: 1
   patrollingSpeedFraction: 0.2
+  enemiesInScene: []
 --- !u!114 &-1678822277348787825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +346,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459989572744864994, guid: b1455ee34a0258048b8c40775fe25942,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2459989572744865006, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}

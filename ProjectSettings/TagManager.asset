@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Scene Target
   - Pickup
+  - Enemy
   layers:
   - Default
   - TransparentFX

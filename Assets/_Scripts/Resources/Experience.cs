@@ -43,6 +43,8 @@ namespace RPG.Stats
 
         public void GainExperience(float xpIn)
         {
+            if (gameObject.CompareTag("Enemy")) return;
+
             experiencePoints += xpIn;
             onExperienceGained();
         }

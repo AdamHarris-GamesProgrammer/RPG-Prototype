@@ -3,7 +3,7 @@ using RPG.Core;
 using RPG.Movement;
 using UnityEngine;
 using RPG.Resources;
-
+using System.Collections.Generic;
 
 namespace RPG.Control
 {
@@ -36,6 +36,9 @@ namespace RPG.Control
         float timeSinceAggrevated = Mathf.Infinity;
         float timeAtCurrentWaypoint = Mathf.Infinity;
 
+        [SerializeField] private List<AIController> enemiesInScene;
+
+        bool aggrevated = false;
 
         private void Awake()
         {
@@ -46,6 +49,19 @@ namespace RPG.Control
             guardPosition = transform.position;
 
             GetComponent<Health>().onHealthChanged += Aggrevate;
+        }
+
+        private void Start()
+        {
+            if (GetComponent<Health>().isDead) return;
+
+            foreach(AIController aiController in FindObjectsOfType<AIController>())
+            {
+                if (!aiController.GetComponent<Health>().isDead)
+                {
+                    enemiesInScene.Add(aiController);
+                }
+            }
         }
 
         private void Update()
@@ -59,14 +75,17 @@ namespace RPG.Control
             }
             else if (IsPlayerInRange(warningRadius))
             {
+                aggrevated = false;
                 WarningState();
             }
             else if (timeSinceLastSeenPlayer < suspiscionDuration)
             {
+                aggrevated = false;
                 SuspicionState();
             }
             else
             {
+                aggrevated = false;
                 PatrolState();
             }
 
@@ -121,14 +140,24 @@ namespace RPG.Control
 
         private void AttackState()
         {
-            print("Attack State called");
             timeSinceLastSeenPlayer = 0.0f;
             fighter.Attack(player);
         }
 
-        private void Aggrevate()
+        public void Aggrevate()
         {
             timeSinceAggrevated = 0.0f;
+
+            aggrevated = true;
+
+            foreach(AIController controller in enemiesInScene)
+            {
+                if (controller.aggrevated) continue;
+
+                if (Vector3.Distance(controller.transform.position, transform.position) > warningRadius) continue;
+
+                controller.Aggrevate();
+            }
         }
 
         private bool IsPlayerInRange(float distance)
