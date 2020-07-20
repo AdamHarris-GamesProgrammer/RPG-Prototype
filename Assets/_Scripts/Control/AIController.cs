@@ -15,6 +15,7 @@ namespace RPG.Control
 
         [Header("Timer Settings")]
         [SerializeField] float suspiscionDuration = 5.0f;
+        [SerializeField] float aggrevatedDuration = 15.0f;
         [SerializeField] float dwellTime = 3.5f;
 
         [Header("Patrolling Settings")]
@@ -32,6 +33,7 @@ namespace RPG.Control
 
         Vector3 guardPosition;
         float timeSinceLastSeenPlayer = Mathf.Infinity;
+        float timeSinceAggrevated = Mathf.Infinity;
         float timeAtCurrentWaypoint = Mathf.Infinity;
 
 
@@ -42,6 +44,8 @@ namespace RPG.Control
             fighter = GetComponent<Fighter>();
 
             guardPosition = transform.position;
+
+            GetComponent<Health>().onHealthChanged += Aggrevate;
         }
 
         private void Update()
@@ -49,7 +53,7 @@ namespace RPG.Control
             if (GetComponent<Health>().isDead) return;
 
 
-            if (IsPlayerInRange(chaseDistance) && fighter.CanAttack(player) && !player.GetComponent<Health>().isDead)
+            if (IsAggrevated() && fighter.CanAttack(player) && !player.GetComponent<Health>().isDead)
             {
                 AttackState();
             }
@@ -67,6 +71,13 @@ namespace RPG.Control
             }
 
             timeSinceLastSeenPlayer += Time.deltaTime;
+            timeSinceAggrevated += Time.deltaTime;
+        }
+
+        bool IsAggrevated()
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            return distanceToPlayer < chaseDistance || timeSinceAggrevated < aggrevatedDuration ;
         }
 
         private static void WarningState()
@@ -110,8 +121,14 @@ namespace RPG.Control
 
         private void AttackState()
         {
+            print("Attack State called");
             timeSinceLastSeenPlayer = 0.0f;
             fighter.Attack(player);
+        }
+
+        private void Aggrevate()
+        {
+            timeSinceAggrevated = 0.0f;
         }
 
         private bool IsPlayerInRange(float distance)

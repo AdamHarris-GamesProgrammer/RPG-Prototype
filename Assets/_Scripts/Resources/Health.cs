@@ -2,8 +2,7 @@
 using RPG.Saving;
 using RPG.Core;
 using RPG.Stats;
-using RPG.Control;
-using RPG.Combat;
+using System;
 
 namespace RPG.Resources
 {
@@ -11,6 +10,8 @@ namespace RPG.Resources
     {
         float maxHealth;
         [SerializeField] private float health;
+
+        public event Action onHealthChanged;
 
         public bool isDead;
 
@@ -27,9 +28,7 @@ namespace RPG.Resources
 
             health = Mathf.Clamp(health, 0.0f, maxHealth);
 
-            GetComponent<HealthBar>().UpdateBar();
-
-            //print("Health: " + health);
+            onHealthChanged();
 
             if (health <= 0.0f)
             {
