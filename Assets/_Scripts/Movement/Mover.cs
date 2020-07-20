@@ -27,6 +27,8 @@ namespace RPG.Movement
         float timeSinceLastUsedStamina = Mathf.Infinity;
         bool sprinting = false;
 
+        StaminaBar staminaBar;
+
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -34,6 +36,11 @@ namespace RPG.Movement
 
             maxStamina = GetComponent<BaseStats>().GetStat(Stat.Stamina);
             stamina = maxStamina;
+
+            if (TryGetComponent(out StaminaBar bar))
+            {
+                staminaBar = bar;
+            }
         }
 
         private void Update()
@@ -46,6 +53,8 @@ namespace RPG.Movement
                 if (timeSinceLastUsedStamina >= sprintCooldown)
                 {
                     stamina += sprintEnergy * Time.deltaTime;
+
+                    if (staminaBar != null) staminaBar.UpdateBar(stamina, maxStamina);
                 }
             }
 
@@ -82,6 +91,8 @@ namespace RPG.Movement
             }
 
             stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+
+            if (staminaBar != null) staminaBar.UpdateBar(stamina, maxStamina);
 
             agent.speed = maxSpeed * speedFraction;
             agent.destination = location;

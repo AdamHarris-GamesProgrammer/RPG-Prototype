@@ -2,6 +2,8 @@
 using RPG.Saving;
 using RPG.Core;
 using RPG.Stats;
+using RPG.Control;
+using RPG.Combat;
 
 namespace RPG.Resources
 {
@@ -34,6 +36,8 @@ namespace RPG.Resources
                 DeathBehaviour();
                 instigator.GetComponent<Experience>().GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
             }
+
+            
         }
 
         void DeathBehaviour()

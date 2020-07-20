@@ -16,6 +16,7 @@ namespace RPG.Stats
             experienceComponent = GetComponent<Experience>();
 
             experienceComponent.onExperienceGained += UpdateBar;
+            experienceComponent.onLevelUp += UpdateBar;
         }
 
 
