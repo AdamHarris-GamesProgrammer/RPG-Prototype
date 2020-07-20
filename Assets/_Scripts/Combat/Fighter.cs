@@ -8,7 +8,7 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction, ISaveable
     {
-        [SerializeField] private float timeBetweenAttacks = 1.0f;
+        private float timeBetweenAttacks = 1.0f;
 
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Transform rightHandTransform = null;
@@ -30,7 +30,6 @@ namespace RPG.Combat
             if (equippedWeapon == null)
             {
                 EquipWeapon(defaultWeapon);
-
             }
         }
 
@@ -112,6 +111,7 @@ namespace RPG.Combat
         {
             equippedWeapon = weapon;
             equippedWeapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
+            timeBetweenAttacks = weapon.AttackTime;
         }
 
         //Animation Event
@@ -133,7 +133,6 @@ namespace RPG.Combat
                         //Deals damage
                         enemyHealthComponent.TakeDamage(gameObject, equippedWeapon.CalculateDamage());
                     }
-
 
                     //if the enemy is dead cancel the fighter state
                     if (enemyHealthComponent.isDead)
