@@ -30,6 +30,9 @@ MonoBehaviour:
     - stat: 5
       baseValue: 100
       valueIncresePerLevel: 0
+    - stat: 1
+      baseValue: 100
+      valueIncresePerLevel: 0
   - characterType: 1
     stats:
     - stat: 0

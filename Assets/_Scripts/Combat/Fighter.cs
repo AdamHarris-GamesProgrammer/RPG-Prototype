@@ -121,6 +121,7 @@ namespace RPG.Combat
             {
                 //Gets the health component from the target
                 Health enemyHealthComponent = target.GetComponent<Health>();
+
                 if (enemyHealthComponent) //if health component found
                 {
                     if (equippedWeapon.HasProjectile())

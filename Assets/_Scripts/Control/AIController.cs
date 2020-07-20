@@ -30,6 +30,10 @@ namespace RPG.Control
 
         private GameObject player;
         private Fighter fighter;
+        private Health health;
+
+        private Health playerHealth;
+
 
         Vector3 guardPosition;
         float timeSinceLastSeenPlayer = Mathf.Infinity;
@@ -43,8 +47,11 @@ namespace RPG.Control
         private void Awake()
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            playerHealth = player.GetComponent<Health>();
 
             fighter = GetComponent<Fighter>();
+
+            health = GetComponent<Health>();
 
             guardPosition = transform.position;
 
@@ -53,7 +60,7 @@ namespace RPG.Control
 
         private void Start()
         {
-            if (GetComponent<Health>().isDead) return;
+            if (health.isDead) return;
 
             foreach(AIController aiController in FindObjectsOfType<AIController>())
             {
@@ -66,10 +73,10 @@ namespace RPG.Control
 
         private void Update()
         {
-            if (GetComponent<Health>().isDead) return;
+            if (health.isDead) return;
 
 
-            if (IsAggrevated() && fighter.CanAttack(player) && !player.GetComponent<Health>().isDead)
+            if (IsAggrevated() && fighter.CanAttack(player) && !playerHealth.isDead)
             {
                 AttackState();
             }
