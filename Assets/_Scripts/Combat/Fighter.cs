@@ -2,11 +2,14 @@
 using RPG.Movement;
 using RPG.Saving;
 using RPG.Resources;
+
 using UnityEngine;
+using RPG.Stats;
+using System.Collections.Generic;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
     {
         private float timeBetweenAttacks = 1.0f;
 
@@ -130,8 +133,10 @@ namespace RPG.Combat
                     }
                     else
                     {
+                        float damage = GetComponent<BaseStats>().GetStat(Stat.Damage, GetComponent<Experience>().GetLevel());
+                        Debug.Log(gameObject.name + " deals " + damage + " damage");
                         //Deals damage
-                        enemyHealthComponent.TakeDamage(gameObject, equippedWeapon.CalculateDamage());
+                        enemyHealthComponent.TakeDamage(gameObject, damage);
                     }
 
                     //if the enemy is dead cancel the fighter state
@@ -159,6 +164,22 @@ namespace RPG.Combat
             string weaponName = (string)state;
             Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
+        }
+
+        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
+        {
+            if(stat == Stat.Damage)
+            {
+                yield return equippedWeapon.CalculateDamage();
+            }
+        }
+
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if(stat == Stat.Damage)
+            {
+                yield return equippedWeapon.PercentageBonus;
+            }
         }
     }
 }

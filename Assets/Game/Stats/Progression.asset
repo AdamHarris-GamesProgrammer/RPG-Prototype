@@ -22,7 +22,7 @@ MonoBehaviour:
       baseValue: 15
       valueIncresePerLevel: 0.8
     - stat: 3
-      baseValue: 15
+      baseValue: 10
       valueIncresePerLevel: 0.8
     - stat: 4
       baseValue: 100
@@ -44,6 +44,9 @@ MonoBehaviour:
     - stat: 4
       baseValue: 80
       valueIncresePerLevel: 0
+    - stat: 3
+      baseValue: 2
+      valueIncresePerLevel: 0.2
   - characterType: 2
     stats:
     - stat: 0
@@ -55,6 +58,9 @@ MonoBehaviour:
     - stat: 4
       baseValue: 50
       valueIncresePerLevel: 0
+    - stat: 3
+      baseValue: 3
+      valueIncresePerLevel: 0.2
   - characterType: 3
     stats:
     - stat: 0
@@ -66,6 +72,9 @@ MonoBehaviour:
     - stat: 4
       baseValue: 60
       valueIncresePerLevel: 0
+    - stat: 3
+      baseValue: 4
+      valueIncresePerLevel: 0.2
   - characterType: 4
     stats:
     - stat: 0
@@ -77,6 +86,9 @@ MonoBehaviour:
     - stat: 4
       baseValue: 70
       valueIncresePerLevel: 0
+    - stat: 3
+      baseValue: 5
+      valueIncresePerLevel: 0.15
   - characterType: 5
     stats:
     - stat: 0
@@ -88,3 +100,6 @@ MonoBehaviour:
     - stat: 4
       baseValue: 25
       valueIncresePerLevel: 0
+    - stat: 3
+      baseValue: 4
+      valueIncresePerLevel: 0.25

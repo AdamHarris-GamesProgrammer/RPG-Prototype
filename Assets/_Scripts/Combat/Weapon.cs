@@ -16,6 +16,8 @@ namespace RPG.Combat
         [Header("Damage Settings")]
         [SerializeField] private float mininumDamage = 8.0f;
         [SerializeField] private float maxinumDamage = 12.0f;
+        [SerializeField] private float percentageBonus = 0f;
+
 
         [Header("Critical Settings")]
         [SerializeField] float criticalChance = 0.05f;
@@ -32,6 +34,8 @@ namespace RPG.Combat
 
         public float AttackRange { get { return attackRange; } }
         public float AttackTime { get { return timeBetweenAttacks; } }
+
+        public float PercentageBonus { get { return percentageBonus; } }
 
         public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
         {
@@ -97,6 +101,8 @@ namespace RPG.Combat
             Destroy(oldWeapon.gameObject);
         }
 
+
+
         public float CalculateDamage()
         {
             float damage = UnityEngine.Random.Range(mininumDamage, maxinumDamage);
@@ -106,12 +112,9 @@ namespace RPG.Combat
             if (isCritHit)
             {
                 damage += (damage / 100) * criticalDamage;
-                return damage;
             }
-            else
-            {
-                return damage;
-            }
+
+            return damage;
         }
     }
 

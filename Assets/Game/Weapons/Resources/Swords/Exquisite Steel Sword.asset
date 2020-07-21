@@ -15,11 +15,12 @@ MonoBehaviour:
   weaponOverride: {fileID: 22100000, guid: 972dfce2d277cc644bd2adf4ec1ba63c, type: 2}
   weaponPrefab: {fileID: 1274479589098683101, guid: 99e6e3735cce805479b7ed2412aa6816,
     type: 3}
-  weaponDamage: 45
-  attackRange: 2.5
   projectile: {fileID: 0}
   mininumDamage: 40
   maxinumDamage: 56
+  percentageBonus: 25
   criticalChance: 0.25
   criticalDamage: 120
+  attackRange: 2.5
+  timeBetweenAttacks: 1
   isRightHanded: 1
