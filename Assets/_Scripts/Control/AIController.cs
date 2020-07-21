@@ -132,7 +132,7 @@ namespace RPG.Control
 
                     
                 }
-                //Set next position to current waypoint
+                //Set next position to current Waypoint
                 nextPosition = patrolPath.GetWaypointPosition(currentWaypoint);
             }
 

@@ -11,6 +11,8 @@ namespace RPG.Movement
     {
         private NavMeshAgent agent;
         private Animator animator;
+        private Health health;
+        private ActionScheduler actionScheduler;
 
         [SerializeField] private float maxSpeed = 4.0f;
 
@@ -34,6 +36,10 @@ namespace RPG.Movement
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
 
+            actionScheduler = GetComponent<ActionScheduler>();
+
+            health = GetComponent<Health>();
+
             maxStamina = GetComponent<BaseStats>().GetStat(Stat.Stamina);
             stamina = maxStamina;
 
@@ -45,7 +51,7 @@ namespace RPG.Movement
 
         private void Update()
         {
-            agent.enabled = !GetComponent<Health>().isDead;
+            agent.enabled = !health.isDead;
 
             if (staminaRegenerating)
             {
@@ -64,7 +70,7 @@ namespace RPG.Movement
         public void StartMoveAction(Vector3 location, float speedFraction, bool isSprinting)
         {
             
-            GetComponent<ActionScheduler>().StartAction(this);
+            actionScheduler.StartAction(this);
             MoveTo(location, speedFraction, isSprinting);
         }
 

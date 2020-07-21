@@ -69,7 +69,6 @@ namespace RPG.Combat
             GetComponent<BoxCollider>().enabled = false;
             
             transform.parent = other.transform;
-
             if (GetComponentInChildren<TrailRenderer>())
             {
                 GetComponentInChildren<TrailRenderer>().enabled = false;

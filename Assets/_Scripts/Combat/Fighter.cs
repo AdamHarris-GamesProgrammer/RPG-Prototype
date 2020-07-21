@@ -25,10 +25,18 @@ namespace RPG.Combat
         float timeSinceLastAttack = 5.0f;
 
         private Mover fighterMover;
+        private Health fighterHealth;
+        private BaseStats fighterStats;
+        private Experience fighterExperience;
+        private Animator fighterAnimator;
 
         private void Awake()
         {
             fighterMover = GetComponent<Mover>();
+            fighterHealth = GetComponent<Health>();
+            fighterStats = GetComponent<BaseStats>();
+            fighterExperience = GetComponent<Experience>();
+            fighterAnimator = GetComponent<Animator>();
 
             if (equippedWeapon == null)
             {
@@ -44,7 +52,7 @@ namespace RPG.Combat
 
         private void Update()
         {
-            if (GetComponent<Health>().isDead) return;
+            if (fighterHealth.isDead) return;
 
             timeSinceLastAttack += Time.deltaTime;
 
@@ -83,7 +91,7 @@ namespace RPG.Combat
 
         private void AttackBehaviour()
         {
-            GetComponent<Animator>().SetTrigger("attack");
+            fighterAnimator.SetTrigger("attack");
             transform.LookAt(target);
         }
 
@@ -98,7 +106,7 @@ namespace RPG.Combat
         public void Cancel()
         {
             target = null;
-            GetComponent<Mover>().Cancel();
+            fighterMover.Cancel();
             //print(gameObject.name + " fighter canceling");
         }
 
@@ -113,7 +121,7 @@ namespace RPG.Combat
         public void EquipWeapon(Weapon weapon)
         {
             equippedWeapon = weapon;
-            equippedWeapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
+            equippedWeapon.Spawn(rightHandTransform, leftHandTransform, fighterAnimator);
             timeBetweenAttacks = weapon.AttackTime;
         }
 
@@ -133,7 +141,7 @@ namespace RPG.Combat
                     }
                     else
                     {
-                        float damage = GetComponent<BaseStats>().GetStat(Stat.Damage, GetComponent<Experience>().GetLevel());
+                        float damage = fighterStats.GetStat(Stat.Damage, fighterExperience.GetLevel());
                         Debug.Log(gameObject.name + " deals " + damage + " damage");
                         //Deals damage
                         enemyHealthComponent.TakeDamage(gameObject, damage);

@@ -20,11 +20,14 @@ namespace RPG.Stats
 
         [SerializeField] GameObject levelUpEffects = null;
 
+        private BaseStats stats;
+
         void Awake()
         {
+            stats = GetComponent<BaseStats>();
             if (gameObject.CompareTag("Player"))
             {
-                currentLevel = GetComponent<BaseStats>().GetLevel();
+                currentLevel = stats.GetLevel();
                 onExperienceGained += UpdateLevel;
                 onLevelUp += LevelUpEvents;
                 levelText.text = "1";
@@ -56,7 +59,7 @@ namespace RPG.Stats
 
         public float GetExperiencePercentage()
         {
-            return experiencePoints / GetComponent<BaseStats>().GetExperienceRequirment();
+            return experiencePoints / stats.GetExperienceRequirment();
         }
 
         private void LevelUpEvents()
@@ -68,7 +71,7 @@ namespace RPG.Stats
 
         public int CalculateLevel()
         {
-            if (experiencePoints > GetComponent<BaseStats>().GetExperienceRequirment())
+            if (experiencePoints > stats.GetExperienceRequirment())
             {
                 //LEVEL UP
                 onLevelUp();

@@ -33,8 +33,12 @@ namespace RPG.Resources
             if (health <= 0.0f)
             {
                 DeathBehaviour();
-                if (instigator.GetComponent<Experience>() == null) return;
-                instigator.GetComponent<Experience>().GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
+
+                if(instigator.TryGetComponent(out Experience xp))
+                {
+                    xp.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
+                }
+                
             }
         }
 

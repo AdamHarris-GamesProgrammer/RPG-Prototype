@@ -23,8 +23,6 @@ namespace RPG.SceneManagement
 
         public IEnumerator FadeOut()
         {
-            canvas = GetComponent<CanvasGroup>();
-
             while (canvas.alpha > 0) //alpha is not 0 
             {
                 //moving alpha toward 0
@@ -36,8 +34,6 @@ namespace RPG.SceneManagement
 
         public IEnumerator FadeIn()
         {
-            canvas = GetComponent<CanvasGroup>();
-
             while(canvas.alpha < 1)
             {
                 canvas.alpha += Time.deltaTime / fadeInTime;
