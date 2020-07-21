@@ -14,11 +14,19 @@ namespace RPG.Stats
         private void Awake()
         {
             experienceComponent = GetComponent<Experience>();
+        }
 
+        private void OnEnable()
+        {
             experienceComponent.onExperienceGained += UpdateBar;
             experienceComponent.onLevelUp += UpdateBar;
         }
 
+        private void OnDisable()
+        {
+            experienceComponent.onExperienceGained -= UpdateBar;
+            experienceComponent.onLevelUp -= UpdateBar;
+        }
 
         private void Start()
         {

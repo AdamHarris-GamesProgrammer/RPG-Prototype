@@ -43,7 +43,7 @@ namespace RPG.Stats
 
         public float GetAdditiveModifier(Stat stat)
         {
-            if (shouldUseModifiers) return 0;
+            if (!shouldUseModifiers) return 0;
 
             float total = 0;
 
@@ -54,13 +54,13 @@ namespace RPG.Stats
                     total += modifier;
                 }
             }
-            Debug.Log(gameObject.name + " additive modifier is dealing " + total + " bonus damage");
+            //Debug.Log(gameObject.name + " additive modifier is dealing " + total + " bonus damage");
             return total;
         }
 
         private float GetPercentageModifier(Stat stat)
         {
-            if (shouldUseModifiers) return 0;
+            if (!shouldUseModifiers) return 0;
 
             float total = 0;
 
@@ -71,7 +71,7 @@ namespace RPG.Stats
                     total += modifier;
                 }
             }
-            Debug.Log(gameObject.name + " percentage modifier is giving " + total + "% damage boost");
+            //Debug.Log(gameObject.name + " percentage modifier is giving " + total + "% damage boost");
             return total;
         }
 

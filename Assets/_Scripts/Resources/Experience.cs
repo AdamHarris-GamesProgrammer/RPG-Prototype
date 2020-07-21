@@ -28,10 +28,21 @@ namespace RPG.Stats
             if (gameObject.CompareTag("Player"))
             {
                 currentLevel = stats.GetLevel();
-                onExperienceGained += UpdateLevel;
-                onLevelUp += LevelUpEvents;
+
                 levelText.text = "1";
             }
+        }
+
+        void OnEnable()
+        {
+            onExperienceGained += UpdateLevel;
+            onLevelUp += LevelUpEvents;
+        }
+
+        void OnDisable()
+        {
+            onExperienceGained -= UpdateLevel;
+            onLevelUp -= LevelUpEvents;
         }
 
         private void UpdateLevel()

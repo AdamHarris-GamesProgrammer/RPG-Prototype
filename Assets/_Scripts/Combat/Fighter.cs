@@ -17,7 +17,9 @@ namespace RPG.Combat
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Weapon defaultWeapon = null;
         [SerializeField] string defaultWeaponName = "Unarmed";
-        private Weapon equippedWeapon = null;
+
+        [SerializeField] private Weapon equippedWeapon = null;
+        [SerializeField] private string equippedWeaponName = null;
 
 
         [HideInInspector] public Transform target;
@@ -38,17 +40,16 @@ namespace RPG.Combat
             fighterExperience = GetComponent<Experience>();
             fighterAnimator = GetComponent<Animator>();
 
+
+        }
+
+        void Start()
+        {
             if (equippedWeapon == null)
             {
                 EquipWeapon(defaultWeapon);
             }
         }
-
-        void Start()
-        {
-
-        }
-
 
         private void Update()
         {
@@ -120,9 +121,15 @@ namespace RPG.Combat
         
         public void EquipWeapon(Weapon weapon)
         {
+            if(weapon == null)
+            {
+                Debug.LogError("[Error]: Fighter.cs weapon is null");
+            }
+
             equippedWeapon = weapon;
             equippedWeapon.Spawn(rightHandTransform, leftHandTransform, fighterAnimator);
-            timeBetweenAttacks = weapon.AttackTime;
+            //timeBetweenAttacks = equippedWeapon.AttackTime;
+            //equippedWeaponName = equippedWeapon.name;
         }
 
         //Animation Event
@@ -162,18 +169,30 @@ namespace RPG.Combat
             Hit();
         }
 
+        //Implements ISaveable interface
         public object CaptureState()
         {
+            if(gameObject.name == "Player")
+            {
+                Debug.Log("Weapon name upon saving is: " + equippedWeapon.name);
+            }
             return equippedWeapon.name;
         }
 
         public void RestoreState(object state)
         {
             string weaponName = (string)state;
+
+            if (gameObject.name == "Player")
+            {
+                Debug.Log("Weapon name upon loading is: " + weaponName);
+            }
+
             Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
         }
 
+        //Implements IModifierProvider interface
         public IEnumerable<float> GetAdditiveModifiers(Stat stat)
         {
             if(stat == Stat.Damage)

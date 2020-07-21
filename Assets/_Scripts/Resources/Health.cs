@@ -74,7 +74,7 @@ namespace RPG.Resources
 
         public void RestoreState(object state)
         {
-            Debug.Log(gameObject.name + " health is: " + (float)state);
+            //Debug.Log(gameObject.name + " health is: " + (float)state);
             health = (float)state;
 
             if(health <= 0)
