@@ -18,8 +18,8 @@ namespace RPG.Combat
         [SerializeField] private Weapon defaultWeapon = null;
         [SerializeField] string defaultWeaponName = "Unarmed";
 
-        [SerializeField] private Weapon equippedWeapon = null;
-        [SerializeField] private string equippedWeaponName = null;
+        private Weapon equippedWeapon = null;
+        private string equippedWeaponName = null;
 
 
         [HideInInspector] public Transform target;
@@ -128,7 +128,7 @@ namespace RPG.Combat
 
             equippedWeapon = weapon;
             equippedWeapon.Spawn(rightHandTransform, leftHandTransform, fighterAnimator);
-            //timeBetweenAttacks = equippedWeapon.AttackTime;
+            timeBetweenAttacks = equippedWeapon.AttackTime;
             //equippedWeaponName = equippedWeapon.name;
         }
 
