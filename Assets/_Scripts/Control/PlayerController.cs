@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Resources;
+using System;
 
 namespace RPG.Control
 {
@@ -17,6 +19,20 @@ namespace RPG.Control
         bool inCombat;
         bool isSprinting = false;
 
+
+        [SerializeField] Image cursor;
+        [SerializeField] Sprite combatCursor;
+        [SerializeField] Sprite defaultCursor;
+
+
+        enum CursorType
+        {
+            None,
+            Combat,
+            Chest,
+            Door
+        };
+
         void Awake()
         {
             playerMover = GetComponent<Mover>();
@@ -30,9 +46,18 @@ namespace RPG.Control
             //if the player is dead then dont continue 
             if (playerHealth.isDead) return;
 
-            if (InteractWithCombat()) return;
+            if (InteractWithCombat())
+            {
+                return;
+            }
+            else
+            {
+                
+            }
 
             MoveWithKeyboard();
+
+            
         }
 
         private bool InteractWithCombat()
@@ -43,7 +68,16 @@ namespace RPG.Control
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 //if no CombatTarget component found, then continue
-                if (target == null) continue;
+                if (target == null)
+                {
+                    SetCursor(defaultCursor);
+                    continue;
+                }
+                else
+                {
+                    SetCursor(combatCursor);
+                }
+
 
                 //if they cant attack then the player is not in combat
                 if (!GetComponent<Fighter>().CanAttack(target.gameObject))
@@ -62,6 +96,8 @@ namespace RPG.Control
                     return true;
                 }
 
+                
+
                 if (inCombat)
                 {
                     return true;
@@ -75,6 +111,13 @@ namespace RPG.Control
 
             return false;
         }
+
+        private void SetCursor(Sprite sprite)
+        {
+            cursor.sprite = sprite;
+        }
+
+
 
         void MoveWithKeyboard()
         {
