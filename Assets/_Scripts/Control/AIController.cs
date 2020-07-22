@@ -41,7 +41,7 @@ namespace RPG.Control
         float timeSinceAggrevated = Mathf.Infinity;
         float timeAtCurrentWaypoint = Mathf.Infinity;
 
-        [SerializeField] private List<AIController> enemiesInScene;
+        [SerializeField] private List<AIController> enemiesInScene = null;
 
         bool aggrevated = false;
 

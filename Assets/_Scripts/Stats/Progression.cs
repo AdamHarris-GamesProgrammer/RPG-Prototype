@@ -5,7 +5,7 @@ namespace RPG.Stats
     [CreateAssetMenu(menuName = "RPG/Progression")]
     public class Progression : ScriptableObject
     {
-        [SerializeField] ProgressionCharacterClass[] characterDevelopment;
+        [SerializeField] ProgressionCharacterClass[] characterDevelopment = null;
 
         Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable = null;
 
@@ -52,15 +52,15 @@ namespace RPG.Stats
         [System.Serializable]
         class ProgressionCharacterClass
         {
-            [SerializeField] public CharacterClass characterType;
+            [SerializeField] public CharacterClass characterType = CharacterClass.Unarmed;
 
-            public ProgressionStats[] stats;
+            public ProgressionStats[] stats = null;
         }
 
         [System.Serializable]
         class ProgressionStats
         {
-            public Stat stat;
+            public Stat stat = Stat.Health;
             public float baseValue = 100f;              //Element 0 in statLookupTable
             public float valueIncresePerLevel = 0.15f;  //Element 1 in statLookupTable
         }

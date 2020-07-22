@@ -9,7 +9,7 @@ namespace RPG.SceneManagement
     {
         [SerializeField] private string sceneName = null;
         [SerializeField] public Transform spawnPoint;
-        [SerializeField] private GameObject uiGroup;
+        [SerializeField] private GameObject uiGroup = null;
 
 
         public enum DestinationIdentifier

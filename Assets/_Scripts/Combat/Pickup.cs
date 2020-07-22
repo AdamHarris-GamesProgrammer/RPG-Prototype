@@ -7,9 +7,9 @@ using RPG.Control;
 public class Pickup : MonoBehaviour, IInteractive
 {
     [SerializeField] private Weapon pickup = null;
-    [SerializeField] private float respawnTimer;
+    [SerializeField] private float respawnTimer = 5.0f;
 
-    [SerializeField] GameObject interactImage;
+    [SerializeField] GameObject interactImage = null;
 
     private IEnumerator HideForSeconds(float seconds)
     {

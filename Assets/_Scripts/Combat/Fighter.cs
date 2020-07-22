@@ -16,10 +16,8 @@ namespace RPG.Combat
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Weapon defaultWeapon = null;
-        [SerializeField] string defaultWeaponName = "Unarmed";
 
         private Weapon equippedWeapon = null;
-        private string equippedWeaponName = null;
 
 
         [HideInInspector] public Transform target;

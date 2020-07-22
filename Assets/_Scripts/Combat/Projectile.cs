@@ -9,9 +9,8 @@ namespace RPG.Combat
         [SerializeField] float projectileDamage = 4f;
         [SerializeField] bool isHoming = false;
         [SerializeField] float maxDuration = 10.0f;
-        [SerializeField] float destructionTime = 1.0f;
         [SerializeField] GameObject hitEffect = null;
-        [SerializeField] GameObject[] destroyOnHit;
+        [SerializeField] GameObject[] destroyOnHit = null;
         [SerializeField] float lifeAfterImpact = 0.2f;
         
         Health target = null;
