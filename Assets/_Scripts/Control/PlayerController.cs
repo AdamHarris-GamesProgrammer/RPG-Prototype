@@ -17,23 +17,10 @@ namespace RPG.Control
 
         public float interactionRange = 1.5f;
 
-        bool inCombat;
         bool isSprinting = false;
 
-
-        [SerializeField] Image cursor;
-        [SerializeField] Sprite combatCursor;
-        [SerializeField] Sprite defaultCursor;
-
         List<AIController> enemiesInImmediateCombatArea;
-
-        enum CursorType
-        {
-            None,
-            Combat,
-            Chest,
-            Door
-        };
+        float triggerRadius;
 
         void Awake()
         {
@@ -44,115 +31,53 @@ namespace RPG.Control
             Cursor.visible = false;
 
             enemiesInImmediateCombatArea = new List<AIController>();
+
+            triggerRadius = GetComponent<BoxCollider>().size.x / 2.0f;
         }
         void Update()
         {
             //if the player is dead then dont continue 
             if (playerHealth.isDead) return;
 
-            if (InteractWithCombat())
-            {
-                return;
-            }
+            InteractWithCombat();
 
             MoveWithKeyboard();
         }
 
-        private bool InteractWithCombat()
+        private void InteractWithCombat()
         {
-            //RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            if (enemiesInImmediateCombatArea.Count == 0) return;
 
-            //foreach (RaycastHit hit in hits)
-            //{
-            //    CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-            //    //if no CombatTarget component found, then continue
-            //    if (target == null) continue;
-
-            //    //if (target == null)
-            //    //{
-            //    //    SetCursor(defaultCursor);
-            //    //    continue;
-            //    //}
-            //    //else
-            //    //{
-            //    //    SetCursor(combatCursor);
-            //    //}
-
-
-            //    //if they cant attack then the player is not in combat
-            //    if (!GetComponent<Fighter>().CanAttack(target.gameObject))
-            //    {
-            //        continue;
-            //    }
-
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        //Attack the targeted object 
-            //        GetComponent<Fighter>().Attack(target.gameObject);
-
-            //        //player is now in combat
-            //        inCombat = true;
-
-            //        return true;
-            //    }
-
-            //    if (inCombat)
-            //    {
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        return false;
-            //    }
-            //}
-            //inCombat = false;
-
-            //return false;
-
-            if(enemiesInImmediateCombatArea.Count > 0)
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetMouseButtonDown(0))
+                Vector3 rayPoint = GetMouseRay().GetPoint(triggerRadius);
+
+                //Find the closest enemy to the player
+                AIController closestEnemy = ClosestEnemyToPoint(rayPoint);
+
+                if (GetComponent<Fighter>().CanAttack(closestEnemy.gameObject))
                 {
-                    Ray rayFromCamera = GetMouseRay();
-                    Vector3 rayPoint = rayFromCamera.GetPoint(2.5f);
-
-                    //Find the closest enemy to the player
-                    float closestEnemyDistance = 10.0f;
-                    AIController closestEnemy = null;
-                    foreach(AIController enemy in enemiesInImmediateCombatArea)
-                    {
-                        float distanceToEnemy = Vector3.Distance(enemy.transform.position, rayPoint);
-
-                        if(distanceToEnemy < closestEnemyDistance)
-                        {
-                            closestEnemy = enemy;
-                        }
-                    }
-
-                    Debug.Log("Closest enemy is: " + closestEnemy.gameObject.name);
-
-                    if(closestEnemy != null)
-                    {
-                        if (GetComponent<Fighter>().CanAttack(closestEnemy.gameObject))
-                        {
-                            GetComponent<Fighter>().Attack(closestEnemy.gameObject);
-                            return true;
-                        }
-                    }
-
+                    GetComponent<Fighter>().Attack(closestEnemy.gameObject);
                 }
-                
-
             }
-            return false;
         }
 
-        private void SetCursor(Sprite sprite)
+        private AIController ClosestEnemyToPoint(Vector3 point)
         {
-            cursor.sprite = sprite;
+            AIController closestEnemy = null;
+            float closestEnemyDistance = 10.0f;
+            foreach (AIController enemy in enemiesInImmediateCombatArea)
+            {
+                float distanceToEnemy = Vector3.Distance(enemy.transform.position, point);
+
+                if (distanceToEnemy < closestEnemyDistance)
+                {
+                    closestEnemy = enemy;
+                    closestEnemyDistance = distanceToEnemy;
+                }
+            }
+            return closestEnemy;
         }
-
-
 
         void MoveWithKeyboard()
         {
@@ -186,8 +111,6 @@ namespace RPG.Control
             if (!other.gameObject.CompareTag("Enemy")) return;
 
             enemiesInImmediateCombatArea.Add(other.gameObject.GetComponent<AIController>());
-
-            //Debug.Log(other.gameObject.name + " has been added to list");
         }
 
         private void OnTriggerExit(Collider other)
@@ -195,8 +118,6 @@ namespace RPG.Control
             if (!other.gameObject.CompareTag("Enemy")) return;
 
             enemiesInImmediateCombatArea.Remove(other.gameObject.GetComponent<AIController>());
-
-            //Debug.Log(other.gameObject.name + " has been removed from list");
         }
 
         public void RemoveAI(AIController ai)
