@@ -4,6 +4,7 @@ using RPG.Movement;
 using UnityEngine;
 using RPG.Resources;
 using System.Collections.Generic;
+using System;
 
 namespace RPG.Control
 {
@@ -53,9 +54,16 @@ namespace RPG.Control
 
             health = GetComponent<Health>();
 
+            health.onDeath += RemoveAIFromGameSpace;
+
             guardPosition = transform.position;
 
             GetComponent<Health>().onHealthChanged += Aggrevate;
+        }
+
+        private void RemoveAIFromGameSpace()
+        {
+            player.GetComponent<PlayerController>().RemoveAI(this);
         }
 
         private void Start()
@@ -100,15 +108,30 @@ namespace RPG.Control
             timeSinceAggrevated += Time.deltaTime;
         }
 
-        bool IsAggrevated()
+
+        private void AttackState()
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            return distanceToPlayer < chaseDistance || timeSinceAggrevated < aggrevatedDuration ;
+            Aggrevate();
+            timeSinceLastSeenPlayer = 0.0f;
+
+            if (fighter.IsInRange(player.transform.position))
+            {
+                fighter.Attack(player);
+            }
+            else
+            {
+                GetComponent<Mover>().MoveTo(player.transform.position, 1.0f, false);
+            }
         }
+
 
         private static void WarningState()
         {
             //Debug.Log("Im warning you, back off!");
+        }
+        private void SuspicionState()
+        {
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
         private void PatrolState()
@@ -129,8 +152,6 @@ namespace RPG.Control
                         currentWaypoint++;
                         currentWaypoint = patrolPath.CycleWaypoint(currentWaypoint);
                     }
-
-                    
                 }
                 //Set next position to current Waypoint
                 nextPosition = patrolPath.GetWaypointPosition(currentWaypoint);
@@ -138,18 +159,6 @@ namespace RPG.Control
 
             GetComponent<Mover>().StartMoveAction(nextPosition, patrollingSpeedFraction, false);
             
-        }
-
-        private void SuspicionState()
-        {
-            GetComponent<ActionScheduler>().CancelCurrentAction();
-        }
-
-        private void AttackState()
-        {
-            Aggrevate();
-            timeSinceLastSeenPlayer = 0.0f;
-            fighter.Attack(player);
         }
 
         public void Aggrevate()
@@ -170,9 +179,27 @@ namespace RPG.Control
             }
         }
 
+        bool IsAggrevated()
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            return distanceToPlayer < chaseDistance || timeSinceAggrevated < aggrevatedDuration;
+        }
+
         private bool IsPlayerInRange(float distance)
         {
             return Vector3.Distance(player.transform.position, transform.position) < distance;
+        }
+
+        private bool AtWaypoint()
+        {
+            float distanceToWaypoint = Vector3.Distance(transform.position, patrolPath.GetWaypointPosition(currentWaypoint));
+
+            if (distanceToWaypoint <= waypointTolerance)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         //Called by Unity Editor
@@ -184,20 +211,6 @@ namespace RPG.Control
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, warningRadius);
         }
-
-        private bool AtWaypoint()
-        {
-            float distanceToWaypoint = Vector3.Distance(transform.position, patrolPath.GetWaypointPosition(currentWaypoint));
-
-            if(distanceToWaypoint <= waypointTolerance)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-
     }
 }
 

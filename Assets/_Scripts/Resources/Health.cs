@@ -12,8 +12,10 @@ namespace RPG.Resources
         [SerializeField] private float health;
 
         public event Action onHealthChanged;
+        public event Action onDeath;
 
         public bool isDead;
+        [SerializeField] bool canBeDamaged = true;
 
         private void Awake()
         {
@@ -24,6 +26,8 @@ namespace RPG.Resources
 
         public void TakeDamage(GameObject instigator, float damageIn)
         {
+            if (!canBeDamaged) return;
+
             health -= damageIn;
 
             health = Mathf.Clamp(health, 0.0f, maxHealth);
@@ -46,6 +50,7 @@ namespace RPG.Resources
         {
             if (isDead) return;
 
+            onDeath();
 
             isDead = true;
             GetComponent<Animator>().SetTrigger("death");

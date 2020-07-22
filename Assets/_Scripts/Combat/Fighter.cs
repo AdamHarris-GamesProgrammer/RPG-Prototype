@@ -61,20 +61,11 @@ namespace RPG.Combat
             if (target == null) return;
 
             //checks if the target is in range
-            bool inRange = IsInRange();
+            bool inRange = IsInRange(target.position);
 
             //if the target is not in range
-            if (!inRange)
+            if (inRange)
             {
-                //then move to the target
-                //TODO: enemy runs if player is further away
-                fighterMover.MoveTo(target.position, 1.0f, false);
-            }
-            else
-            {
-                //cancel the mover
-                fighterMover.Cancel();
-
                 //if the time since last attacked is greater than the cooldown
                 if (timeSinceLastAttack >= timeBetweenAttacks)
                 {
@@ -85,9 +76,10 @@ namespace RPG.Combat
             }
         }
 
-        private bool IsInRange()
+
+        public bool IsInRange(Vector3 target)
         {
-            return Vector3.Distance(transform.position, target.position) < equippedWeapon.AttackRange;
+            return Vector3.Distance(transform.position, target) < equippedWeapon.AttackRange;
         }
 
         private void AttackBehaviour()
@@ -149,7 +141,7 @@ namespace RPG.Combat
                     else
                     {
                         float damage = fighterStats.GetStat(Stat.Damage, fighterExperience.GetLevel());
-                        Debug.Log(gameObject.name + " deals " + damage + " damage");
+                        //Debug.Log(gameObject.name + " deals " + damage + " damage");
                         //Deals damage
                         enemyHealthComponent.TakeDamage(gameObject, damage);
                     }

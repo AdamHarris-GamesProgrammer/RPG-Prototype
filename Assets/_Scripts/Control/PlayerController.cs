@@ -5,6 +5,7 @@ using RPG.Movement;
 using RPG.Combat;
 using RPG.Resources;
 using System;
+using System.Collections.Generic;
 
 namespace RPG.Control
 {
@@ -24,6 +25,7 @@ namespace RPG.Control
         [SerializeField] Sprite combatCursor;
         [SerializeField] Sprite defaultCursor;
 
+        List<AIController> enemiesInImmediateCombatArea;
 
         enum CursorType
         {
@@ -40,6 +42,8 @@ namespace RPG.Control
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            enemiesInImmediateCombatArea = new List<AIController>();
         }
         void Update()
         {
@@ -50,65 +54,96 @@ namespace RPG.Control
             {
                 return;
             }
-            else
-            {
-                
-            }
 
             MoveWithKeyboard();
-
-            
         }
 
         private bool InteractWithCombat()
         {
-            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            //RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
-            foreach (RaycastHit hit in hits)
+            //foreach (RaycastHit hit in hits)
+            //{
+            //    CombatTarget target = hit.transform.GetComponent<CombatTarget>();
+            //    //if no CombatTarget component found, then continue
+            //    if (target == null) continue;
+
+            //    //if (target == null)
+            //    //{
+            //    //    SetCursor(defaultCursor);
+            //    //    continue;
+            //    //}
+            //    //else
+            //    //{
+            //    //    SetCursor(combatCursor);
+            //    //}
+
+
+            //    //if they cant attack then the player is not in combat
+            //    if (!GetComponent<Fighter>().CanAttack(target.gameObject))
+            //    {
+            //        continue;
+            //    }
+
+            //    if (Input.GetMouseButtonDown(0))
+            //    {
+            //        //Attack the targeted object 
+            //        GetComponent<Fighter>().Attack(target.gameObject);
+
+            //        //player is now in combat
+            //        inCombat = true;
+
+            //        return true;
+            //    }
+
+            //    if (inCombat)
+            //    {
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        return false;
+            //    }
+            //}
+            //inCombat = false;
+
+            //return false;
+
+            if(enemiesInImmediateCombatArea.Count > 0)
             {
-                CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                //if no CombatTarget component found, then continue
-                if (target == null)
-                {
-                    SetCursor(defaultCursor);
-                    continue;
-                }
-                else
-                {
-                    SetCursor(combatCursor);
-                }
-
-
-                //if they cant attack then the player is not in combat
-                if (!GetComponent<Fighter>().CanAttack(target.gameObject))
-                {
-                    continue;
-                }
-
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //Attack the targeted object 
-                    GetComponent<Fighter>().Attack(target.gameObject);
+                    Ray rayFromCamera = GetMouseRay();
+                    Vector3 rayPoint = rayFromCamera.GetPoint(2.5f);
 
-                    //player is now in combat
-                    inCombat = true;
+                    //Find the closest enemy to the player
+                    float closestEnemyDistance = 10.0f;
+                    AIController closestEnemy = null;
+                    foreach(AIController enemy in enemiesInImmediateCombatArea)
+                    {
+                        float distanceToEnemy = Vector3.Distance(enemy.transform.position, rayPoint);
 
-                    return true;
+                        if(distanceToEnemy < closestEnemyDistance)
+                        {
+                            closestEnemy = enemy;
+                        }
+                    }
+
+                    Debug.Log("Closest enemy is: " + closestEnemy.gameObject.name);
+
+                    if(closestEnemy != null)
+                    {
+                        if (GetComponent<Fighter>().CanAttack(closestEnemy.gameObject))
+                        {
+                            GetComponent<Fighter>().Attack(closestEnemy.gameObject);
+                            return true;
+                        }
+                    }
+
                 }
-
                 
 
-                if (inCombat)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
             }
-            inCombat = false;
-
             return false;
         }
 
@@ -143,7 +178,30 @@ namespace RPG.Control
 
         private static Ray GetMouseRay()
         {
-            return Camera.main.ScreenPointToRay(new Vector2(Screen.width /2, Screen.height /2));
+            return Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.gameObject.CompareTag("Enemy")) return;
+
+            enemiesInImmediateCombatArea.Add(other.gameObject.GetComponent<AIController>());
+
+            //Debug.Log(other.gameObject.name + " has been added to list");
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.gameObject.CompareTag("Enemy")) return;
+
+            enemiesInImmediateCombatArea.Remove(other.gameObject.GetComponent<AIController>());
+
+            //Debug.Log(other.gameObject.name + " has been removed from list");
+        }
+
+        public void RemoveAI(AIController ai)
+        {
+            enemiesInImmediateCombatArea.Remove(ai);
         }
     }
 }
