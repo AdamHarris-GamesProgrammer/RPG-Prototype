@@ -97,6 +97,9 @@ namespace RPG.Combat
         public void Cancel()
         {
             target = null;
+
+            if (gameObject.name == "Player") return;
+
             fighterMover.Cancel();
             //print(gameObject.name + " fighter canceling");
         }

@@ -6,18 +6,22 @@ using RPG.Combat;
 using RPG.Resources;
 using System;
 using System.Collections.Generic;
+using UnityEngine.AI;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
         private Mover playerMover;
-
+        private NavMeshAgent playerAgent;
         private Health playerHealth;
 
         public float interactionRange = 1.5f;
 
         bool isSprinting = false;
+
+        [SerializeField] float strafeTime = 0.8f;
+        float timeSinceStrafeStarted = Mathf.Infinity;
 
         List<AIController> enemiesInImmediateCombatArea;
         float triggerRadius;
@@ -26,6 +30,7 @@ namespace RPG.Control
         {
             playerMover = GetComponent<Mover>();
             playerHealth = GetComponent<Health>();
+            playerAgent = GetComponent<NavMeshAgent>();
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -42,6 +47,7 @@ namespace RPG.Control
             InteractWithCombat();
 
             MoveWithKeyboard();
+
         }
 
         private void InteractWithCombat()
@@ -79,9 +85,27 @@ namespace RPG.Control
             return closestEnemy;
         }
 
+        bool strafing = false;
+
         void MoveWithKeyboard()
         {
+
+            if (strafing)
+            {
+                timeSinceStrafeStarted += Time.deltaTime;
+
+                if(timeSinceStrafeStarted > strafeTime)
+                {
+                    timeSinceStrafeStarted = 0.0f;
+                    strafing = false;
+                    playerAgent.updateRotation = true;
+                }
+
+                return;
+            }
+            
             Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
 
             if (input == Vector2.zero) return;
 
@@ -94,11 +118,53 @@ namespace RPG.Control
                 isSprinting = false;
             }
 
+
+
+            if (Input.GetKey(KeyCode.C))
+            {
+                if (Input.GetKey(KeyCode.W))
+                {
+                    input.y += 1.5f;
+                    Strafe("strafeForward");
+                    isSprinting = true;
+
+                }
+                else if (Input.GetKey(KeyCode.A))
+                {
+                    input.x -= 1.5f;
+                    Strafe("strafeLeft");
+                    isSprinting = true;
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    input.y -= 1.5f;
+                    Strafe("strafeBackward");
+                    isSprinting = true;
+
+                    
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    input.x += 1.5f;
+                    Strafe("strafeRight");
+                    isSprinting = true;
+
+                }
+            }
+
             Vector3 movement = Camera.main.transform.forward * input.y + Camera.main.transform.right * input.x;
 
             movement += transform.position;
 
             playerMover.StartMoveAction(movement, 1.0f, isSprinting);
+        }
+
+        private void Strafe(string animTrigger)
+        {
+            strafing = true;
+            playerAgent.updateRotation = false;
+            timeSinceStrafeStarted = 0.0f;
+            GetComponent<Animator>().SetTrigger(animTrigger);
         }
 
         private static Ray GetMouseRay()
@@ -123,6 +189,16 @@ namespace RPG.Control
         public void RemoveAI(AIController ai)
         {
             enemiesInImmediateCombatArea.Remove(ai);
+        }
+
+        void FootL()
+        {
+
+        }
+
+        void FootR()
+        {
+
         }
     }
 }
