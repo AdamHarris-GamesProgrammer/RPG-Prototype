@@ -2,6 +2,7 @@
 using RPG.Saving;
 using RPG.Core;
 using RPG.Stats;
+using RPG.Control;
 using System;
 
 namespace RPG.Resources
@@ -27,6 +28,11 @@ namespace RPG.Resources
         public void TakeDamage(GameObject instigator, float damageIn)
         {
             if (!canBeDamaged) return;
+
+            if(gameObject.name == "Player")
+            {
+                if (gameObject.GetComponent<PlayerController>().IsStrafing()) return;
+            }
 
             health -= damageIn;
 

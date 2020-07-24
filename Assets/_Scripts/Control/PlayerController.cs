@@ -191,6 +191,11 @@ namespace RPG.Control
             enemiesInImmediateCombatArea.Remove(ai);
         }
 
+        public bool IsStrafing()
+        {
+            return strafing;
+        }
+
         void FootL()
         {
 
