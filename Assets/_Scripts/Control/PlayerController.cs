@@ -228,7 +228,7 @@ namespace RPG.Control
 
 
 
-
+        //Animation events
         void FootL()
         {
 

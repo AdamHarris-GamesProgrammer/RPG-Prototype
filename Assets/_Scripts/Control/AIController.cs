@@ -106,13 +106,23 @@ namespace RPG.Control
                 DeAggrevate();
                 PatrolState();
             }
-
             timeSinceLastSeenPlayer += Time.deltaTime;
-            timeSinceAggrevated += Time.deltaTime;
+
+            if (Vector3.Distance(transform.position, player.transform.position) > warningRadius)
+            {
+                timeSinceAggrevated += Time.deltaTime;
+            }
+            else
+            {
+                timeSinceAggrevated = 0.0f;
+            }
+
         }
 
         void DeAggrevate()
         {
+            if (!aggrevated) return;
+
             aggrevated = false;
             if (playerController.aggrevatedEnemies.Contains(this))
             {
@@ -195,6 +205,13 @@ namespace RPG.Control
         bool IsAggrevated()
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+            if (aggrevated)
+            {
+                float timeLeft = aggrevatedDuration - timeSinceAggrevated;
+                Debug.Log("Time left on Aggro: " + timeLeft);
+            }
+
             return distanceToPlayer < chaseDistance || timeSinceAggrevated < aggrevatedDuration;
         }
 
