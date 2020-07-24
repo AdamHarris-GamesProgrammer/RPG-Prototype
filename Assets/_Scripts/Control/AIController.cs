@@ -30,6 +30,8 @@ namespace RPG.Control
         int currentWaypoint = 0;
 
         private GameObject player;
+        private PlayerController playerController;
+
         private Fighter fighter;
         private Health health;
 
@@ -48,6 +50,7 @@ namespace RPG.Control
         private void Awake()
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            playerController = player.GetComponent<PlayerController>();
             playerHealth = player.GetComponent<Health>();
 
             fighter = GetComponent<Fighter>();
@@ -90,17 +93,17 @@ namespace RPG.Control
             }
             else if (IsPlayerInRange(warningRadius))
             {
-                aggrevated = false;
+                DeAggrevate();
                 WarningState();
             }
             else if (timeSinceLastSeenPlayer < suspiscionDuration)
             {
-                aggrevated = false;
+                DeAggrevate();
                 SuspicionState();
             }
             else
             {
-                aggrevated = false;
+                DeAggrevate();
                 PatrolState();
             }
 
@@ -108,6 +111,14 @@ namespace RPG.Control
             timeSinceAggrevated += Time.deltaTime;
         }
 
+        void DeAggrevate()
+        {
+            aggrevated = false;
+            if (playerController.aggrevatedEnemies.Contains(this))
+            {
+                playerController.RemoveAI(this);
+            }
+        }
 
         private void AttackState()
         {
@@ -168,6 +179,8 @@ namespace RPG.Control
             timeSinceAggrevated = 0.0f;
 
             aggrevated = true;
+
+            playerController.aggrevatedEnemies.Add(this);
 
             foreach(AIController controller in enemiesInScene)
             {

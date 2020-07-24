@@ -19,12 +19,20 @@ namespace RPG.Control
         public float interactionRange = 1.5f;
 
         bool isSprinting = false;
+        bool inCombat;
+
+        public bool IsStrafing() { return strafing; }
+        public bool InCombat() { return inCombat; }
 
         [SerializeField] float strafeTime = 0.8f;
         float timeSinceStrafeStarted = Mathf.Infinity;
 
         List<AIController> enemiesInImmediateCombatArea;
+        public List<AIController> aggrevatedEnemies;
+
         float triggerRadius;
+
+        public event Action onCombat;
 
         void Awake()
         {
@@ -36,9 +44,16 @@ namespace RPG.Control
             Cursor.visible = false;
 
             enemiesInImmediateCombatArea = new List<AIController>();
+            aggrevatedEnemies = new List<AIController>();
+
 
             triggerRadius = GetComponent<BoxCollider>().size.x / 2.0f;
+
+            onCombat += CombatBehaviour;
         }
+
+
+
         void Update()
         {
             //if the player is dead then dont continue 
@@ -161,11 +176,32 @@ namespace RPG.Control
             return Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
         }
 
+
+        private void CombatBehaviour()
+        {
+            if (inCombat)
+            {
+                //TODO: Play music if it isnt already playing
+
+                //Stop player from interacting with objects
+            }
+            else
+            {
+                //TODO: Stop combat music playing 
+
+                //Allow player to interact with objects
+
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag("Enemy")) return;
 
             enemiesInImmediateCombatArea.Add(other.gameObject.GetComponent<AIController>());
+
+            onCombat();
+            inCombat = true;
         }
 
         private void OnTriggerExit(Collider other)
@@ -177,13 +213,21 @@ namespace RPG.Control
 
         public void RemoveAI(AIController ai)
         {
-            enemiesInImmediateCombatArea.Remove(ai);
+            aggrevatedEnemies.Remove(ai);
+            if (enemiesInImmediateCombatArea.Contains(ai))
+            {
+                enemiesInImmediateCombatArea.Remove(ai);
+            }
+
+            if(aggrevatedEnemies.Count == 0)
+            {
+                inCombat = false;
+                onCombat();
+            }
         }
 
-        public bool IsStrafing()
-        {
-            return strafing;
-        }
+
+
 
         void FootL()
         {
