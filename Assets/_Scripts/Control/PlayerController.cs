@@ -89,7 +89,6 @@ namespace RPG.Control
 
         void MoveWithKeyboard()
         {
-
             if (strafing)
             {
                 timeSinceStrafeStarted += Time.deltaTime;
@@ -106,7 +105,6 @@ namespace RPG.Control
             
             Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-
             if (input == Vector2.zero) return;
 
             if (Input.GetKey(KeyCode.LeftShift))
@@ -118,16 +116,12 @@ namespace RPG.Control
                 isSprinting = false;
             }
 
-
-
             if (Input.GetKey(KeyCode.C))
             {
                 if (Input.GetKey(KeyCode.W))
                 {
                     input.y += 1.5f;
                     Strafe("strafeForward");
-                    isSprinting = true;
-
                 }
                 else if (Input.GetKey(KeyCode.A))
                 {
@@ -139,16 +133,11 @@ namespace RPG.Control
                 {
                     input.y -= 1.5f;
                     Strafe("strafeBackward");
-                    isSprinting = true;
-
-                    
                 }
                 else if (Input.GetKey(KeyCode.D))
                 {
                     input.x += 1.5f;
                     Strafe("strafeRight");
-                    isSprinting = true;
-
                 }
             }
 

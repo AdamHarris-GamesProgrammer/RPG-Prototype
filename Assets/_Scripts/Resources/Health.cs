@@ -71,16 +71,17 @@ namespace RPG.Resources
             return health / maxHealth;
         }
 
-        public object CaptureState()
-        {
-            return health;
-        }
-
         public void FillHealth()
         {
             maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health, GetComponent<Experience>().GetLevel());
             health = maxHealth;
-            GetComponent<HealthBar>().UpdateBar();
+            onHealthChanged();
+        }
+
+        //Implements the ISaveable interface
+        public object CaptureState()
+        {
+            return health;
         }
 
         public void RestoreState(object state)
