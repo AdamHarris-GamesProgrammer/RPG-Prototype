@@ -133,6 +133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 4
+  sprintingFactor: 1.2
+  sprintEnergy: 12.5
+  sprintCooldown: 3.5
 --- !u!114 &7878368480476391472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,11 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b650e677e6c05489e50a2c5eccbdee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenAttacks: 1
   leftHandTransform: {fileID: 0}
   rightHandTransform: {fileID: 0}
   defaultWeapon: {fileID: 0}
-  defaultWeaponName: Unarmed
   target: {fileID: 0}
 --- !u!114 &3808452164005012225
 MonoBehaviour:
@@ -177,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   isDead: 0
+  canBeDamaged: 1
 --- !u!114 &1955410746883646074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +207,7 @@ MonoBehaviour:
   startingLevel: 1
   characterClass: 0
   progression: {fileID: 11400000, guid: 11cfe23ad06f2134fbb34fa02e265d00, type: 2}
+  shouldUseModifiers: 0
 --- !u!114 &129029259315100616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,3 +221,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   experiencePoints: 0
+  levelText: {fileID: 0}
+  levelUpEffects: {fileID: 0}

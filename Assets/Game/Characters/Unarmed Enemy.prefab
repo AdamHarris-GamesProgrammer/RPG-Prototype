@@ -161,6 +161,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 4211717586179885402}
   GUI: {fileID: 91397219862480332}
+--- !u!114 &4694802595455052507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3648758160771100020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d13cbec3adc3d54880dc08bca0b87c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaCooldown: 3.5
+  staminaRegenAmount: 12.5
 --- !u!1 &4633230299192540482
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,13 +23,11 @@ namespace RPG.Movement
         [Tooltip("Amount of time between using stamina and it starting to regenerate")]
         [SerializeField] float sprintCooldown = 3.5f;
 
-        float stamina = 0.0f;
-        float maxStamina = 0.0f;
-        bool staminaRegenerating = false;
-        float timeSinceLastUsedStamina = Mathf.Infinity;
+        Stamina stamina;
+
         bool sprinting = false;
 
-        StaminaBar staminaBar;
+
 
         void Awake()
         {
@@ -40,29 +38,16 @@ namespace RPG.Movement
 
             health = GetComponent<Health>();
 
-            maxStamina = GetComponent<BaseStats>().GetStat(Stat.Stamina);
-            stamina = maxStamina;
+            stamina = GetComponent<Stamina>();
 
-            if (TryGetComponent(out StaminaBar bar))
-            {
-                staminaBar = bar;
-            }
+
         }
 
         private void Update()
         {
             agent.enabled = !health.isDead;
 
-            if (staminaRegenerating)
-            {
-                timeSinceLastUsedStamina += Time.deltaTime;
-                if (timeSinceLastUsedStamina >= sprintCooldown)
-                {
-                    stamina += sprintEnergy * Time.deltaTime;
 
-                    if (staminaBar != null) staminaBar.UpdateBar(stamina, maxStamina);
-                }
-            }
 
             UpdateAnimator();
         }
@@ -79,27 +64,18 @@ namespace RPG.Movement
             sprinting = isSprinting;
             agent.updateRotation = freeRotation;
 
-            if (stamina <= 0.0f)
+            if (stamina.CurrentStamina <= 0.0f)
             {
                 sprinting = false;
-                staminaRegenerating = true;
             }
 
             if (sprinting)
             {
-                timeSinceLastUsedStamina = 0.0f;
-                staminaRegenerating = false;
                 speedFraction = sprintingFactor;
-                stamina -= sprintEnergy * Time.deltaTime;
-            }
-            else
-            {
-                staminaRegenerating = true;
+                stamina.CurrentStamina -= sprintEnergy * Time.deltaTime;
             }
 
-            stamina = Mathf.Clamp(stamina, 0f, maxStamina);
-
-            if (staminaBar != null) staminaBar.UpdateBar(stamina, maxStamina);
+            stamina.StaminaUsed(sprinting);
 
             agent.speed = maxSpeed * speedFraction;
             agent.destination = location;
