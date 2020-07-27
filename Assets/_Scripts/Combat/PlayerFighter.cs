@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using RPG.Control;
+
 namespace RPG.Combat
 {
     public class PlayerFighter : Fighter
     {
-        //// Start is called before the first frame update
-        //void Start()
-        //{
-        //    base.Start();
-        //}
-
-        // Update is called once per frame
         protected override void Update()
         {
             UpdateTimers();
@@ -33,6 +28,8 @@ namespace RPG.Combat
 
             transform.LookAt(target);
             fighterAnimator.SetTrigger("attack");
+
+            target.GetComponent<AIController>().Strafe();
         }
     }
 }

@@ -37,13 +37,20 @@ namespace RPG.Control
 
         private Health playerHealth;
 
+        bool strafing = false;
+
+        float strafeDuration = 0.8f;
+
 
         Vector3 guardPosition;
         float timeSinceLastSeenPlayer = Mathf.Infinity;
         float timeSinceAggrevated = Mathf.Infinity;
         float timeAtCurrentWaypoint = Mathf.Infinity;
+        float timeSinceStrafeStarted = Mathf.Infinity;
 
         [SerializeField] private List<AIController> enemiesInScene = null;
+
+        public event Action onPlayerAttack;
 
         bool aggrevated = false;
 
@@ -62,6 +69,8 @@ namespace RPG.Control
             guardPosition = transform.position;
 
             GetComponent<Health>().onHealthChanged += Aggrevate;
+
+            onPlayerAttack += Strafe;
         }
 
         private void RemoveAIFromGameSpace()
@@ -117,6 +126,8 @@ namespace RPG.Control
                 timeSinceAggrevated = 0.0f;
             }
 
+            timeSinceStrafeStarted += Time.deltaTime;
+
         }
 
         void DeAggrevate()
@@ -145,6 +156,57 @@ namespace RPG.Control
             }
         }
 
+        public void Strafe()
+        {
+            if (strafing)
+            {
+                if(timeSinceStrafeStarted > strafeDuration)
+                {
+                    strafing = false;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            int direction = UnityEngine.Random.Range(1, 3);
+
+            float xMovment = 0.0f;
+            float yMovment = 0.0f;
+
+            switch (direction)
+            {
+                case 1:
+                    //Strafe Left
+                    StrafeAction("strafeLeft");
+                    xMovment = -1.5f;
+                    break;
+                case 2:
+                    //Strafe Right
+                    StrafeAction("strafeRight");
+                    xMovment = 1.5f;
+                    break;
+                case 3:
+                    //Strafe Backward
+                    StrafeAction("strafeDodge");
+                    yMovment = -1.5f;
+                    break;
+            }
+
+            Vector3 newPosition = transform.forward * yMovment + transform.right * xMovment;
+
+            newPosition += transform.position;
+
+            GetComponent<Mover>().MoveTo(newPosition, 1.0f, false, false);
+        }
+
+        private void StrafeAction(string animTrigger)
+        {
+            strafing = true;
+            timeSinceStrafeStarted = 0.0f;
+            GetComponent<Animator>().SetTrigger(animTrigger);
+        }
 
         private static void WarningState()
         {
@@ -209,7 +271,6 @@ namespace RPG.Control
             if (aggrevated)
             {
                 float timeLeft = aggrevatedDuration - timeSinceAggrevated;
-                Debug.Log("Time left on Aggro: " + timeLeft);
             }
 
             return distanceToPlayer < chaseDistance || timeSinceAggrevated < aggrevatedDuration;
@@ -232,6 +293,11 @@ namespace RPG.Control
             return false;
         }
 
+        public bool IsStrafing()
+        {
+            return strafing;
+        }
+
         //Called by Unity Editor
         private void OnDrawGizmosSelected()
         {
@@ -240,6 +306,16 @@ namespace RPG.Control
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, warningRadius);
+        }
+
+        //Animation Events
+        void FootR()
+        {
+
+        }
+        void FootL()
+        {
+
         }
     }
 }

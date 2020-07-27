@@ -33,6 +33,10 @@ namespace RPG.Resources
             {
                 if (gameObject.GetComponent<PlayerController>().IsStrafing()) return;
             }
+            else
+            {
+                if (gameObject.GetComponent<AIController>().IsStrafing()) return;
+            }
 
             health -= damageIn;
 

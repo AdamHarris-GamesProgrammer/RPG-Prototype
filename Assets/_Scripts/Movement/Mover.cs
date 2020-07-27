@@ -67,16 +67,17 @@ namespace RPG.Movement
             UpdateAnimator();
         }
 
-        public void StartMoveAction(Vector3 location, float speedFraction, bool isSprinting)
+        public void StartMoveAction(Vector3 location, float speedFraction, bool isSprinting, bool freeRotation = true)
         {
-            
+            agent.updateRotation = freeRotation;
             actionScheduler.StartAction(this);
             MoveTo(location, speedFraction, isSprinting);
         }
 
-        public void MoveTo(Vector3 location, float speedFraction, bool isSprinting)
+        public void MoveTo(Vector3 location, float speedFraction, bool isSprinting, bool freeRotation = true)
         {
             sprinting = isSprinting;
+            agent.updateRotation = freeRotation;
 
             if (stamina <= 0.0f)
             {

@@ -71,7 +71,6 @@ namespace RPG.Combat
         protected virtual void UpdateTimers()
         {
             timeSinceLastAttack += Time.deltaTime;
-    
         }
 
         protected bool SafetyChecks()
