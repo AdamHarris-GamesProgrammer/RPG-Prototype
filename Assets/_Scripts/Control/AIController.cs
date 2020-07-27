@@ -27,6 +27,9 @@ namespace RPG.Control
         [Range(0f,1f)]
         [SerializeField] float patrollingSpeedFraction = 0.2f;
 
+        [Header("Strafing Settings")]
+        [SerializeField] float staminaUsedWhileStrafing = 25.0f;
+
         int currentWaypoint = 0;
 
         private GameObject player;
@@ -34,6 +37,8 @@ namespace RPG.Control
 
         private Fighter fighter;
         private Health health;
+
+        private Stamina stamina;
 
         private Health playerHealth;
 
@@ -63,6 +68,8 @@ namespace RPG.Control
             fighter = GetComponent<Fighter>();
 
             health = GetComponent<Health>();
+
+            stamina = GetComponent<Stamina>();
 
             health.onDeath += RemoveAIFromGameSpace;
 
@@ -163,12 +170,15 @@ namespace RPG.Control
                 if(timeSinceStrafeStarted > strafeDuration)
                 {
                     strafing = false;
+                    stamina.StaminaUsed(false);
                 }
                 else
                 {
                     return;
                 }
             }
+
+            if (stamina.CurrentStamina - staminaUsedWhileStrafing < 0) return;
 
             int direction = UnityEngine.Random.Range(1, 3);
 
@@ -198,6 +208,8 @@ namespace RPG.Control
 
             newPosition += transform.position;
 
+            stamina.CurrentStamina -= staminaUsedWhileStrafing;
+            stamina.StaminaUsed(true);
             GetComponent<Mover>().MoveTo(newPosition, 1.0f, false, false);
         }
 
