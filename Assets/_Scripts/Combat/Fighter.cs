@@ -11,7 +11,7 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
     {
-        private float timeBetweenAttacks = 1.0f;
+        protected float timeBetweenAttacks = 1.0f;
 
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Transform rightHandTransform = null;
@@ -19,16 +19,15 @@ namespace RPG.Combat
 
         private Weapon equippedWeapon = null;
 
-
         [HideInInspector] public Transform target;
 
-        float timeSinceLastAttack = 5.0f;
+        protected float timeSinceLastAttack = 5.0f;
 
-        private Mover fighterMover;
-        private Health fighterHealth;
-        private BaseStats fighterStats;
-        private Experience fighterExperience;
-        private Animator fighterAnimator;
+        protected Mover fighterMover;
+        protected Health fighterHealth;
+        protected BaseStats fighterStats;
+        protected Experience fighterExperience;
+        protected Animator fighterAnimator;
 
         private void Awake()
         {
@@ -37,8 +36,6 @@ namespace RPG.Combat
             fighterStats = GetComponent<BaseStats>();
             fighterExperience = GetComponent<Experience>();
             fighterAnimator = GetComponent<Animator>();
-
-
         }
 
         void Start()
@@ -49,14 +46,11 @@ namespace RPG.Combat
             }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
-            if (fighterHealth.isDead) return;
+            UpdateTimers();
 
-            timeSinceLastAttack += Time.deltaTime;
-
-            //if the target has not been assigned then return
-            if (target == null) return;
+            if (fighterHealth.isDead || target == null) return;
 
             //checks if the target is in range
             bool inRange = IsInRange(target.position);
@@ -74,6 +68,20 @@ namespace RPG.Combat
             }
         }
 
+        protected virtual void UpdateTimers()
+        {
+            timeSinceLastAttack += Time.deltaTime;
+    
+        }
+
+        protected bool SafetyChecks()
+        {
+            bool safe = false;
+
+            if (fighterHealth.isDead || target == null) safe = false;
+
+            return safe;
+        }
 
         public bool IsInRange(Vector3 target)
         {
@@ -86,7 +94,7 @@ namespace RPG.Combat
             transform.LookAt(target);
         }
 
-        public void Attack(GameObject combatTarget)
+        public virtual void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
 
