@@ -29,6 +29,9 @@ namespace RPG.Control
 
         [Header("Strafing Settings")]
         [SerializeField] float staminaUsedWhileStrafing = 25.0f;
+        [Tooltip("This a percentage from 0% to 100% chance to strafe")]
+        [Range(0f,100f)]
+        [SerializeField] float strafingChance = 50.0f;
 
         int currentWaypoint = 0;
 
@@ -177,6 +180,8 @@ namespace RPG.Control
                     return;
                 }
             }
+
+            if (UnityEngine.Random.Range(0f, 100f) > strafingChance) return;
 
             if (stamina.CurrentStamina - staminaUsedWhileStrafing < 0) return;
 

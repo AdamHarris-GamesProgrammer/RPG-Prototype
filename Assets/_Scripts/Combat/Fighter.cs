@@ -135,31 +135,33 @@ namespace RPG.Combat
         //Animation Event
         void Hit()
         {
-            if (target != null)
+            //if the target is null then return
+            if (target == null) return;
+            //if the target is not in range then return
+            if (!IsInRange(target.position)) return;
+
+            //Gets the health component from the target
+            Health enemyHealthComponent = target.GetComponent<Health>();
+
+            //if the target does not have a health component
+            if (!enemyHealthComponent) return;
+
+            if (equippedWeapon.HasProjectile())
             {
-                //Gets the health component from the target
-                Health enemyHealthComponent = target.GetComponent<Health>();
+                equippedWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, enemyHealthComponent, gameObject);
+            }
+            else
+            {
+                float damage = fighterStats.GetStat(Stat.Damage, fighterExperience.GetLevel());
+                //Debug.Log(gameObject.name + " deals " + damage + " damage");
+                //Deals damage
+                enemyHealthComponent.TakeDamage(gameObject, damage);
+            }
 
-                if (enemyHealthComponent) //if health component found
-                {
-                    if (equippedWeapon.HasProjectile())
-                    {
-                        equippedWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, enemyHealthComponent, gameObject);
-                    }
-                    else
-                    {
-                        float damage = fighterStats.GetStat(Stat.Damage, fighterExperience.GetLevel());
-                        //Debug.Log(gameObject.name + " deals " + damage + " damage");
-                        //Deals damage
-                        enemyHealthComponent.TakeDamage(gameObject, damage);
-                    }
-
-                    //if the enemy is dead cancel the fighter state
-                    if (enemyHealthComponent.isDead)
-                    {
-                        Cancel();
-                    }
-                }
+            //if the enemy is dead cancel the fighter state
+            if (enemyHealthComponent.isDead)
+            {
+                Cancel();
             }
         }
 
@@ -172,10 +174,6 @@ namespace RPG.Combat
         //Implements ISaveable interface
         public object CaptureState()
         {
-            if(gameObject.name == "Player")
-            {
-                Debug.Log("Weapon name upon saving is: " + equippedWeapon.name);
-            }
             return equippedWeapon.name;
         }
 

@@ -8,6 +8,9 @@ namespace RPG.Combat
 {
     public class PlayerFighter : Fighter
     {
+        bool isAttacking = false;
+
+
         protected override void Update()
         {
             UpdateTimers();
@@ -16,10 +19,20 @@ namespace RPG.Combat
         protected override void UpdateTimers()
         {
             base.UpdateTimers();
+
+            if(timeSinceLastAttack > timeBetweenAttacks)
+            {
+                isAttacking = false;
+            }
+
         }
 
         public override void Attack(GameObject combatTarget)
         {
+            if (isAttacking) return;
+            timeSinceLastAttack = 0.0f;
+
+
             target = combatTarget.transform;
 
             Debug.Log("Target Name: " + target.name);
