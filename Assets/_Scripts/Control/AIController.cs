@@ -8,7 +8,7 @@ using System;
 
 namespace RPG.Control
 {
-    public class AIController : MonoBehaviour
+    public class AIController : Controller
     {
         [Header("Distance Settings")]
         [SerializeField] float chaseDistance = 5.0f;
@@ -30,8 +30,8 @@ namespace RPG.Control
         [Header("Strafing Settings")]
         [SerializeField] float staminaUsedWhileStrafing = 25.0f;
         [Tooltip("This a percentage from 0% to 100% chance to strafe")]
-        [Range(0f,100f)]
-        [SerializeField] float strafingChance = 50.0f;
+        [Range(0f,1f)]
+        [SerializeField] float strafingChance = 0.3f;
 
         int currentWaypoint = 0;
 
@@ -39,38 +39,31 @@ namespace RPG.Control
         private PlayerController playerController;
 
         private Fighter fighter;
-        private Health health;
 
         private Stamina stamina;
 
         private Health playerHealth;
 
-        bool strafing = false;
-
-        float strafeDuration = 0.8f;
-
-
         Vector3 guardPosition;
         float timeSinceLastSeenPlayer = Mathf.Infinity;
         float timeSinceAggrevated = Mathf.Infinity;
         float timeAtCurrentWaypoint = Mathf.Infinity;
-        float timeSinceStrafeStarted = Mathf.Infinity;
 
         [SerializeField] private List<AIController> enemiesInScene = null;
 
-        public event Action onPlayerAttack;
+        public event Action OnPlayerAttack;
 
         bool aggrevated = false;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             player = GameObject.FindGameObjectWithTag("Player");
             playerController = player.GetComponent<PlayerController>();
             playerHealth = player.GetComponent<Health>();
 
             fighter = GetComponent<Fighter>();
-
-            health = GetComponent<Health>();
 
             stamina = GetComponent<Stamina>();
 
@@ -80,7 +73,7 @@ namespace RPG.Control
 
             GetComponent<Health>().onHealthChanged += Aggrevate;
 
-            onPlayerAttack += Strafe;
+            OnPlayerAttack += Strafe;
         }
 
         private void RemoveAIFromGameSpace()
@@ -101,10 +94,11 @@ namespace RPG.Control
             }
         }
 
-        private void Update()
+        protected override void Update()
         {
             if (health.isDead) return;
 
+            base.Update();
 
             if (IsAggrevated() && fighter.CanAttack(player) && !playerHealth.isDead)
             {
@@ -135,9 +129,6 @@ namespace RPG.Control
             {
                 timeSinceAggrevated = 0.0f;
             }
-
-            timeSinceStrafeStarted += Time.deltaTime;
-
         }
 
         void DeAggrevate()
@@ -168,62 +159,49 @@ namespace RPG.Control
 
         public void Strafe()
         {
-            if (strafing)
-            {
-                if(timeSinceStrafeStarted > strafeDuration)
-                {
-                    strafing = false;
-                    stamina.StaminaUsed(false);
-                }
-                else
-                {
-                    return;
-                }
-            }
+            if (strafing) return;
 
-            if (UnityEngine.Random.Range(0f, 100f) > strafingChance) return;
+            if (UnityEngine.Random.value > strafingChance) return;
 
             if (stamina.CurrentStamina - staminaUsedWhileStrafing < 0) return;
 
             int direction = UnityEngine.Random.Range(1, 3);
 
-            float xMovment = 0.0f;
-            float yMovment = 0.0f;
+            Vector2 dodgeMovement = new Vector2();
+            string animTrigger = "";
 
             switch (direction)
             {
                 case 1:
                     //Strafe Left
-                    StrafeAction("strafeLeft");
-                    xMovment = -1.5f;
+                    animTrigger = "strafeLeft";
+                    dodgeMovement.x = -1.5f;
                     break;
                 case 2:
                     //Strafe Right
-                    StrafeAction("strafeRight");
-                    xMovment = 1.5f;
+                    animTrigger = "strafeRight";
+                    dodgeMovement.x = 1.5f;
                     break;
                 case 3:
                     //Strafe Backward
-                    StrafeAction("strafeDodge");
-                    yMovment = -1.5f;
+                    animTrigger = "strafeBackward";
+                    dodgeMovement.y = -1.5f;
                     break;
             }
 
-            Vector3 newPosition = transform.forward * yMovment + transform.right * xMovment;
+            StrafeAction(animTrigger);
+
+            //Calculate strafing movement
+            Vector3 newPosition = transform.forward * dodgeMovement.y + transform.right * dodgeMovement.x;
 
             newPosition += transform.position;
 
+            GetComponent<Mover>().MoveTo(newPosition, 1.0f, false, false);
             stamina.CurrentStamina -= staminaUsedWhileStrafing;
             stamina.StaminaUsed(true);
-            GetComponent<Mover>().MoveTo(newPosition, 1.0f, false, false);
         }
 
-        private void StrafeAction(string animTrigger)
-        {
-            strafing = true;
-            timeSinceStrafeStarted = 0.0f;
-            GetComponent<Animator>().SetTrigger(animTrigger);
-        }
+
 
         private static void WarningState()
         {
@@ -285,11 +263,6 @@ namespace RPG.Control
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-            if (aggrevated)
-            {
-                float timeLeft = aggrevatedDuration - timeSinceAggrevated;
-            }
-
             return distanceToPlayer < chaseDistance || timeSinceAggrevated < aggrevatedDuration;
         }
 
@@ -310,11 +283,6 @@ namespace RPG.Control
             return false;
         }
 
-        public bool IsStrafing()
-        {
-            return strafing;
-        }
-
         //Called by Unity Editor
         private void OnDrawGizmosSelected()
         {
@@ -323,16 +291,6 @@ namespace RPG.Control
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, warningRadius);
-        }
-
-        //Animation Events
-        void FootR()
-        {
-
-        }
-        void FootL()
-        {
-
         }
     }
 }

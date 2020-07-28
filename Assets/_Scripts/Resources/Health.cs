@@ -29,14 +29,9 @@ namespace RPG.Resources
         {
             if (!canBeDamaged) return;
 
-            if(gameObject.name == "Player")
-            {
-                if (gameObject.GetComponent<PlayerController>().IsStrafing()) return;
-            }
-            else
-            {
-                if (gameObject.GetComponent<AIController>().IsStrafing()) return;
-            }
+
+            if (gameObject.GetComponent<Controller>().IsStrafing 
+                || gameObject.GetComponent<Controller>().IsBlocking) return;
 
             health -= damageIn;
 

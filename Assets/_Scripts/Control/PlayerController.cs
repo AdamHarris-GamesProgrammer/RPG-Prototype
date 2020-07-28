@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 using RPG.Movement;
 using RPG.Combat;
@@ -10,35 +9,29 @@ using UnityEngine.AI;
 
 namespace RPG.Control
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Controller
     {
-        private Mover playerMover;
-        private NavMeshAgent playerAgent;
-        private Health playerHealth;
-
         public float interactionRange = 1.5f;
 
         bool isSprinting = false;
         bool inCombat;
 
-        public bool IsStrafing() { return strafing; }
         public bool InCombat() { return inCombat; }
 
-        [SerializeField] float strafeTime = 0.8f;
-        float timeSinceStrafeStarted = Mathf.Infinity;
+        Camera mainCamera;
 
         List<AIController> enemiesInImmediateCombatArea;
         public List<AIController> aggrevatedEnemies;
 
         float triggerRadius;
 
-        public event Action onCombat;
+        public event Action OnCombat;
 
-        void Awake()
+        protected override void Awake()
         {
-            playerMover = GetComponent<Mover>();
-            playerHealth = GetComponent<Health>();
-            playerAgent = GetComponent<NavMeshAgent>();
+            base.Awake();
+
+            mainCamera = Camera.main;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -49,15 +42,17 @@ namespace RPG.Control
 
             triggerRadius = GetComponent<BoxCollider>().size.x / 2.0f;
 
-            onCombat += CombatBehaviour;
+            OnCombat += CombatBehaviour;
         }
 
 
 
-        void Update()
+        protected override void Update()
         {
             //if the player is dead then dont continue 
-            if (playerHealth.isDead) return;
+            if (health.isDead) return;
+
+            base.Update();
 
             InteractWithCombat();
 
@@ -100,28 +95,21 @@ namespace RPG.Control
             return closestEnemy;
         }
 
-        bool strafing = false;
-
-        void MoveWithKeyboard()
+        private void Block()
         {
-            if (strafing)
+            if (Input.GetKey(KeyCode.E))
             {
-                timeSinceStrafeStarted += Time.deltaTime;
-
-                if(timeSinceStrafeStarted > strafeTime)
-                {
-                    timeSinceStrafeStarted = 0.0f;
-                    strafing = false;
-                    playerAgent.updateRotation = true;
-                }
-
-                return;
+                blocking = true;
+                Debug.Log("Blocking");
             }
-            
-            Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            else if (Input.GetKeyUp(KeyCode.E))
+            {
+                blocking = false;
+            }
+        }
 
-            if (input == Vector2.zero) return;
-
+        private void Sprint()
+        {
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 isSprinting = true;
@@ -130,45 +118,56 @@ namespace RPG.Control
             {
                 isSprinting = false;
             }
+        }
+
+        void MoveWithKeyboard()
+        {
+            Block();
+            Sprint();
+
+            Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+            if (input == Vector2.zero) return;
 
             if (Input.GetKey(KeyCode.C))
             {
-                if (Input.GetKey(KeyCode.W))
-                {
-                    input.y += 1.5f;
-                    Strafe("strafeForward");
-                }
-                else if (Input.GetKey(KeyCode.A))
-                {
-                    input.x -= 1.5f;
-                    Strafe("strafeLeft");
-                    isSprinting = true;
-                }
-                else if (Input.GetKey(KeyCode.S))
-                {
-                    input.y -= 1.5f;
-                    Strafe("strafeBackward");
-                }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    input.x += 1.5f;
-                    Strafe("strafeRight");
-                }
+                StrafeCalculation(ref input);
             }
 
-            Vector3 movement = Camera.main.transform.forward * input.y + Camera.main.transform.right * input.x;
+            Vector3 movement = mainCamera.transform.forward * input.y + mainCamera.transform.right * input.x;
 
             movement += transform.position;
 
-            playerMover.StartMoveAction(movement, 1.0f, isSprinting);
+            mover.StartMoveAction(movement, 1.0f, isSprinting);
         }
 
-        private void Strafe(string animTrigger)
+        private void StrafeCalculation(ref Vector2 direction)
         {
-            strafing = true;
-            playerAgent.updateRotation = false;
-            timeSinceStrafeStarted = 0.0f;
-            GetComponent<Animator>().SetTrigger(animTrigger);
+            string animTrigger = "";
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                direction.y += 1.5f;
+                animTrigger = "strafeForward";
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                direction.x -= 1.5f;
+                animTrigger = "strafeLeft";
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                direction.y -= 1.5f;
+                animTrigger = "strafeBackward";
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                direction.x += 1.5f;
+                animTrigger = "strafeBackward";
+            }
+
+            if (animTrigger == "") return;
+            StrafeAction(animTrigger);
         }
 
         private static Ray GetMouseRay()
@@ -200,7 +199,7 @@ namespace RPG.Control
 
             enemiesInImmediateCombatArea.Add(other.gameObject.GetComponent<AIController>());
 
-            onCombat();
+            OnCombat();
             inCombat = true;
         }
 
@@ -219,24 +218,11 @@ namespace RPG.Control
                 enemiesInImmediateCombatArea.Remove(ai);
             }
 
-            if(aggrevatedEnemies.Count == 0)
+            if (aggrevatedEnemies.Count == 0)
             {
                 inCombat = false;
-                onCombat();
+                OnCombat();
             }
-        }
-
-
-
-        //Animation events
-        void FootL()
-        {
-
-        }
-
-        void FootR()
-        {
-
         }
     }
 }
