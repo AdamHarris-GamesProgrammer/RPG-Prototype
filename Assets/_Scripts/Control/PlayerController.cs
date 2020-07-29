@@ -66,6 +66,7 @@ namespace RPG.Control
 
             if (Input.GetMouseButtonDown(0))
             {
+
                 Vector3 rayPoint = GetMouseRay().GetPoint(triggerRadius);
 
                 //Find the closest enemy to the player
@@ -82,6 +83,7 @@ namespace RPG.Control
                         GetComponent<Fighter>().LightAttack(closestEnemy.gameObject);
                     }
                 }
+
             }
         }
 

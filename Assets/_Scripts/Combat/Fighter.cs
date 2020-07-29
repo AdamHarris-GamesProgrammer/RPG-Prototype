@@ -31,6 +31,10 @@ namespace RPG.Combat
         protected Experience fighterExperience;
         protected Animator fighterAnimator;
 
+
+        bool rangedWeapon;
+        public bool RangedWeapon { get { return rangedWeapon; } }
+
         private void Awake()
         {
             fighterMover = GetComponent<Mover>();
@@ -141,6 +145,15 @@ namespace RPG.Combat
             equippedWeapon.Spawn(rightHandTransform, leftHandTransform, fighterAnimator);
             timeBetweenAttacks = equippedWeapon.AttackTime;
             //equippedWeaponName = equippedWeapon.name;
+
+            if (equippedWeapon.HasProjectile())
+            {
+                rangedWeapon = true;
+            }
+            else
+            {
+                rangedWeapon = false;
+            }
         }
 
         public virtual void HeavyAttack(GameObject combatTarget)
@@ -235,4 +248,3 @@ namespace RPG.Combat
         }
     }
 }
-
