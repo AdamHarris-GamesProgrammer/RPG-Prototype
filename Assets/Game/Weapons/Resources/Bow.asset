@@ -25,3 +25,4 @@ MonoBehaviour:
   attackRange: 14
   timeBetweenAttacks: 2.5
   isRightHanded: 0
+  hasHeavyAttack: 0

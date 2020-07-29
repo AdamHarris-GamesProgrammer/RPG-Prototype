@@ -19,8 +19,6 @@ namespace RPG.Movement
         [SerializeField] float sprintingFactor = 1.2f;
         [Tooltip("Amount of stamina used per second while sprinting")]
         [SerializeField] float sprintEnergy = 12.5f;
-        [Tooltip("Amount of time between using stamina and it starting to regenerate")]
-        [SerializeField] float sprintCooldown = 3.5f;
 
         Stamina stamina;
 
@@ -38,15 +36,11 @@ namespace RPG.Movement
             health = GetComponent<Health>();
 
             stamina = GetComponent<Stamina>();
-
-
         }
 
         private void Update()
         {
             agent.enabled = !health.isDead;
-
-
 
             UpdateAnimator();
         }

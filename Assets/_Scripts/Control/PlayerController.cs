@@ -40,7 +40,7 @@ namespace RPG.Control
             aggrevatedEnemies = new List<AIController>();
 
 
-            triggerRadius = GetComponent<BoxCollider>().size.x / 2.0f;
+            triggerRadius = 2.5f;
 
             OnCombat += CombatBehaviour;
         }
@@ -73,7 +73,14 @@ namespace RPG.Control
 
                 if (GetComponent<Fighter>().CanAttack(closestEnemy.gameObject))
                 {
-                    GetComponent<Fighter>().Attack(closestEnemy.gameObject);
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        GetComponent<Fighter>().HeavyAttack(closestEnemy.gameObject);
+                    }
+                    else
+                    {
+                        GetComponent<Fighter>().LightAttack(closestEnemy.gameObject);
+                    }
                 }
             }
         }
@@ -97,13 +104,14 @@ namespace RPG.Control
 
         private void Block()
         {
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.E) && stamina.CurrentStamina - staminaReductionFromBlocking > 0)
             {
                 blocking = true;
                 Debug.Log("Blocking");
             }
-            else if (Input.GetKeyUp(KeyCode.E))
+            else
             {
+                Debug.Log("Not blocking");
                 blocking = false;
             }
         }
@@ -193,21 +201,12 @@ namespace RPG.Control
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void AddAI(AIController ai)
         {
-            if (!other.gameObject.CompareTag("Enemy")) return;
-
-            enemiesInImmediateCombatArea.Add(other.gameObject.GetComponent<AIController>());
+            enemiesInImmediateCombatArea.Add(ai);
 
             OnCombat();
             inCombat = true;
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (!other.gameObject.CompareTag("Enemy")) return;
-
-            enemiesInImmediateCombatArea.Remove(other.gameObject.GetComponent<AIController>());
         }
 
         public void RemoveAI(AIController ai)

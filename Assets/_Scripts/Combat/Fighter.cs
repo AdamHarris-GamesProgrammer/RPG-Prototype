@@ -23,6 +23,8 @@ namespace RPG.Combat
 
         protected float timeSinceLastAttack = 5.0f;
 
+        protected bool heavyAttack;
+
         protected Mover fighterMover;
         protected Health fighterHealth;
         protected BaseStats fighterStats;
@@ -89,7 +91,16 @@ namespace RPG.Combat
 
         private void AttackBehaviour()
         {
-            fighterAnimator.SetTrigger("attack");
+            if (heavyAttack && equippedWeapon.HasHeavyAttack)
+            {
+                Debug.Log("Heavy Attack");
+                fighterAnimator.SetTrigger("heavyAttack");
+            }
+            else
+            {
+                Debug.Log("Light Attack");
+                fighterAnimator.SetTrigger("lightAttack");
+            }
             transform.LookAt(target);
         }
 
@@ -132,6 +143,19 @@ namespace RPG.Combat
             //equippedWeaponName = equippedWeapon.name;
         }
 
+        public virtual void HeavyAttack(GameObject combatTarget)
+        {
+            heavyAttack = true;
+            Attack(combatTarget);
+        }
+
+        public virtual void LightAttack(GameObject combatTarget)
+        {
+            heavyAttack = false;
+            Attack(combatTarget);
+        }
+
+
         //Animation Event
         void Hit()
         {
@@ -155,6 +179,9 @@ namespace RPG.Combat
                 float damage = fighterStats.GetStat(Stat.Damage, fighterExperience.GetLevel());
                 //Debug.Log(gameObject.name + " deals " + damage + " damage");
                 //Deals damage
+
+                if (heavyAttack) damage *= 1.5f;
+
                 enemyHealthComponent.TakeDamage(gameObject, damage);
             }
 

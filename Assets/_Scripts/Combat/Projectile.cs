@@ -58,10 +58,13 @@ namespace RPG.Combat
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Pickup")) return;
+            if (other.CompareTag("IgnoreTrigger")) return;
+
+            Debug.Log(other.gameObject.name);
 
             if(hitEffect != null)
             {
-                GameObject hitImpact = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
             }
 
             isMoving = false;

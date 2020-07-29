@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 using RPG.Movement;
-using RPG.Combat;
 using RPG.Resources;
 
 namespace RPG.Control
@@ -18,18 +14,29 @@ namespace RPG.Control
         public bool IsStrafing { get { return strafing; } }
         public bool IsBlocking { get { return blocking; } }
 
+        [Header("Strafe Settings")]
         [SerializeField] float strafeDuration = 0.8f;
         protected float timeSinceStrafeStarted = Mathf.Infinity;
 
+        [Header("Block Settings")]
+        [Range(0f,1f)]
+        [SerializeField] float blockDamageReduction = 0.2f;
+        [SerializeField] protected float staminaReductionFromBlocking = 12.0f;
+
+
+        public float BlockReduction { get { return blockDamageReduction; } }
+
         protected Mover mover;
         protected NavMeshAgent agent;
-        protected Health health;
+        protected Health health; 
+        protected Stamina stamina;
 
         protected virtual void Awake()
         {
             mover = GetComponent<Mover>();
             agent = GetComponent<NavMeshAgent>();
             health = GetComponent<Health>();
+            stamina = GetComponent<Stamina>();
         }
 
         protected void StrafeAction(string animTrigger)
@@ -57,6 +64,12 @@ namespace RPG.Control
             }
         }
 
+        public virtual void BlockDamage()
+        {
+            stamina.StaminaUsed(true);
+            stamina.CurrentStamina -= staminaReductionFromBlocking;
+        }
+
         //Animation events
         protected void FootL()
         {
@@ -67,6 +80,8 @@ namespace RPG.Control
         {
 
         }
+
+
     }
 }
 

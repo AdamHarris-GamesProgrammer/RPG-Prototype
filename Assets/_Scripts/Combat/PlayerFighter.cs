@@ -32,7 +32,6 @@ namespace RPG.Combat
             if (isAttacking) return;
             timeSinceLastAttack = 0.0f;
 
-
             target = combatTarget.transform;
 
             Debug.Log("Target Name: " + target.name);
@@ -40,7 +39,18 @@ namespace RPG.Combat
             if (!IsInRange(target.position)) return;
 
             transform.LookAt(target);
-            fighterAnimator.SetTrigger("attack");
+
+            if (heavyAttack)
+            {
+                Debug.Log("Heavy Attack");
+                fighterAnimator.SetTrigger("heavyAttack");
+            }
+            else
+            {
+                Debug.Log("Light Attack");
+                fighterAnimator.SetTrigger("lightAttack");
+            }
+
 
             target.GetComponent<AIController>().Strafe();
         }

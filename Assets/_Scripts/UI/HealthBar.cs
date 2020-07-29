@@ -13,7 +13,7 @@ public class HealthBar : MonoBehaviour
     private void Awake()
     {
         healthComponent = GetComponent<Health>();
-        healthComponent.onHealthChanged += UpdateBar;
+        healthComponent.OnHealthChanged += UpdateBar;
     }
 
     public void UpdateBar()

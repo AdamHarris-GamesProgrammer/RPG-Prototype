@@ -40,7 +40,7 @@ namespace RPG.Control
 
         private Fighter fighter;
 
-        private Stamina stamina;
+        
 
         private Health playerHealth;
 
@@ -50,8 +50,6 @@ namespace RPG.Control
         float timeAtCurrentWaypoint = Mathf.Infinity;
 
         [SerializeField] private List<AIController> enemiesInScene = null;
-
-        public event Action OnPlayerAttack;
 
         bool aggrevated = false;
 
@@ -67,13 +65,11 @@ namespace RPG.Control
 
             stamina = GetComponent<Stamina>();
 
-            health.onDeath += RemoveAIFromGameSpace;
+            health.OnDeath += RemoveAIFromGameSpace;
 
             guardPosition = transform.position;
 
-            GetComponent<Health>().onHealthChanged += Aggrevate;
-
-            OnPlayerAttack += Strafe;
+            GetComponent<Health>().OnHealthChanged += Aggrevate;
         }
 
         private void RemoveAIFromGameSpace()

@@ -29,6 +29,7 @@ namespace RPG.Combat
         [SerializeField] private float timeBetweenAttacks = 1.0f;
 
         [SerializeField] bool isRightHanded = true;
+        [SerializeField] bool hasHeavyAttack = true;
 
         const string weaponName = "Weapon";
 
@@ -36,6 +37,8 @@ namespace RPG.Combat
         public float AttackTime { get { return timeBetweenAttacks; } }
 
         public float PercentageBonus { get { return percentageBonus; } }
+
+        public bool HasHeavyAttack { get { return hasHeavyAttack; } }
 
         public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
         {

@@ -12,8 +12,8 @@ namespace RPG.Resources
         float maxHealth;
         [SerializeField] private float health;
 
-        public event Action onHealthChanged;
-        public event Action onDeath;
+        public event Action OnHealthChanged;
+        public event Action OnDeath;
 
         public bool isDead;
         [SerializeField] bool canBeDamaged = true;
@@ -29,15 +29,23 @@ namespace RPG.Resources
         {
             if (!canBeDamaged) return;
 
+            Controller controller = gameObject.GetComponent<Controller>();
 
-            if (gameObject.GetComponent<Controller>().IsStrafing 
-                || gameObject.GetComponent<Controller>().IsBlocking) return;
+            if (controller.IsBlocking)
+            {
+                float reduction = controller.BlockReduction;
+
+                //Debug.Log("Damage before block: " + damageIn);
+                damageIn *= 1 - reduction;
+                //Debug.Log("Damage after block: " + damageIn);
+                controller.BlockDamage();
+            }
 
             health -= damageIn;
 
             health = Mathf.Clamp(health, 0.0f, maxHealth);
 
-            onHealthChanged();
+            OnHealthChanged();
 
             if (health <= 0.0f)
             {
@@ -55,7 +63,7 @@ namespace RPG.Resources
         {
             if (isDead) return;
 
-            onDeath();
+            OnDeath();
 
             isDead = true;
             GetComponent<Animator>().SetTrigger("death");
@@ -74,7 +82,7 @@ namespace RPG.Resources
         {
             maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health, GetComponent<Experience>().GetLevel());
             health = maxHealth;
-            onHealthChanged();
+            OnHealthChanged();
         }
 
         //Implements the ISaveable interface
