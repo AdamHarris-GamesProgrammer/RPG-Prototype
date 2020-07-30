@@ -102,7 +102,7 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3f6fc0cf5e5d31c458bc74ede87cb8ae, type: 2}
-    - target: {fileID: 9067095325799555494, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
+    - target: {fileID: 8114855866290587281, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: defaultWeapon
       value: 
@@ -110,9 +110,10 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 9067095325799555494, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
-      propertyPath: defaultWeaponName
-      value: Fireball
-      objectReference: {fileID: 0}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 6e51c3ea18622674598be1d33baf2442,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f9fa0c33641e7d4bae7dce2424c57a4, type: 3}
 --- !u!1 &4154510375002901061 stripped

@@ -76,11 +76,11 @@ namespace RPG.Control
                 {
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
-                        GetComponent<Fighter>().HeavyAttack(closestEnemy.gameObject);
+                        GetComponent<Fighter>().Attack(closestEnemy.gameObject, true);
                     }
                     else
                     {
-                        GetComponent<Fighter>().LightAttack(closestEnemy.gameObject);
+                        GetComponent<Fighter>().Attack(closestEnemy.gameObject, false);
                     }
                 }
 

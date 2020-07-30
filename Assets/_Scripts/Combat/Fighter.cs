@@ -16,12 +16,10 @@ namespace RPG.Combat
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Weapon defaultWeapon = null;
-        [Range(0f,1f)]
-        [SerializeField] private float chanceForHeavyAttack = 0.2f;
 
         private Weapon equippedWeapon = null;
 
-        [HideInInspector] public Transform target;
+        protected Transform target;
 
         protected float timeSinceLastAttack = 5.0f;
 
@@ -53,24 +51,6 @@ namespace RPG.Combat
         protected virtual void Update()
         {
             UpdateTimers();
-
-            if (fighterHealth.isDead || target == null) return;
-
-            //checks if the target is in range
-            bool inRange = IsInRange(target.position);
-
-            //if the target is not in range
-            if (inRange)
-            {
-                //if the time since last attacked is greater than the cooldown
-                if (timeSinceLastAttack >= timeBetweenAttacks)
-                {
-                    //then attack
-                    GenerateHeavyAttackChance();
-                    AttackBehaviour();
-                    timeSinceLastAttack = 0.0f;
-                }
-            }
         }
 
         protected virtual void UpdateTimers()
@@ -78,12 +58,12 @@ namespace RPG.Combat
             timeSinceLastAttack += Time.deltaTime;
         }
 
-        public bool IsInRange(Vector3 target)
+        public bool IsInRangeOfWeapon(Vector3 target)
         {
             return Vector3.Distance(transform.position, target) < equippedWeapon.AttackRange;
         }
 
-        private void AttackBehaviour()
+        protected void AttackBehaviour()
         {
             if (heavyAttack && equippedWeapon.HasHeavyAttack)
             {
@@ -96,11 +76,18 @@ namespace RPG.Combat
             transform.LookAt(target);
         }
 
+        public virtual void Attack(GameObject combatTarget, bool isHeavyAttack)
+        {
+            GetComponent<ActionScheduler>().StartAction(this);
+
+            target = combatTarget.transform;
+            heavyAttack = isHeavyAttack;
+        }
+
         public virtual void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
 
-            //Debug.Log("Take that, Tarquin!");
             target = combatTarget.transform;
         }
 
@@ -114,41 +101,11 @@ namespace RPG.Combat
         
         public void EquipWeapon(Weapon weapon)
         {
-            if(weapon == null)
-            {
-                Debug.LogError("[Error]: Fighter.cs weapon is null");
-            }
+            if(!weapon) Debug.LogError("[Error]: Fighter.cs weapon is null");
 
             equippedWeapon = weapon;
             equippedWeapon.Spawn(rightHandTransform, leftHandTransform, fighterAnimator);
             timeBetweenAttacks = equippedWeapon.AttackTime;
-        }
-
-        public virtual void HeavyAttack(GameObject combatTarget)
-        {
-            heavyAttack = true;
-            Attack(combatTarget);
-        }
-
-        public virtual void LightAttack(GameObject combatTarget)
-        {
-            heavyAttack = false;
-            Attack(combatTarget);
-        }
-
-
-        private void GenerateHeavyAttackChance()
-        {
-            if (UnityEngine.Random.value < chanceForHeavyAttack)
-            {
-                heavyAttack = true;
-                Debug.Log("Enemy Heavy Attack");
-            }
-            else
-            {
-                heavyAttack = false;
-                Debug.Log("Enemy Light Attack");
-            }
         }
 
         //Animation Event
@@ -156,8 +113,8 @@ namespace RPG.Combat
         {
             //if the target is null then return
             if (target == null) return;
-            //if the target is not in range then return
-            if (!IsInRange(target.position)) return;
+            //if the target is not in range of the weapon then return
+            if (!IsInRangeOfWeapon(target.position)) return;
 
             //Gets the health component from the target
             Health enemyHealthComponent = target.GetComponent<Health>();
@@ -165,25 +122,26 @@ namespace RPG.Combat
             //if the target does not have a health component
             if (!enemyHealthComponent) return;
 
+            //if the enemy is dead cancel the fighter state
+            if (enemyHealthComponent.isDead)
+            {
+                Cancel();
+            }
+
+            //if the equipped weapon is a projectile based weapon
             if (equippedWeapon.HasProjectile())
             {
+                //Launch the projectile
                 equippedWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, enemyHealthComponent, gameObject);
             }
             else
             {
                 float damage = fighterStats.GetStat(Stat.Damage, fighterExperience.GetLevel());
                 //Debug.Log(gameObject.name + " deals " + damage + " damage");
-                //Deals damage
 
                 if (heavyAttack) damage *= 1.5f;
 
                 enemyHealthComponent.TakeDamage(gameObject, damage, heavyAttack);
-            }
-
-            //if the enemy is dead cancel the fighter state
-            if (enemyHealthComponent.isDead)
-            {
-                Cancel();
             }
         }
 

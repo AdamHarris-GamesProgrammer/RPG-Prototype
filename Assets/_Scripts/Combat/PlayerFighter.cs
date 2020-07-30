@@ -10,12 +10,6 @@ namespace RPG.Combat
     {
         bool isAttacking = false;
 
-
-        protected override void Update()
-        {
-            UpdateTimers();
-        }
-
         protected override void UpdateTimers()
         {
             base.UpdateTimers();
@@ -27,7 +21,7 @@ namespace RPG.Combat
 
         }
 
-        public override void Attack(GameObject combatTarget)
+        public override void Attack(GameObject combatTarget, bool isHeavyAttack)
         {
             if (isAttacking) return;
             timeSinceLastAttack = 0.0f;
@@ -36,7 +30,7 @@ namespace RPG.Combat
 
             Debug.Log("Target Name: " + target.name);
 
-            if (!IsInRange(target.position)) return;
+            if (!IsInRangeOfWeapon(target.position)) return;
 
             transform.LookAt(target);
 

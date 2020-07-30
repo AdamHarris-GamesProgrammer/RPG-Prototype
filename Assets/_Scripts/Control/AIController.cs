@@ -149,7 +149,7 @@ namespace RPG.Control
             Aggrevate();
             timeSinceLastSeenPlayer = 0.0f;
 
-            if (fighter.IsInRange(player.transform.position))
+            if (fighter.IsInRangeOfWeapon(player.transform.position))
             {
                 fighter.Attack(player);
             }
