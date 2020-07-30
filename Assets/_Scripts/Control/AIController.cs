@@ -102,7 +102,9 @@ namespace RPG.Control
 
             base.Update();
 
-            if (IsAggrevated() && fighter.CanAttack(player) && !playerHealth.isDead)
+            //LineOfSight();
+
+            if (LineOfSight() && IsAggrevated() && fighter.CanAttack(player) && !playerHealth.isDead)
             {
                 AttackState();
             }
@@ -132,6 +134,26 @@ namespace RPG.Control
                 timeSinceAggrevated = 0.0f;
             }
         }
+
+        Vector3 rayDirection;
+
+        bool LineOfSight()
+        {
+            RaycastHit hit;
+            rayDirection = player.transform.position - transform.position;
+
+            if(Vector3.Angle(rayDirection, transform.forward) < 45.0f)
+            {
+                Debug.DrawLine(transform.position, player.transform.position, Color.green);
+                return true;
+            }
+            else
+            {
+                Debug.DrawLine(transform.position, player.transform.position, Color.red);
+                return false;
+            }
+        }
+
 
         void DeAggrevate()
         {
