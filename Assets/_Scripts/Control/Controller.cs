@@ -64,10 +64,17 @@ namespace RPG.Control
             }
         }
 
-        public virtual void BlockDamage()
+        public virtual void BlockDamage(bool heavyAttack)
         {
             stamina.StaminaUsed(true);
-            stamina.CurrentStamina -= staminaReductionFromBlocking;
+            if (heavyAttack)
+            {
+                stamina.CurrentStamina -= staminaReductionFromBlocking * 2.0f;
+            }
+            else
+            {
+                stamina.CurrentStamina -= staminaReductionFromBlocking;
+            }
         }
 
         //Animation events

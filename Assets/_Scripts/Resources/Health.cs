@@ -25,7 +25,7 @@ namespace RPG.Resources
             GetComponent<Experience>().onLevelUp += FillHealth;
         }
 
-        public void TakeDamage(GameObject instigator, float damageIn)
+        public void TakeDamage(GameObject instigator, float damageIn, bool isHeavyAttack)
         {
             if (!canBeDamaged) return;
 
@@ -35,19 +35,11 @@ namespace RPG.Resources
             {
                 float reduction = controller.BlockReduction;
 
-                
-                if (gameObject.name != "Player")
-                {
-                    Debug.Log("Damage before block: " + damageIn);
-
-                }
+                //Debug.Log("Damage before block: " + damageIn);
                 damageIn *= 1 - reduction;
-                if(gameObject.name != "Player")
-                {
-                    Debug.Log("Damage after block: " + damageIn);
+                //Debug.Log("Damage after block: " + damageIn);
 
-                }
-                controller.BlockDamage();
+                controller.BlockDamage(isHeavyAttack);
             }
 
             health -= damageIn;
@@ -60,11 +52,11 @@ namespace RPG.Resources
             {
                 DeathBehaviour();
 
-                if(instigator.TryGetComponent(out Experience xp))
+                if (instigator.TryGetComponent(out Experience xp))
                 {
                     xp.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
                 }
-                
+
             }
         }
 
@@ -105,7 +97,7 @@ namespace RPG.Resources
             //Debug.Log(gameObject.name + " health is: " + (float)state);
             health = (float)state;
 
-            if(health <= 0)
+            if (health <= 0)
             {
                 DeathBehaviour();
             }

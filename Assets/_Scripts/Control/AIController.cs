@@ -36,6 +36,7 @@ namespace RPG.Control
         [Tooltip("This is a percentage from 0 to 1 for chance to block attack")]
         [Range(0f, 1f)]
         [SerializeField] float chanceToBlock = 0.3f;
+
         
 
         int currentWaypoint = 0;
@@ -183,14 +184,11 @@ namespace RPG.Control
                 Debug.Log("Enemy does nothing");
                 blocking = false;
             }
-
         }
 
         private void Strafe()
         {
             if (strafing) return;
-
-            if (UnityEngine.Random.value > strafingChance) return;
 
             if (stamina.CurrentStamina - staminaUsedWhileStrafing < 0) return;
 

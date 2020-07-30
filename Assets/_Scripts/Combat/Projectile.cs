@@ -85,7 +85,7 @@ namespace RPG.Combat
 
             if (targetHealth == null) return;
 
-            targetHealth.TakeDamage(instigator, damage);
+            targetHealth.TakeDamage(instigator, damage, false);
            
         }
     }

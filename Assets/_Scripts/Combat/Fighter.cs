@@ -16,6 +16,8 @@ namespace RPG.Combat
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Weapon defaultWeapon = null;
+        [Range(0f,1f)]
+        [SerializeField] private float chanceForHeavyAttack = 0.2f;
 
         private Weapon equippedWeapon = null;
 
@@ -30,10 +32,6 @@ namespace RPG.Combat
         protected BaseStats fighterStats;
         protected Experience fighterExperience;
         protected Animator fighterAnimator;
-
-
-        bool rangedWeapon;
-        public bool RangedWeapon { get { return rangedWeapon; } }
 
         private void Awake()
         {
@@ -68,6 +66,7 @@ namespace RPG.Combat
                 if (timeSinceLastAttack >= timeBetweenAttacks)
                 {
                     //then attack
+                    GenerateHeavyAttackChance();
                     AttackBehaviour();
                     timeSinceLastAttack = 0.0f;
                 }
@@ -79,15 +78,6 @@ namespace RPG.Combat
             timeSinceLastAttack += Time.deltaTime;
         }
 
-        protected bool SafetyChecks()
-        {
-            bool safe = false;
-
-            if (fighterHealth.isDead || target == null) safe = false;
-
-            return safe;
-        }
-
         public bool IsInRange(Vector3 target)
         {
             return Vector3.Distance(transform.position, target) < equippedWeapon.AttackRange;
@@ -97,12 +87,10 @@ namespace RPG.Combat
         {
             if (heavyAttack && equippedWeapon.HasHeavyAttack)
             {
-                Debug.Log("Heavy Attack");
                 fighterAnimator.SetTrigger("heavyAttack");
             }
             else
             {
-                Debug.Log("Light Attack");
                 fighterAnimator.SetTrigger("lightAttack");
             }
             transform.LookAt(target);
@@ -114,16 +102,6 @@ namespace RPG.Combat
 
             //Debug.Log("Take that, Tarquin!");
             target = combatTarget.transform;
-        }
-
-        public void Cancel()
-        {
-            target = null;
-
-            if (gameObject.name == "Player") return;
-
-            fighterMover.Cancel();
-            //print(gameObject.name + " fighter canceling");
         }
 
         public bool CanAttack(GameObject target)
@@ -144,16 +122,6 @@ namespace RPG.Combat
             equippedWeapon = weapon;
             equippedWeapon.Spawn(rightHandTransform, leftHandTransform, fighterAnimator);
             timeBetweenAttacks = equippedWeapon.AttackTime;
-            //equippedWeaponName = equippedWeapon.name;
-
-            if (equippedWeapon.HasProjectile())
-            {
-                rangedWeapon = true;
-            }
-            else
-            {
-                rangedWeapon = false;
-            }
         }
 
         public virtual void HeavyAttack(GameObject combatTarget)
@@ -168,6 +136,20 @@ namespace RPG.Combat
             Attack(combatTarget);
         }
 
+
+        private void GenerateHeavyAttackChance()
+        {
+            if (UnityEngine.Random.value < chanceForHeavyAttack)
+            {
+                heavyAttack = true;
+                Debug.Log("Enemy Heavy Attack");
+            }
+            else
+            {
+                heavyAttack = false;
+                Debug.Log("Enemy Light Attack");
+            }
+        }
 
         //Animation Event
         void Hit()
@@ -195,7 +177,7 @@ namespace RPG.Combat
 
                 if (heavyAttack) damage *= 1.5f;
 
-                enemyHealthComponent.TakeDamage(gameObject, damage);
+                enemyHealthComponent.TakeDamage(gameObject, damage, heavyAttack);
             }
 
             //if the enemy is dead cancel the fighter state
@@ -205,12 +187,19 @@ namespace RPG.Combat
             }
         }
 
-        //Animation Event
-        void Shoot()
+        #region IAction
+        public void Cancel()
         {
-            Hit();
-        }
+            target = null;
 
+            if (gameObject.name == "Player") return;
+
+            fighterMover.Cancel();
+            //print(gameObject.name + " fighter canceling");
+        }
+        #endregion
+
+        #region ISaveable
         //Implements ISaveable interface
         public object CaptureState()
         {
@@ -229,7 +218,9 @@ namespace RPG.Combat
             Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
         }
+        #endregion
 
+        #region IModifierProvider
         //Implements IModifierProvider interface
         public IEnumerable<float> GetAdditiveModifiers(Stat stat)
         {
@@ -246,5 +237,7 @@ namespace RPG.Combat
                 yield return equippedWeapon.PercentageBonus;
             }
         }
+        #endregion
+
     }
 }
