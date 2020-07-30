@@ -51,8 +51,7 @@ namespace RPG.Combat
                 fighterAnimator.SetTrigger("lightAttack");
             }
 
-
-            target.GetComponent<AIController>().Strafe();
+            target.GetComponent<AIController>().DecideDefence();
         }
     }
 }

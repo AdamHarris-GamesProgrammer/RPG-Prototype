@@ -27,11 +27,16 @@ namespace RPG.Control
         [Range(0f,1f)]
         [SerializeField] float patrollingSpeedFraction = 0.2f;
 
-        [Header("Strafing Settings")]
+        [Header("Dodge/Block Settings")]
         [SerializeField] float staminaUsedWhileStrafing = 25.0f;
-        [Tooltip("This a percentage from 0% to 100% chance to strafe")]
+        [Tooltip("This is a percentage from 0 to 1 for chance to dodge")]
         [Range(0f,1f)]
         [SerializeField] float strafingChance = 0.3f;
+        [SerializeField] float staminaUsedWhileBlocking = 12.5f;
+        [Tooltip("This is a percentage from 0 to 1 for chance to block attack")]
+        [Range(0f, 1f)]
+        [SerializeField] float chanceToBlock = 0.3f;
+        
 
         int currentWaypoint = 0;
 
@@ -153,7 +158,35 @@ namespace RPG.Control
             }
         }
 
-        public void Strafe()
+        public void DecideDefence()
+        {
+            float value = UnityEngine.Random.value;
+
+            float rangeToDodge = 1 - strafingChance;
+            float rangeToBlock = rangeToDodge - chanceToBlock;
+
+            Debug.Log("Random Value: " + value + " Range to dodge: " + rangeToDodge + " Range to block: " + rangeToBlock);
+
+            if(value < rangeToBlock)
+            {
+                Debug.Log("Enemy Block");
+                blocking = true;
+            }
+            else if(value < rangeToDodge)
+            {
+                Debug.Log("Enemy Dodge");
+                Strafe();
+                blocking = false;
+            }
+            else
+            {
+                Debug.Log("Enemy does nothing");
+                blocking = false;
+            }
+
+        }
+
+        private void Strafe()
         {
             if (strafing) return;
 
