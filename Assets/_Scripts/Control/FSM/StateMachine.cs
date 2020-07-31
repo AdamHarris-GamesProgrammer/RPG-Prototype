@@ -21,7 +21,8 @@ namespace RPG.Control
         Guard,
         Patrol,
         Chase,
-        Attack
+        Attack,
+        Dead
     }
 
 

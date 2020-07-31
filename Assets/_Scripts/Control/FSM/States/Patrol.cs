@@ -21,11 +21,10 @@ namespace RPG.Control
         public override void Reason(Transform player, Transform npc)
         {
             //TODO: Link up chase distances etc
-            //if (Vector3.Distance(npc.position, player.position) < 15.0f)
-            //{
-            //    Debug.Log("Switching to Chase State");
-            //    npc.GetComponent<NPCController>().SetTransition(Transition.PlayerInChaseDistance);
-            //}
+            if (Vector3.Distance(npc.position, player.position) < 15.0f)
+            {
+                npc.GetComponent<NPCController>().SetTransition(Transition.PlayerInChaseDistance);
+            }
 
             if (AtWaypoint(npc))
             {

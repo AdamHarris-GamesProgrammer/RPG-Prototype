@@ -19,9 +19,13 @@ namespace RPG.Control
 
         public override void Reason(Transform player, Transform npc)
         {
-            if(dwellTimer > dwellDuration)
+            if (Vector3.Distance(npc.position, player.position) < 15.0f)
             {
+                npc.GetComponent<NPCController>().SetTransition(Transition.PlayerInChaseDistance);
+            }
 
+            if (dwellTimer > dwellDuration)
+            {
                 dwellTimer = 0.0f;
 
                 npc.GetComponent<NPCController>().SetTransition(Transition.WaitTimeOver);

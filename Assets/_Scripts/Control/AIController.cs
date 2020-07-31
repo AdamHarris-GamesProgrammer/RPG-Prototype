@@ -228,8 +228,6 @@ namespace RPG.Control
             stamina.StaminaUsed(true);
         }
 
-
-
         private static void WarningState()
         {
             //Debug.Log("Im warning you, back off!");
