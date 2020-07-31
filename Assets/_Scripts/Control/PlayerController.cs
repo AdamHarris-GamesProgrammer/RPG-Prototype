@@ -113,7 +113,7 @@ namespace RPG.Control
             }
             else
             {
-                Debug.Log("Not blocking");
+                //Debug.Log("Not blocking");
                 blocking = false;
             }
         }

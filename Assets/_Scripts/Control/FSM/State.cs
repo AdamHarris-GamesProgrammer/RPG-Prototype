@@ -13,7 +13,7 @@ namespace RPG.Control
         public StateID ID { get { return stateID; } }
 
         protected Vector3 destinationPos;
-        protected Vector3 waypoints;
+        protected PatrolPath waypoints;
 
         public void AddTransition(Transition transition, StateID id)
         {
@@ -47,6 +47,10 @@ namespace RPG.Control
             Debug.LogError("[Error: StateMachine.cs]: " + transition + " Transition passed to the state was not found");
             return StateID.None;
         }
+
+        public abstract void OnEntry();
+
+        public abstract void OnExit();
 
         //This method checks if we should transition out of this state
         public abstract void Reason(Transform player, Transform npc);

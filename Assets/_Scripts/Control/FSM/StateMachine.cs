@@ -33,7 +33,7 @@ namespace RPG.Control
 
         protected GameObject[] pointList;
 
-        private List<State> states;
+        [SerializeField] private List<State> states;
 
         private StateID currentStateID;
         public StateID CurrentStateID { get { return currentStateID; } }
@@ -49,19 +49,25 @@ namespace RPG.Control
         //Adds the passed in state
         public void AddState(State state)
         {
-            if (state == null) return;
-
-            if(states.Count == 0)
+            if (state == null)
             {
+                Debug.LogError("Add State state is null");
+                return;
+            }
+
+            if (states.Count == 0)
+            {
+                Debug.Log("This is state 0");
                 states.Add(state);
                 currentState = state;
+                currentState.OnEntry();
                 currentStateID = state.ID;
                 return;
             }
 
-            foreach(State loopState in states)
+            foreach (State loopState in states)
             {
-                if(loopState.ID == state.ID)
+                if (loopState.ID == state.ID)
                 {
                     Debug.LogError("[Error: StateMachine.cs]: Trying to add a state that is already in states");
                     return;
@@ -69,12 +75,13 @@ namespace RPG.Control
             }
 
             states.Add(state);
+            Debug.Log("State added");
         }
 
         //Deletes the passed in state to the states list
         public void DeleteState(StateID stateID)
         {
-            if(stateID == StateID.None)
+            if (stateID == StateID.None)
             {
                 Debug.LogError("[Error: StateMachine.cs]: StateID is set to None");
                 return;
@@ -94,21 +101,27 @@ namespace RPG.Control
 
         public void PerformTransition(Transition transition)
         {
-            if(transition == Transition.None)
+            if (transition == Transition.None)
             {
                 Debug.LogError("[Error: StateMachine.cs]: The passed in transition is set to none");
                 return;
             }
 
             StateID id = currentState.GetOutputState(transition);
-            if (id == StateID.None) return;
+            if (id == StateID.None)
+            {
+                Debug.LogError("[Error: StateMachine.cs]: Current state does not have a target state for this transition");
+                return;
+            }
 
             currentStateID = id;
-            foreach(State state in states)
+            foreach (State state in states)
             {
-                if(state.ID == currentStateID)
+                if (state.ID == currentStateID)
                 {
+                    currentState.OnExit();
                     currentState = state;
+                    currentState.OnEntry();
                     break;
                 }
             }
