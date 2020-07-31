@@ -11,7 +11,7 @@ namespace RPG.Control
         int currentWaypoint;
 
 
-        public Patrol(PatrolPath inPath)
+        public Patrol(NPCController controller, PatrolPath inPath) : base(controller)
         {
             waypoints = inPath;
             stateID = StateID.Patrol;
@@ -23,14 +23,14 @@ namespace RPG.Control
             //TODO: Link up chase distances etc
             if (Vector3.Distance(npc.position, player.position) < 15.0f)
             {
-                npc.GetComponent<NPCController>().SetTransition(Transition.PlayerInChaseDistance);
+                controller.SetTransition(Transition.PlayerInChaseDistance);
             }
 
             if (AtWaypoint(npc))
             {
                 npc.GetComponent<Mover>().Cancel();
 
-                npc.GetComponent<NPCController>().SetTransition(Transition.AtWaypoint);
+                controller.SetTransition(Transition.AtWaypoint);
             }
         }
 
@@ -50,7 +50,7 @@ namespace RPG.Control
             nextPosition = waypoints.GetWaypointPosition(currentWaypoint);
 
             //TODO: Link patrolling speed fraction
-            npc.GetComponent<Mover>().StartMoveAction(nextPosition, 1.0f, false);
+            controller.GetComponent<Mover>().StartMoveAction(nextPosition, 1.0f, false);
         }
 
         private bool AtWaypoint(Transform npc)
@@ -63,16 +63,6 @@ namespace RPG.Control
             }
 
             return false;
-        }
-
-        public override void OnEntry()
-        {
-            Debug.Log("Entered patrol state");
-        }
-
-        public override void OnExit()
-        {
-            Debug.Log("Exited patrol state");
         }
     }
 }

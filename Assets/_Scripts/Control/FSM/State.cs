@@ -14,6 +14,7 @@ namespace RPG.Control
 
         protected Vector3 destinationPos;
         protected PatrolPath waypoints;
+        protected NPCController controller;
 
         public void AddTransition(Transition transition, StateID id)
         {
@@ -48,9 +49,14 @@ namespace RPG.Control
             return StateID.None;
         }
 
-        public abstract void OnEntry();
+        public State(NPCController controller)
+        {
+            this.controller = controller;
+        }
 
-        public abstract void OnExit();
+        public virtual void OnEntry() { }
+
+        public virtual void OnExit() { }
 
         //This method checks if we should transition out of this state
         public abstract void Reason(Transform player, Transform npc);

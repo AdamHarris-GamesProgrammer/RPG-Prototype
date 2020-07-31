@@ -12,7 +12,8 @@ namespace RPG.Control
         PlayerInChaseDistance,
         PlayerLeavesChaseDistance,
         PlayerInAttackRange,
-        PlayerLeavesAttackRange
+        PlayerLeavesAttackRange,
+        SuspicionTimeUp
     }
 
     public enum StateID
@@ -22,6 +23,7 @@ namespace RPG.Control
         Patrol,
         Chase,
         Attack,
+        Suspicion,
         Dead
     }
 

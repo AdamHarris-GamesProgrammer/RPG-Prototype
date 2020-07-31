@@ -11,6 +11,9 @@ namespace RPG.Control
         [SerializeField] float waypointTolerance = 1.0f;
         [SerializeField] float waypointDwellTime = 3.5f;
 
+        [Header("Suspicion Settings")]
+        [SerializeField] float suspicionDuration = 10.0f;
+
         protected override void Initialize()
         {
             GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
@@ -49,23 +52,26 @@ namespace RPG.Control
 
         private void ConstructStateMachine()
         {
-            Patrol patrol = new Patrol(patrolPath);
+            Patrol patrol = new Patrol(this, patrolPath);
             patrol.AddTransition(Transition.AtWaypoint, StateID.Guard);
             patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
-            Guard guard = new Guard(waypointDwellTime);
+            Guard guard = new Guard(this, waypointDwellTime);
             guard.AddTransition(Transition.WaitTimeOver, StateID.Patrol);
             guard.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
-            Chase chase = new Chase();
+            Chase chase = new Chase(this);
             chase.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
-            chase.AddTransition(Transition.PlayerLeavesChaseDistance, StateID.Patrol);
+            chase.AddTransition(Transition.PlayerLeavesChaseDistance, StateID.Suspicion);
 
+            Suspicion suspicion = new Suspicion(this, suspicionDuration);
+            suspicion.AddTransition(Transition.SuspicionTimeUp, StateID.Patrol);
+            suspicion.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
-            Attack attack = new Attack();
+            Attack attack = new Attack(this);
             attack.AddTransition(Transition.PlayerLeavesAttackRange, StateID.Chase);
 
-            Dead dead = new Dead();
+            Dead dead = new Dead(this);
 
             AddState(patrol);
             AddState(guard);

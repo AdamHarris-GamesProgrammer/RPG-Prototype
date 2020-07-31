@@ -8,18 +8,9 @@ namespace RPG.Control
     public class Dead : State
     {
         bool animPlayed;
-        public Dead()
+        public Dead(NPCController controller) : base(controller)
         {
             stateID = StateID.Dead;
-        }
-
-
-        public override void OnEntry()
-        {
-        }
-
-        public override void OnExit()
-        {
         }
 
         public override void Reason(Transform player, Transform npc)
@@ -30,7 +21,7 @@ namespace RPG.Control
         {
             if (!animPlayed)
             {
-                npc.GetComponent<Animator>().SetTrigger("death");
+                controller.GetComponent<Animator>().SetTrigger("death");
                 animPlayed = true;
             }
         }

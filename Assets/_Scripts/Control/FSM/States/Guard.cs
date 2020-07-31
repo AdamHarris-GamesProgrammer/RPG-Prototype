@@ -9,7 +9,7 @@ namespace RPG.Control
         float dwellDuration;
         float dwellTimer;
 
-        public Guard(float time)
+        public Guard(NPCController controller, float time) : base(controller)
         {
             dwellDuration = time;
             dwellTimer = 0.0f;
@@ -21,14 +21,12 @@ namespace RPG.Control
         {
             if (Vector3.Distance(npc.position, player.position) < 15.0f)
             {
-                npc.GetComponent<NPCController>().SetTransition(Transition.PlayerInChaseDistance);
+                controller.SetTransition(Transition.PlayerInChaseDistance);
             }
 
             if (dwellTimer > dwellDuration)
             {
-                dwellTimer = 0.0f;
-
-                npc.GetComponent<NPCController>().SetTransition(Transition.WaitTimeOver);
+                controller.SetTransition(Transition.WaitTimeOver);
             }
         }
 

@@ -109,7 +109,6 @@ namespace RPG.Control
             else if (IsPlayerInRange(warningRadius))
             {
                 DeAggrevate();
-                WarningState();
             }
             else if (timeSinceLastSeenPlayer < suspiscionDuration)
             {
@@ -119,7 +118,6 @@ namespace RPG.Control
             else
             {
                 DeAggrevate();
-                PatrolState();
             }
             timeSinceLastSeenPlayer += Time.deltaTime;
 
@@ -228,41 +226,12 @@ namespace RPG.Control
             stamina.StaminaUsed(true);
         }
 
-        private static void WarningState()
-        {
-            //Debug.Log("Im warning you, back off!");
-        }
         private void SuspicionState()
         {
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
-        private void PatrolState()
-        {
-
-            Vector3 nextPosition = guardPosition;
-
-            if(patrolPath != null)
-            {
-                if (AtWaypoint())
-                {
-                    timeAtCurrentWaypoint += Time.deltaTime;
-
-                    if(timeAtCurrentWaypoint >= dwellTime)
-                    {
-                        timeAtCurrentWaypoint = 0.0f;
-
-                        currentWaypoint++;
-                        currentWaypoint = patrolPath.CycleWaypoint(currentWaypoint);
-                    }
-                }
-                //Set next position to current Waypoint
-                nextPosition = patrolPath.GetWaypointPosition(currentWaypoint);
-            }
-
-            GetComponent<Mover>().StartMoveAction(nextPosition, patrollingSpeedFraction, false);
-            
-        }
+        
 
         public void Aggrevate()
         {
@@ -296,17 +265,7 @@ namespace RPG.Control
             return Vector3.Distance(player.transform.position, transform.position) < distance;
         }
 
-        private bool AtWaypoint()
-        {
-            float distanceToWaypoint = Vector3.Distance(transform.position, patrolPath.GetWaypointPosition(currentWaypoint));
 
-            if (distanceToWaypoint <= waypointTolerance)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
         //Called by Unity Editor
         private void OnDrawGizmosSelected()

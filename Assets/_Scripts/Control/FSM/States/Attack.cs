@@ -8,30 +8,19 @@ namespace RPG.Control
 {
     public class Attack : State
     {
-        public Attack()
+        public Attack(NPCController controller) : base(controller)
         {
             stateID = StateID.Attack;
         }
 
-
-        public override void OnEntry()
-        {
-
-        }
-
-        public override void OnExit()
-        {
-
-        }
-
         public override void Reason(Transform player, Transform npc)
         {
-            npc.GetComponent<NPCController>().PerformTransition(Transition.PlayerLeavesAttackRange);
+            controller.PerformTransition(Transition.PlayerLeavesAttackRange);
         }
 
         public override void Act(Transform player, Transform npc)
         {
-            Fighter npcFighter = npc.GetComponent<Fighter>();
+            Fighter npcFighter = controller.GetComponent<Fighter>();
 
             if (npcFighter.IsInRangeOfWeapon(player.position))
             {
