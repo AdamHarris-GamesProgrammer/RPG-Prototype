@@ -11,11 +11,14 @@ namespace RPG.Control
         float suspicionTimer;
         float suspicionDuration;
 
-        public Suspicion(NPCController controller, float suspicionDurationIn) : base(controller)
+        float chaseDistance;
+
+        public Suspicion(NPCController controller, float suspicionDurationIn, float chaseDistanceIn) : base(controller)
         {
             stateID = StateID.Suspicion;
 
             suspicionDuration = suspicionDurationIn;
+            chaseDistance = chaseDistanceIn;
         }
 
         public override void OnEntry()
@@ -23,6 +26,8 @@ namespace RPG.Control
             suspicionTimer = 0.0f;
 
             controller.GetComponent<Mover>().Cancel();
+
+            Debug.Log("Suspicion State");
         }
 
         public override void OnExit()
@@ -37,7 +42,7 @@ namespace RPG.Control
                controller.SetTransition(Transition.SuspicionTimeUp);
             }
 
-            if(Vector3.Distance(player.position, npc.position) < 15.0f)
+            if(Vector3.Distance(player.position, npc.position) < chaseDistance)
             {
                 controller.SetTransition(Transition.PlayerInChaseDistance);
             }
@@ -46,6 +51,7 @@ namespace RPG.Control
         public override void Act(Transform player, Transform npc)
         {
             suspicionTimer += Time.fixedDeltaTime;
+            //controller.GetComponent<Mover>().MoveTo(npc.position, 1.0f, false);
         }
     }
 }

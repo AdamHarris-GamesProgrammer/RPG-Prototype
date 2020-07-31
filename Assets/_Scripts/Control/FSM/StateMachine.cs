@@ -60,7 +60,6 @@ namespace RPG.Control
 
             if (states.Count == 0)
             {
-                Debug.Log("This is state 0");
                 states.Add(state);
                 currentState = state;
                 currentState.OnEntry();
@@ -78,7 +77,6 @@ namespace RPG.Control
             }
 
             states.Add(state);
-            Debug.Log("State added");
         }
 
         //Deletes the passed in state to the states list
@@ -102,7 +100,7 @@ namespace RPG.Control
             Debug.LogError("[Error: StateMachine.cs]: The state passed in was not on the list. Cannot delete state");
         }
 
-        public void PerformTransition(Transition transition)
+        protected void PerformTransition(Transition transition)
         {
             if (transition == Transition.None)
             {
@@ -125,9 +123,11 @@ namespace RPG.Control
                     currentState.OnExit();
                     currentState = state;
                     currentState.OnEntry();
-                    break;
+                    return;
                 }
             }
+
+            Debug.LogError("[Error: StateMachine.cs]: " + id + " is not in state map");
         }
 
         protected virtual void Initialize() { }

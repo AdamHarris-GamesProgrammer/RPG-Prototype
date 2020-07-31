@@ -14,6 +14,10 @@ namespace RPG.Control
         [Header("Suspicion Settings")]
         [SerializeField] float suspicionDuration = 10.0f;
 
+        [Header("Distance Settings")]
+        [SerializeField] float chaseDistance = 15.0f;
+        [SerializeField] float attackDistance = 5.0f;
+
         protected override void Initialize()
         {
             GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
@@ -52,23 +56,23 @@ namespace RPG.Control
 
         private void ConstructStateMachine()
         {
-            Patrol patrol = new Patrol(this, patrolPath);
+            Patrol patrol = new Patrol(this, patrolPath, chaseDistance);
             patrol.AddTransition(Transition.AtWaypoint, StateID.Guard);
             patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
-            Guard guard = new Guard(this, waypointDwellTime);
+            Guard guard = new Guard(this, waypointDwellTime, chaseDistance);
             guard.AddTransition(Transition.WaitTimeOver, StateID.Patrol);
             guard.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
-            Chase chase = new Chase(this);
+            Chase chase = new Chase(this, chaseDistance, attackDistance);
             chase.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
             chase.AddTransition(Transition.PlayerLeavesChaseDistance, StateID.Suspicion);
 
-            Suspicion suspicion = new Suspicion(this, suspicionDuration);
+            Suspicion suspicion = new Suspicion(this, suspicionDuration, chaseDistance);
             suspicion.AddTransition(Transition.SuspicionTimeUp, StateID.Patrol);
             suspicion.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
-            Attack attack = new Attack(this);
+            Attack attack = new Attack(this, attackDistance);
             attack.AddTransition(Transition.PlayerLeavesAttackRange, StateID.Chase);
 
             Dead dead = new Dead(this);
@@ -76,8 +80,19 @@ namespace RPG.Control
             AddState(patrol);
             AddState(guard);
             AddState(chase);
+            AddState(suspicion);
             AddState(attack);
             AddState(dead);
+        }
+
+        //Called by Unity Editor
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackDistance);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, chaseDistance);
         }
 
     }

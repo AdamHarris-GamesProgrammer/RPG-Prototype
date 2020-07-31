@@ -9,17 +9,21 @@ namespace RPG.Control
         float dwellDuration;
         float dwellTimer;
 
-        public Guard(NPCController controller, float time) : base(controller)
+        float chaseDistance;
+
+        public Guard(NPCController controller, float time, float chaseDistanceIn) : base(controller)
         {
             dwellDuration = time;
             dwellTimer = 0.0f;
 
             stateID = StateID.Guard;
+
+            chaseDistance = chaseDistanceIn;
         }
 
         public override void Reason(Transform player, Transform npc)
         {
-            if (Vector3.Distance(npc.position, player.position) < 15.0f)
+            if (Vector3.Distance(npc.position, player.position) < chaseDistance)
             {
                 controller.SetTransition(Transition.PlayerInChaseDistance);
             }

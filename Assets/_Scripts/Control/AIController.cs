@@ -264,18 +264,6 @@ namespace RPG.Control
         {
             return Vector3.Distance(player.transform.position, transform.position) < distance;
         }
-
-
-
-        //Called by Unity Editor
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, chaseDistance);
-
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, warningRadius);
-        }
     }
 }
 

@@ -8,22 +8,33 @@ namespace RPG.Control
 {
     public class Chase : State
     {
-        public Chase(NPCController controller) : base(controller)
+        float chaseDistance, attackDistance;
+
+        public Chase(NPCController controller, float chaseDistanceIn, float attackDistanceIn) : base(controller)
         {
             stateID = StateID.Chase;
+
+            chaseDistance = chaseDistanceIn;
+            attackDistance = attackDistanceIn;
         }
 
         public override void Reason(Transform player, Transform npc)
         {
-            if(Vector3.Distance(player.position, npc.position) < 5.0f)
-            {
-                controller.PerformTransition(Transition.PlayerInAttackRange);
-            }
+            float distanceToPlayer = Vector3.Distance(player.position, npc.position);
 
-            if(Vector3.Distance(player.position, npc.position) > 15.0f)
+            if (distanceToPlayer < attackDistance)
             {
-                controller.PerformTransition(Transition.PlayerLeavesChaseDistance);
+                controller.SetTransition(Transition.PlayerInAttackRange);
             }
+            else if(distanceToPlayer > chaseDistance)
+            {
+                controller.SetTransition(Transition.PlayerLeavesChaseDistance);
+            }
+        }
+
+        public override void OnExit()
+        {
+            Debug.Log("Chase Exit");
         }
 
         public override void Act(Transform player, Transform npc)

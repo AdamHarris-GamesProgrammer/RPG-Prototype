@@ -10,18 +10,21 @@ namespace RPG.Control
     {
         int currentWaypoint;
 
+        float chaseDistance;
 
-        public Patrol(NPCController controller, PatrolPath inPath) : base(controller)
+        public Patrol(NPCController controller, PatrolPath inPath, float chaseDistanceIn) : base(controller)
         {
             waypoints = inPath;
             stateID = StateID.Patrol;
+
+            chaseDistance = chaseDistanceIn;
         }
 
 
         public override void Reason(Transform player, Transform npc)
         {
             //TODO: Link up chase distances etc
-            if (Vector3.Distance(npc.position, player.position) < 15.0f)
+            if (Vector3.Distance(npc.position, player.position) < chaseDistance)
             {
                 controller.SetTransition(Transition.PlayerInChaseDistance);
             }
