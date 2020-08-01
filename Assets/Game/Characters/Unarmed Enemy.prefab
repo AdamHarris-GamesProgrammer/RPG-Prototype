@@ -114,34 +114,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &-8051229352333543093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3648758160771100020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e8968c54a3fda04b946acd9ab7d66ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strafeDuration: 0.8
-  blockDamageReduction: 0.2
-  staminaReductionFromBlocking: 12
-  chaseDistance: 5
-  warningRadius: 12
-  suspiscionDuration: 5
-  aggrevatedDuration: 15
-  dwellTime: 3.5
-  patrolPath: {fileID: 0}
-  waypointTolerance: 1
-  patrollingSpeedFraction: 0.2
-  staminaUsedWhileStrafing: 25
-  strafingChance: 0.3
-  staminaUsedWhileBlocking: 12.5
-  chanceToBlock: 0.3
-  enemiesInScene: []
 --- !u!114 &-1678822277348787825
 MonoBehaviour:
   m_ObjectHideFlags: 0

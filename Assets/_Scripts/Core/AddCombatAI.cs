@@ -17,14 +17,14 @@ namespace RPG.Control
         {
             if (!other.gameObject.CompareTag("Enemy")) return;
 
-            playerController.AddAI(other.gameObject.GetComponent<AIController>());
+            playerController.AddAI(other.gameObject.GetComponent<NPCController>());
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (!other.gameObject.CompareTag("Enemy")) return;
 
-            playerController.RemoveAI(other.gameObject.GetComponent<AIController>());
+            playerController.RemoveAI(other.gameObject.GetComponent<NPCController>());
         }
     }
 }

@@ -45,7 +45,8 @@ namespace RPG.Combat
                 fighterAnimator.SetTrigger("lightAttack");
             }
 
-            target.GetComponent<AIController>().DecideDefence();
+            //TODO: Implement Decide defense in NPC Controller, create dodge, block and take hit states
+            //target.GetComponent<AIController>().DecideDefence();
         }
     }
 }

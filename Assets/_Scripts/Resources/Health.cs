@@ -30,17 +30,20 @@ namespace RPG.Resources
             if (!canBeDamaged) return;
 
             Controller controller = gameObject.GetComponent<Controller>();
-
-            if (controller.IsBlocking)
+            if(controller != null)
             {
-                float reduction = controller.BlockReduction;
+                if (controller.IsBlocking)
+                {
+                    float reduction = controller.BlockReduction;
 
-                //Debug.Log("Damage before block: " + damageIn);
-                damageIn *= 1 - reduction;
-                //Debug.Log("Damage after block: " + damageIn);
+                    //Debug.Log("Damage before block: " + damageIn);
+                    damageIn *= 1 - reduction;
+                    //Debug.Log("Damage after block: " + damageIn);
 
-                controller.BlockDamage(isHeavyAttack);
+                    controller.BlockDamage(isHeavyAttack);
+                }
             }
+
 
             health -= damageIn;
 

@@ -20,8 +20,8 @@ namespace RPG.Control
 
         Camera mainCamera;
 
-        List<AIController> enemiesInImmediateCombatArea;
-        public List<AIController> aggrevatedEnemies;
+        List<NPCController> enemiesInImmediateCombatArea;
+        public List<NPCController> aggrevatedEnemies;
 
         float triggerRadius;
 
@@ -36,8 +36,8 @@ namespace RPG.Control
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            enemiesInImmediateCombatArea = new List<AIController>();
-            aggrevatedEnemies = new List<AIController>();
+            enemiesInImmediateCombatArea = new List<NPCController>();
+            aggrevatedEnemies = new List<NPCController>();
 
 
             triggerRadius = 2.5f;
@@ -70,7 +70,7 @@ namespace RPG.Control
                 Vector3 rayPoint = GetMouseRay().GetPoint(triggerRadius);
 
                 //Find the closest enemy to the player
-                AIController closestEnemy = ClosestEnemyToPoint(rayPoint);
+                NPCController closestEnemy = ClosestEnemyToPoint(rayPoint);
 
                 if (GetComponent<Fighter>().CanAttack(closestEnemy.gameObject))
                 {
@@ -87,11 +87,11 @@ namespace RPG.Control
             }
         }
 
-        private AIController ClosestEnemyToPoint(Vector3 point)
+        private NPCController ClosestEnemyToPoint(Vector3 point)
         {
-            AIController closestEnemy = null;
+            NPCController closestEnemy = null;
             float closestEnemyDistance = 10.0f;
-            foreach (AIController enemy in enemiesInImmediateCombatArea)
+            foreach (NPCController enemy in enemiesInImmediateCombatArea)
             {
                 float distanceToEnemy = Vector3.Distance(enemy.transform.position, point);
 
@@ -203,7 +203,7 @@ namespace RPG.Control
             }
         }
 
-        public void AddAI(AIController ai)
+        public void AddAI(NPCController ai)
         {
             enemiesInImmediateCombatArea.Add(ai);
 
@@ -211,7 +211,7 @@ namespace RPG.Control
             inCombat = true;
         }
 
-        public void RemoveAI(AIController ai)
+        public void RemoveAI(NPCController ai)
         {
             aggrevatedEnemies.Remove(ai);
             if (enemiesInImmediateCombatArea.Contains(ai))

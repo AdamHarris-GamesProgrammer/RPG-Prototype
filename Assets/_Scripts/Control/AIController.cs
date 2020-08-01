@@ -39,10 +39,7 @@ namespace RPG.Control
 
         
 
-        int currentWaypoint = 0;
-
         private GameObject player;
-        private PlayerController playerController;
 
         private Fighter fighter;
 
@@ -50,10 +47,8 @@ namespace RPG.Control
 
         private Health playerHealth;
 
-        Vector3 guardPosition;
         float timeSinceLastSeenPlayer = Mathf.Infinity;
         float timeSinceAggrevated = Mathf.Infinity;
-        float timeAtCurrentWaypoint = Mathf.Infinity;
 
         [SerializeField] private List<AIController> enemiesInScene = null;
 
@@ -64,7 +59,6 @@ namespace RPG.Control
             base.Awake();
 
             player = GameObject.FindGameObjectWithTag("Player");
-            playerController = player.GetComponent<PlayerController>();
             playerHealth = player.GetComponent<Health>();
 
             fighter = GetComponent<Fighter>();
@@ -73,14 +67,12 @@ namespace RPG.Control
 
             health.OnDeath += RemoveAIFromGameSpace;
 
-            guardPosition = transform.position;
-
             GetComponent<Health>().OnHealthChanged += Aggrevate;
         }
 
         private void RemoveAIFromGameSpace()
         {
-            player.GetComponent<PlayerController>().RemoveAI(this);
+            //player.GetComponent<PlayerController>().RemoveAI(this);
         }
 
         private void Start()
@@ -113,7 +105,6 @@ namespace RPG.Control
             else if (timeSinceLastSeenPlayer < suspiscionDuration)
             {
                 DeAggrevate();
-                SuspicionState();
             }
             else
             {
@@ -136,10 +127,10 @@ namespace RPG.Control
             if (!aggrevated) return;
 
             aggrevated = false;
-            if (playerController.aggrevatedEnemies.Contains(this))
-            {
-                playerController.RemoveAI(this);
-            }
+            //if (playerController.aggrevatedEnemies.Contains(this))
+            //{
+            //    playerController.RemoveAI(this);
+            //}
         }
 
         private void AttackState()
@@ -226,13 +217,6 @@ namespace RPG.Control
             stamina.StaminaUsed(true);
         }
 
-        private void SuspicionState()
-        {
-            GetComponent<ActionScheduler>().CancelCurrentAction();
-        }
-
-        
-
         public void Aggrevate()
         {
             if (aggrevated) return;
@@ -241,7 +225,7 @@ namespace RPG.Control
 
             aggrevated = true;
 
-            playerController.aggrevatedEnemies.Add(this);
+            //playerController.aggrevatedEnemies.Add(this);
 
             foreach(AIController controller in enemiesInScene)
             {
