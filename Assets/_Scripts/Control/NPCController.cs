@@ -8,6 +8,8 @@ namespace RPG.Control
     {
         [Header("Patrolling Settings")]
         [SerializeField] PatrolPath patrolPath = null;
+        [Range(0f, 1f)]
+        [SerializeField] float patrollingSpeedFraction = 0.3f;
         [SerializeField] float waypointTolerance = 1.0f;
         [SerializeField] float waypointDwellTime = 3.5f;
 
@@ -61,7 +63,7 @@ namespace RPG.Control
 
         private void ConstructStateMachine()
         {
-            Patrol patrol = new Patrol(this, patrolPath, chaseDistance);
+            Patrol patrol = new Patrol(this, patrolPath, chaseDistance, patrollingSpeedFraction, waypointTolerance);
             patrol.AddTransition(Transition.AtWaypoint, StateID.Guard);
             patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 

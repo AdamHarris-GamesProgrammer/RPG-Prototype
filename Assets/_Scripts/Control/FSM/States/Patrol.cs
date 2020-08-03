@@ -11,19 +11,22 @@ namespace RPG.Control
         int currentWaypoint;
 
         float chaseDistance;
+        float speedFraction;
+        float waypointTolerance;
 
-        public Patrol(NPCController controller, PatrolPath inPath, float chaseDistanceIn) : base(controller)
+        public Patrol(NPCController controller, PatrolPath inPath, float chaseDistanceIn, float speedFractionIn, float waypointToleranceIn) : base(controller)
         {
             waypoints = inPath;
             stateID = StateID.Patrol;
 
             chaseDistance = chaseDistanceIn;
+            speedFraction = speedFractionIn;
+            waypointTolerance = waypointToleranceIn;
         }
 
 
         public override void Reason(Transform player, Transform npc)
         {
-            //TODO: Link up chase distances etc
             if (Vector3.Distance(npc.position, player.position) < chaseDistance)
             {
                 controller.SetTransition(Transition.PlayerInChaseDistance);
@@ -47,20 +50,19 @@ namespace RPG.Control
             {
                 currentWaypoint++;
                 currentWaypoint = waypoints.CycleWaypoint(currentWaypoint);
+
+                //Set next position to current Waypoint
+                nextPosition = waypoints.GetWaypointPosition(currentWaypoint);
+
+                controller.GetComponent<Mover>().StartMoveAction(nextPosition, speedFraction, false);
             }
-
-            //Set next position to current Waypoint
-            nextPosition = waypoints.GetWaypointPosition(currentWaypoint);
-
-            //TODO: Link patrolling speed fraction
-            controller.GetComponent<Mover>().StartMoveAction(nextPosition, 1.0f, false);
         }
 
         private bool AtWaypoint(Transform npc)
         {
             float distanceToWaypoint = Vector3.Distance(npc.transform.position, waypoints.GetWaypointPosition(currentWaypoint));
 
-            if (distanceToWaypoint <= 1.0f)
+            if (distanceToWaypoint <= waypointTolerance)
             {
                 return true;
             }
