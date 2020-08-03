@@ -64,10 +64,6 @@ namespace RPG.Control
             fighter = GetComponent<Fighter>();
 
             stamina = GetComponent<Stamina>();
-
-            //health.OnDeath += RemoveAIFromGameSpace;
-
-            GetComponent<Health>().OnHealthChanged += Aggrevate;
         }
 
         private void RemoveAIFromGameSpace()
@@ -92,60 +88,8 @@ namespace RPG.Control
         {
             if (health.isDead) return;
 
-            base.Update();
-
-            if (IsAggrevated() && fighter.CanAttack(player) && !playerHealth.isDead)
-            {
-                AttackState();
-            }
-            else if (IsPlayerInRange(warningRadius))
-            {
-                DeAggrevate();
-            }
-            else if (timeSinceLastSeenPlayer < suspiscionDuration)
-            {
-                DeAggrevate();
-            }
-            else
-            {
-                DeAggrevate();
-            }
             timeSinceLastSeenPlayer += Time.deltaTime;
 
-            if (Vector3.Distance(transform.position, player.transform.position) > warningRadius)
-            {
-                timeSinceAggrevated += Time.deltaTime;
-            }
-            else
-            {
-                timeSinceAggrevated = 0.0f;
-            }
-        }
-
-        void DeAggrevate()
-        {
-            if (!aggrevated) return;
-
-            aggrevated = false;
-            //if (playerController.aggrevatedEnemies.Contains(this))
-            //{
-            //    playerController.RemoveAI(this);
-            //}
-        }
-
-        private void AttackState()
-        {
-            Aggrevate();
-            timeSinceLastSeenPlayer = 0.0f;
-
-            if (fighter.IsInRangeOfWeapon(player.transform.position))
-            {
-                fighter.Attack(player);
-            }
-            else
-            {
-                GetComponent<Mover>().MoveTo(player.transform.position, 1.0f, false);
-            }
         }
 
         public void DecideDefence()
@@ -217,37 +161,6 @@ namespace RPG.Control
             stamina.StaminaUsed(true);
         }
 
-        public void Aggrevate()
-        {
-            if (aggrevated) return;
-
-            timeSinceAggrevated = 0.0f;
-
-            aggrevated = true;
-
-            //playerController.aggrevatedEnemies.Add(this);
-
-            foreach(AIController controller in enemiesInScene)
-            {
-                if (controller.aggrevated) continue;
-
-                if (Vector3.Distance(controller.transform.position, transform.position) > warningRadius) continue;
-
-                controller.Aggrevate();
-            }
-        }
-
-        bool IsAggrevated()
-        {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-            return distanceToPlayer < chaseDistance || timeSinceAggrevated < aggrevatedDuration;
-        }
-
-        private bool IsPlayerInRange(float distance)
-        {
-            return Vector3.Distance(player.transform.position, transform.position) < distance;
-        }
     }
 }
 

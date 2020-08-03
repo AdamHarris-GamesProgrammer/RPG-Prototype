@@ -32,6 +32,8 @@ namespace RPG.Control
 
         private PlayerController player;
 
+        [SerializeField] private List<NPCController> enemiesInScene = null;
+
         private void Awake()
         {
             GetComponent<Health>().OnDeath += RemoveAIFromGameSpace;
@@ -40,9 +42,21 @@ namespace RPG.Control
 
         protected override void Initialize()
         {
+            if (GetComponent<Health>().isDead) return;
+
             GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
             playerTransform = playerGO.transform;
             player = playerGO.GetComponent<PlayerController>();
+
+            
+
+            foreach (NPCController aiController in FindObjectsOfType<NPCController>())
+            {
+                if (!aiController.GetComponent<Health>().isDead)
+                {
+                    enemiesInScene.Add(aiController);
+                }
+            }
 
             ConstructStateMachine();
         }
@@ -57,6 +71,15 @@ namespace RPG.Control
             if (aggrevated) return;
 
             aggrevated = true;
+
+            foreach (NPCController controller in enemiesInScene)
+            {
+                if (controller.aggrevated) continue;
+
+                if (Vector3.Distance(controller.transform.position, transform.position) > chaseDistance) continue;
+
+                controller.Aggrevate();
+            }
         }
 
         protected override void StateUpdate()
@@ -66,18 +89,6 @@ namespace RPG.Control
 
         protected override void StateFixedUpdate()
         {
-            if(playerTransform == null)
-            {
-                Debug.LogError("Player Transform is null");
-                return;
-            }
-
-            if(CurrentState == null)
-            {
-                Debug.LogError("Current state is null");
-                return;
-            }
-
             CurrentState.Reason(playerTransform, transform);
             CurrentState.Act(playerTransform, transform);
         }

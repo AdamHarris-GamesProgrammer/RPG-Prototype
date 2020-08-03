@@ -51,6 +51,16 @@ namespace RPG.Control
             return StateID.None;
         }
 
+        protected bool InFOV(Transform player, Transform npc)
+        {
+            Vector3 rayDirection = player.position - npc.position;
+
+            if (Vector3.Angle(rayDirection, npc.forward) < 45)
+            {
+                return true;
+            }
+            return false;
+        }
         public State(NPCController controller)
         {
             this.controller = controller;

@@ -29,9 +29,7 @@ namespace RPG.Control
         {
             if (Vector3.Distance(npc.position, player.position) < chaseDistance)
             {
-                Vector3 rayDirection = player.position - npc.position;
-
-                if(Vector3.Angle(rayDirection, npc.forward) < 45)
+                if(InFOV(player, npc))
                 {
                     controller.Aggrevated = true;
                     controller.SetTransition(Transition.PlayerInChaseDistance);
