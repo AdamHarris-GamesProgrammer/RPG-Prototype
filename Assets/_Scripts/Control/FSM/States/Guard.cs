@@ -25,7 +25,12 @@ namespace RPG.Control
         {
             if (Vector3.Distance(npc.position, player.position) < chaseDistance)
             {
-                controller.SetTransition(Transition.PlayerInChaseDistance);
+                Vector3 rayDirection = player.position - npc.position;
+
+                if (Vector3.Angle(rayDirection, npc.forward) < 45)
+                {
+                    controller.SetTransition(Transition.PlayerInChaseDistance);
+                }
             }
 
             if (dwellTimer > dwellDuration)
