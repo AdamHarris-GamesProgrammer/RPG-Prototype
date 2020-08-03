@@ -32,6 +32,8 @@ namespace RPG.Resources
             Controller controller = gameObject.GetComponent<Controller>();
             if(controller != null)
             {
+                if (controller.IsStrafing) return;
+
                 if (controller.IsBlocking)
                 {
                     float reduction = controller.BlockReduction;

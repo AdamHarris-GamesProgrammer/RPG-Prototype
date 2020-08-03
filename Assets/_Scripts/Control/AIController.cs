@@ -65,7 +65,7 @@ namespace RPG.Control
 
             stamina = GetComponent<Stamina>();
 
-            health.OnDeath += RemoveAIFromGameSpace;
+            //health.OnDeath += RemoveAIFromGameSpace;
 
             GetComponent<Health>().OnHealthChanged += Aggrevate;
         }

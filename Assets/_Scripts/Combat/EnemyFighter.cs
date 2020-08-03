@@ -9,11 +9,10 @@ namespace RPG.Combat
         [Header("Heavy Attack Settings")]
         [Range(0f, 1f)]
         [SerializeField] private float chanceForHeavyAttack = 0.2f;
-
-
-        protected override void Update()
+        
+        public override void Attack(GameObject combatTarget)
         {
-            base.Update();
+            base.Attack(combatTarget);
 
             if (fighterHealth.isDead || target == null) return;
 
@@ -29,6 +28,8 @@ namespace RPG.Combat
                     //then attack
                     GenerateHeavyAttackChance();
                     AttackBehaviour();
+
+
                     timeSinceLastAttack = 0.0f;
                 }
             }
@@ -48,6 +49,18 @@ namespace RPG.Combat
             }
         }
 
+        private void AttackBehaviour()
+        {
+            if (heavyAttack && equippedWeapon.HasHeavyAttack)
+            {
+                fighterAnimator.SetTrigger("heavyAttack");
+            }
+            else
+            {
+                fighterAnimator.SetTrigger("lightAttack");
+            }
+            transform.LookAt(target);
+        }
     }
 }
 

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using RPG.Resources;
+
 namespace RPG.Control
 {
     public class NPCController : StateMachine
@@ -25,12 +27,25 @@ namespace RPG.Control
         public float AggrevatedTimer { get { return aggrevationTimer; } set { aggrevationTimer = value; } }
         public float AggrevationDuration { get { return aggrevationDuration; } }
 
+        private PlayerController player;
+
+        private void Awake()
+        {
+            GetComponent<Health>().OnDeath += RemoveAIFromGameSpace;
+        }
+
         protected override void Initialize()
         {
             GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
             playerTransform = playerGO.transform;
+            player = playerGO.GetComponent<PlayerController>();
 
             ConstructStateMachine();
+        }
+
+        private void RemoveAIFromGameSpace()
+        {
+            player.GetComponent<PlayerController>().RemoveAI(this);
         }
 
         protected override void StateUpdate()

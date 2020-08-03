@@ -27,7 +27,6 @@ namespace RPG.Control
         Dead
     }
 
-
     public class StateMachine : MonoBehaviour
     {
         protected Transform playerTransform;

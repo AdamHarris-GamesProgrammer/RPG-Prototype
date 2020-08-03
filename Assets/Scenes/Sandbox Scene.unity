@@ -19,7 +19,7 @@ RenderSettings:
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 80
-  m_LinearFogEnd: 250
+  m_LinearFogEnd: 130
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -508,7 +508,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54789007}
-  m_LocalRotation: {x: 0.20316063, y: 0.4654039, z: -0.11067384, w: 0.85432804}
+  m_LocalRotation: {x: 0.20316067, y: 0.46540397, z: -0.11067386, w: 0.854328}
   m_LocalPosition: {x: 37.4, y: 3.96, z: 19.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10608,7 +10608,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4721245835209398736, guid: 77a3e09595acd2747922f06750ae1b4c, type: 3}
     - {fileID: 3622713449952134074, guid: 77a3e09595acd2747922f06750ae1b4c, type: 3}
-    - {fileID: 2160858629873156380, guid: 77a3e09595acd2747922f06750ae1b4c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 77a3e09595acd2747922f06750ae1b4c, type: 3}
 --- !u!1001 &8724008816165914190
 PrefabInstance:

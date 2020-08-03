@@ -36,12 +36,10 @@ namespace RPG.Combat
 
             if (heavyAttack)
             {
-                Debug.Log("Heavy Attack");
                 fighterAnimator.SetTrigger("heavyAttack");
             }
             else
             {
-                Debug.Log("Light Attack");
                 fighterAnimator.SetTrigger("lightAttack");
             }
 

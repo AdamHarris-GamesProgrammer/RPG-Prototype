@@ -42,17 +42,13 @@ namespace RPG.Control
 
         public override void Act(Transform player, Transform npc)
         {
-            //Set next position to current Waypoint
-            Vector3 nextPosition = waypoints.GetWaypointPosition(currentWaypoint);
-
-
             if (AtWaypoint(npc))
             {
                 currentWaypoint++;
                 currentWaypoint = waypoints.CycleWaypoint(currentWaypoint);
 
                 //Set next position to current Waypoint
-                nextPosition = waypoints.GetWaypointPosition(currentWaypoint);
+                Vector3 nextPosition = waypoints.GetWaypointPosition(currentWaypoint);
 
                 controller.GetComponent<Mover>().StartMoveAction(nextPosition, speedFraction, false);
             }

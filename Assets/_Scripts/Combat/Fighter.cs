@@ -17,7 +17,7 @@ namespace RPG.Combat
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Weapon defaultWeapon = null;
 
-        private Weapon equippedWeapon = null;
+        protected Weapon equippedWeapon = null;
 
         protected Transform target;
 
@@ -51,6 +51,8 @@ namespace RPG.Combat
         protected virtual void Update()
         {
             UpdateTimers();
+
+            Debug.DrawRay(transform.position, transform.forward * 1.5f, Color.red);
         }
 
         protected virtual void UpdateTimers()
@@ -61,19 +63,6 @@ namespace RPG.Combat
         public bool IsInRangeOfWeapon(Vector3 target)
         {
             return Vector3.Distance(transform.position, target) < equippedWeapon.AttackRange;
-        }
-
-        protected void AttackBehaviour()
-        {
-            if (heavyAttack && equippedWeapon.HasHeavyAttack)
-            {
-                fighterAnimator.SetTrigger("heavyAttack");
-            }
-            else
-            {
-                fighterAnimator.SetTrigger("lightAttack");
-            }
-            transform.LookAt(target);
         }
 
         public virtual void Attack(GameObject combatTarget, bool isHeavyAttack)
@@ -196,6 +185,5 @@ namespace RPG.Combat
             }
         }
         #endregion
-
     }
 }
