@@ -54,6 +54,8 @@ namespace RPG.Movement
 
         public void MoveTo(Vector3 location, float speedFraction, bool isSprinting, bool freeRotation = true)
         {
+            if (health.isDead) return;
+
             sprinting = isSprinting;
             agent.updateRotation = freeRotation;
 

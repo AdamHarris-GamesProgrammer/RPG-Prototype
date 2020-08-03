@@ -100,7 +100,17 @@ namespace RPG.Control
 
         private void ConstructStateMachine()
         {
-            Patrol patrol = new Patrol(this, patrolPath, chaseDistance, patrollingSpeedFraction, waypointTolerance);
+            Patrol patrol;
+
+            if(patrolPath != null)
+            {
+                patrol = new Patrol(this, patrolPath, chaseDistance, patrollingSpeedFraction, waypointTolerance);
+            }
+            else
+            {
+                patrol = new Patrol(this, false, chaseDistance, transform.position);
+            }
+            
             patrol.AddTransition(Transition.AtWaypoint, StateID.Guard);
             patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
             patrol.AddTransition(Transition.Aggrevated, StateID.Chase);

@@ -14,9 +14,15 @@ namespace RPG.Control
         float speedFraction;
         float waypointTolerance;
 
+        bool hasPatrolPoint = true;
+
+        Vector3 position;
+
         public Patrol(NPCController controller, PatrolPath inPath, float chaseDistanceIn, float speedFractionIn, float waypointToleranceIn) : base(controller)
         {
             waypoints = inPath;
+
+
             stateID = StateID.Patrol;
 
             chaseDistance = chaseDistanceIn;
@@ -24,43 +30,60 @@ namespace RPG.Control
             waypointTolerance = waypointToleranceIn;
         }
 
+        public Patrol(NPCController controller, bool hasPatrol, float chaseDistanceIn, Vector3 posIn) : base(controller)
+        {
+            chaseDistance = chaseDistanceIn;
+            hasPatrolPoint = hasPatrol;
+
+            position = posIn;
+        }
+
 
         public override void Reason(Transform player, Transform npc)
         {
             if (Vector3.Distance(npc.position, player.position) < chaseDistance)
             {
-                if(InFOV(player, npc))
+                if (InFOV(player, npc))
                 {
                     controller.Aggrevated = true;
                     controller.SetTransition(Transition.PlayerInChaseDistance);
                 }
             }
 
+            if (controller.Aggrevated)
+            {
+                controller.SetTransition(Transition.Aggrevated);
+            }
+
+            if (!hasPatrolPoint) return;
             if (AtWaypoint(npc))
             {
                 npc.GetComponent<Mover>().Cancel();
 
                 controller.SetTransition(Transition.AtWaypoint);
             }
-
-            if (controller.Aggrevated)
-            {
-                controller.SetTransition(Transition.Aggrevated);
-            }
         }
 
         public override void Act(Transform player, Transform npc)
         {
-            if (AtWaypoint(npc))
+            if (hasPatrolPoint)
             {
-                currentWaypoint++;
-                currentWaypoint = waypoints.CycleWaypoint(currentWaypoint);
+                if (AtWaypoint(npc))
+                {
+                    currentWaypoint++;
+                    currentWaypoint = waypoints.CycleWaypoint(currentWaypoint);
 
-                //Set next position to current Waypoint
-                Vector3 nextPosition = waypoints.GetWaypointPosition(currentWaypoint);
+                    //Set next position to current Waypoint
+                    Vector3 nextPosition = waypoints.GetWaypointPosition(currentWaypoint);
 
-                controller.GetComponent<Mover>().StartMoveAction(nextPosition, speedFraction, false);
+                    controller.GetComponent<Mover>().StartMoveAction(nextPosition, speedFraction, false);
+                }
             }
+            else
+            {
+                controller.GetComponent<Mover>().StartMoveAction(position, 1.0f, false);
+            }
+
         }
 
         private bool AtWaypoint(Transform npc)
