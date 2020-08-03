@@ -13,10 +13,15 @@ namespace RPG.Control
 
         [Header("Suspicion Settings")]
         [SerializeField] float suspicionDuration = 10.0f;
+        [SerializeField] float aggrevationDuration = 10.0f;
 
         [Header("Distance Settings")]
         [SerializeField] float chaseDistance = 15.0f;
         [SerializeField] float attackDistance = 5.0f;
+
+        float aggrevationTimer = 0.0f;
+        public float AggrevatedTimer { get { return aggrevationTimer; } set { aggrevationTimer = value; } }
+        public float AggrevationDuration { get { return aggrevationDuration; } }
 
         protected override void Initialize()
         {

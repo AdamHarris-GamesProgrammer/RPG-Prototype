@@ -28,13 +28,23 @@ namespace RPG.Control
             }
             else if(distanceToPlayer > chaseDistance)
             {
-                controller.SetTransition(Transition.PlayerLeavesChaseDistance);
+                controller.AggrevatedTimer += Time.fixedDeltaTime;
+
+                if(controller.AggrevatedTimer > controller.AggrevationDuration)
+                {
+                    controller.SetTransition(Transition.PlayerLeavesChaseDistance);
+                }
             }
         }
 
         public override void OnExit()
         {
-            Debug.Log("Chase Exit");
+            controller.AggrevatedTimer = 0.0f;
+        }
+
+        public override void OnEntry()
+        {
+            controller.AggrevatedTimer = 0.0f;
         }
 
         public override void Act(Transform player, Transform npc)
