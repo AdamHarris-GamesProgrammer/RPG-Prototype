@@ -105,6 +105,10 @@ namespace RPG.Combat
             //if the target is not in range of the weapon then return
             if (!IsInRangeOfWeapon(target.position)) return;
 
+            //Checks to see if the target is within 45 degrees of the forward.
+            Vector3 rayDirection = target.position - transform.position;
+            if (Vector3.Angle(rayDirection, transform.forward) > 45) return;
+
             //Gets the health component from the target
             Health enemyHealthComponent = target.GetComponent<Health>();
 
