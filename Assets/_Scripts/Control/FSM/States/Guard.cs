@@ -29,6 +29,7 @@ namespace RPG.Control
 
                 if (Vector3.Angle(rayDirection, npc.forward) < 45)
                 {
+                    controller.Aggrevated = true;
                     controller.SetTransition(Transition.PlayerInChaseDistance);
                 }
             }
@@ -36,6 +37,12 @@ namespace RPG.Control
             if (dwellTimer > dwellDuration)
             {
                 controller.SetTransition(Transition.WaitTimeOver);
+            }
+
+
+            if (controller.Aggrevated)
+            {
+                controller.SetTransition(Transition.Aggrevated);
             }
         }
 

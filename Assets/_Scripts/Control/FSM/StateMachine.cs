@@ -13,7 +13,9 @@ namespace RPG.Control
         PlayerLeavesChaseDistance,
         PlayerInAttackRange,
         PlayerLeavesAttackRange,
-        SuspicionTimeUp
+        SuspicionTimeUp,
+        Aggrevated,
+        Deaggrevated
     }
 
     public enum StateID

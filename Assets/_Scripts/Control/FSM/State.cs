@@ -13,6 +13,8 @@ namespace RPG.Control
         public StateID ID { get { return stateID; } }
 
         protected Vector3 destinationPos;
+        protected bool aggrevated; 
+
         protected PatrolPath waypoints;
         protected NPCController controller;
 

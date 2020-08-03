@@ -23,6 +23,9 @@ namespace RPG.Control
         [SerializeField] float chaseDistance = 15.0f;
         [SerializeField] float attackDistance = 5.0f;
 
+        bool aggrevated = false;
+        public bool Aggrevated { get { return aggrevated; } set { aggrevated = value; } }
+
         float aggrevationTimer = 0.0f;
         public float AggrevatedTimer { get { return aggrevationTimer; } set { aggrevationTimer = value; } }
         public float AggrevationDuration { get { return aggrevationDuration; } }
@@ -32,6 +35,7 @@ namespace RPG.Control
         private void Awake()
         {
             GetComponent<Health>().OnDeath += RemoveAIFromGameSpace;
+            GetComponent<Health>().OnHealthChanged += Aggrevate;
         }
 
         protected override void Initialize()
@@ -46,6 +50,13 @@ namespace RPG.Control
         private void RemoveAIFromGameSpace()
         {
             player.GetComponent<PlayerController>().RemoveAI(this);
+        }
+
+        private void Aggrevate()
+        {
+            if (aggrevated) return;
+
+            aggrevated = true;
         }
 
         protected override void StateUpdate()
@@ -81,14 +92,17 @@ namespace RPG.Control
             Patrol patrol = new Patrol(this, patrolPath, chaseDistance, patrollingSpeedFraction, waypointTolerance);
             patrol.AddTransition(Transition.AtWaypoint, StateID.Guard);
             patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
+            patrol.AddTransition(Transition.Aggrevated, StateID.Chase);
 
             Guard guard = new Guard(this, waypointDwellTime, chaseDistance);
             guard.AddTransition(Transition.WaitTimeOver, StateID.Patrol);
             guard.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
+            guard.AddTransition(Transition.Aggrevated, StateID.Chase);
 
             Chase chase = new Chase(this, chaseDistance, attackDistance);
             chase.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
             chase.AddTransition(Transition.PlayerLeavesChaseDistance, StateID.Suspicion);
+            chase.AddTransition(Transition.Deaggrevated, StateID.Patrol);
 
             Suspicion suspicion = new Suspicion(this, suspicionDuration, chaseDistance);
             suspicion.AddTransition(Transition.SuspicionTimeUp, StateID.Patrol);

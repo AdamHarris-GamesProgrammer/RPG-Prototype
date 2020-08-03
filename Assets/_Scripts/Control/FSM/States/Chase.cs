@@ -32,7 +32,8 @@ namespace RPG.Control
 
                 if(controller.AggrevatedTimer > controller.AggrevationDuration)
                 {
-                    controller.SetTransition(Transition.PlayerLeavesChaseDistance);
+                    controller.Aggrevated = false;
+                    controller.SetTransition(Transition.Deaggrevated);
                 }
             }
         }

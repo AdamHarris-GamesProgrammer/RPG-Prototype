@@ -33,6 +33,7 @@ namespace RPG.Control
 
                 if(Vector3.Angle(rayDirection, npc.forward) < 45)
                 {
+                    controller.Aggrevated = true;
                     controller.SetTransition(Transition.PlayerInChaseDistance);
                 }
             }
@@ -42,6 +43,11 @@ namespace RPG.Control
                 npc.GetComponent<Mover>().Cancel();
 
                 controller.SetTransition(Transition.AtWaypoint);
+            }
+
+            if (controller.Aggrevated)
+            {
+                controller.SetTransition(Transition.Aggrevated);
             }
         }
 
