@@ -42,7 +42,6 @@ namespace RPG.Control
 
         public StateID GetOutputState(Transition transition)
         {
-            Debug.Log("Current State: " + stateID);
             if (stateMap.ContainsKey(transition))
             {
                 return stateMap[transition];

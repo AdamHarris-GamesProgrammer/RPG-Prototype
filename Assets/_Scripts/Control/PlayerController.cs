@@ -213,7 +213,11 @@ namespace RPG.Control
 
         public void RemoveAI(NPCController ai)
         {
-            aggrevatedEnemies.Remove(ai);
+            if (aggrevatedEnemies.Contains(ai))
+            {
+                aggrevatedEnemies.Remove(ai);
+            }
+
             if (enemiesInImmediateCombatArea.Contains(ai))
             {
                 enemiesInImmediateCombatArea.Remove(ai);

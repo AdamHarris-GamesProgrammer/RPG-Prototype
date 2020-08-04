@@ -508,7 +508,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54789007}
-  m_LocalRotation: {x: 0.20316064, y: 0.46540394, z: -0.110673845, w: 0.854328}
+  m_LocalRotation: {x: 0.20316066, y: 0.4654039, z: -0.11067383, w: 0.854328}
   m_LocalPosition: {x: 37.4, y: 3.96, z: 19.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10167,11 +10167,6 @@ PrefabInstance:
       propertyPath: defaultCursor
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 1872347214891404118, guid: 77a3e09595acd2747922f06750ae1b4c,
-        type: 3}
-      propertyPath: blockDamageReduction
-      value: 0.95
-      objectReference: {fileID: 0}
     - target: {fileID: 2148738009133195820, guid: 77a3e09595acd2747922f06750ae1b4c,
         type: 3}
       propertyPath: m_Enabled
@@ -10417,18 +10412,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5813404882527201597, guid: 77a3e09595acd2747922f06750ae1b4c,
         type: 3}
-      propertyPath: near clip plane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813404882527201597, guid: 77a3e09595acd2747922f06750ae1b4c,
-        type: 3}
       propertyPath: far clip plane
       value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813404882527201597, guid: 77a3e09595acd2747922f06750ae1b4c,
-        type: 3}
-      propertyPath: field of view
-      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 5813404883293317896, guid: 77a3e09595acd2747922f06750ae1b4c,
         type: 3}
@@ -10496,6 +10481,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
+    - target: {fileID: 5813404883951074199, guid: 77a3e09595acd2747922f06750ae1b4c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5952833296075576793, guid: 77a3e09595acd2747922f06750ae1b4c,
         type: 3}
       propertyPath: m_YAxis.m_InvertInput
@@ -10551,12 +10541,6 @@ PrefabInstance:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6542139633987525202, guid: 77a3e09595acd2747922f06750ae1b4c,
-        type: 3}
-      propertyPath: defaultWeapon
-      value: 
-      objectReference: {fileID: 11400000, guid: cf05b8b4b14eba8429a8397e61de44f6,
-        type: 2}
     - target: {fileID: 6899203856661608028, guid: 77a3e09595acd2747922f06750ae1b4c,
         type: 3}
       propertyPath: m_Enabled

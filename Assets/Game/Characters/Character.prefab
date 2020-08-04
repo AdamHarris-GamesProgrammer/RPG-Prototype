@@ -97,7 +97,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.8
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -135,7 +135,6 @@ MonoBehaviour:
   maxSpeed: 4
   sprintingFactor: 1.2
   sprintEnergy: 12.5
-  sprintCooldown: 3.5
 --- !u!114 &7878368480476391472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +150,6 @@ MonoBehaviour:
   leftHandTransform: {fileID: 0}
   rightHandTransform: {fileID: 0}
   defaultWeapon: {fileID: 0}
-  target: {fileID: 0}
 --- !u!114 &3808452164005012225
 MonoBehaviour:
   m_ObjectHideFlags: 0

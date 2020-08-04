@@ -161,11 +161,6 @@ namespace RPG.Combat
         {
             string weaponName = (string)state;
 
-            if (gameObject.name == "Player")
-            {
-                Debug.Log("Weapon name upon loading is: " + weaponName);
-            }
-
             Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
         }

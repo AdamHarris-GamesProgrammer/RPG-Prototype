@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strafeDuration: 0.8
-  blockDamageReduction: 0.2
+  blockDamageReduction: 0.95
   staminaReductionFromBlocking: 12
   interactionRange: 4
   aggrevatedEnemies: []

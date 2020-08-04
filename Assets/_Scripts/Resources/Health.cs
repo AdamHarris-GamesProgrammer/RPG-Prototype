@@ -101,6 +101,7 @@ namespace RPG.Resources
         {
             //Debug.Log(gameObject.name + " health is: " + (float)state);
             health = (float)state;
+            OnHealthChanged();
 
             if (health <= 0)
             {

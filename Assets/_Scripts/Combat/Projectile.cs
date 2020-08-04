@@ -60,8 +60,6 @@ namespace RPG.Combat
             if (other.CompareTag("Pickup")) return;
             if (other.CompareTag("IgnoreTrigger")) return;
 
-            Debug.Log(other.gameObject.name);
-
             if(hitEffect != null)
             {
                 Instantiate(hitEffect, transform.position, Quaternion.identity);

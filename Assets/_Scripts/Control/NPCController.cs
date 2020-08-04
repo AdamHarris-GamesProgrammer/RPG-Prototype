@@ -38,15 +38,17 @@ namespace RPG.Control
         {
             GetComponent<Health>().OnDeath += RemoveAIFromGameSpace;
             GetComponent<Health>().OnHealthChanged += Aggrevate;
+
+            GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+            playerTransform = playerGO.transform;
+            player = playerGO.GetComponent<PlayerController>();
         }
 
         protected override void Initialize()
         {
             if (GetComponent<Health>().isDead) return;
 
-            GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
-            playerTransform = playerGO.transform;
-            player = playerGO.GetComponent<PlayerController>();
+
 
             
 
@@ -89,6 +91,8 @@ namespace RPG.Control
 
         protected override void StateFixedUpdate()
         {
+            if (GetComponent<Health>().isDead) return;
+
             CurrentState.Reason(playerTransform, transform);
             CurrentState.Act(playerTransform, transform);
         }
