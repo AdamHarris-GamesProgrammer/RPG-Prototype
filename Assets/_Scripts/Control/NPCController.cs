@@ -105,34 +105,39 @@ namespace RPG.Control
             if(patrolPath != null)
             {
                 patrol = new Patrol(this, patrolPath, chaseDistance, patrollingSpeedFraction, waypointTolerance);
+                patrol.AddTransition(Transition.AtWaypoint, StateID.Guard);
             }
             else
             {
-                patrol = new Patrol(this, false, chaseDistance, transform.position);
+                patrol = new Patrol(this, transform.position, chaseDistance);
             }
-            
-            patrol.AddTransition(Transition.AtWaypoint, StateID.Guard);
-            patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
             patrol.AddTransition(Transition.Aggrevated, StateID.Chase);
+            patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
+
 
             Guard guard = new Guard(this, waypointDwellTime, chaseDistance);
+            guard.AddTransition(Transition.Aggrevated, StateID.Chase);
             guard.AddTransition(Transition.WaitTimeOver, StateID.Patrol);
             guard.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
-            guard.AddTransition(Transition.Aggrevated, StateID.Chase);
+            
 
             Chase chase = new Chase(this, chaseDistance, attackDistance);
             chase.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
             chase.AddTransition(Transition.PlayerLeavesChaseDistance, StateID.Suspicion);
-            chase.AddTransition(Transition.Deaggrevated, StateID.Patrol);
+            chase.AddTransition(Transition.Deaggrevated, StateID.Suspicion);
+
 
             Suspicion suspicion = new Suspicion(this, suspicionDuration, chaseDistance);
             suspicion.AddTransition(Transition.SuspicionTimeUp, StateID.Patrol);
             suspicion.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
+
             Attack attack = new Attack(this, attackDistance);
             attack.AddTransition(Transition.PlayerLeavesAttackRange, StateID.Chase);
 
+
             Dead dead = new Dead(this);
+
 
             AddState(patrol);
             AddState(guard);

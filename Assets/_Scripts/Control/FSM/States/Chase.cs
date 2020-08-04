@@ -10,10 +10,8 @@ namespace RPG.Control
     {
         float chaseDistance, attackDistance;
 
-        public Chase(NPCController controller, float chaseDistanceIn, float attackDistanceIn) : base(controller)
+        public Chase(NPCController controller, float chaseDistanceIn, float attackDistanceIn) : base(controller, StateID.Chase)
         {
-            stateID = StateID.Chase;
-
             chaseDistance = chaseDistanceIn;
             attackDistance = attackDistanceIn;
         }

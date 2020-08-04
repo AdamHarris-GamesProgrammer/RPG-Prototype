@@ -13,10 +13,8 @@ namespace RPG.Control
 
         float chaseDistance;
 
-        public Suspicion(NPCController controller, float suspicionDurationIn, float chaseDistanceIn) : base(controller)
+        public Suspicion(NPCController controller, float suspicionDurationIn, float chaseDistanceIn) : base(controller, StateID.Suspicion)
         {
-            stateID = StateID.Suspicion;
-
             suspicionDuration = suspicionDurationIn;
             chaseDistance = chaseDistanceIn;
         }

@@ -40,12 +40,12 @@ namespace RPG.Combat
             if (UnityEngine.Random.value < chanceForHeavyAttack)
             {
                 heavyAttack = true;
-                Debug.Log("Enemy Heavy Attack");
+                //Debug.Log("Enemy Heavy Attack");
             }
             else
             {
                 heavyAttack = false;
-                Debug.Log("Enemy Light Attack");
+                //Debug.Log("Enemy Light Attack");
             }
         }
 

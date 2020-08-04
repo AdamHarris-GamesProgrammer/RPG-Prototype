@@ -10,10 +10,8 @@ namespace RPG.Control
     {
         float attackDistance;
 
-        public Attack(NPCController controller, float attackDistanceIn) : base(controller)
+        public Attack(NPCController controller, float attackDistanceIn) : base(controller, StateID.Attack)
         {
-            stateID = StateID.Attack;
-
             attackDistance = attackDistanceIn;
         }
 

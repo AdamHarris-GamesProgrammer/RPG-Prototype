@@ -18,22 +18,19 @@ namespace RPG.Control
 
         Vector3 position;
 
-        public Patrol(NPCController controller, PatrolPath inPath, float chaseDistanceIn, float speedFractionIn, float waypointToleranceIn) : base(controller)
+        public Patrol(NPCController controller, PatrolPath inPath, float chaseDistanceIn, float speedFractionIn, float waypointToleranceIn) : base(controller, StateID.Patrol)
         {
             waypoints = inPath;
-
-
-            stateID = StateID.Patrol;
 
             chaseDistance = chaseDistanceIn;
             speedFraction = speedFractionIn;
             waypointTolerance = waypointToleranceIn;
         }
 
-        public Patrol(NPCController controller, bool hasPatrol, float chaseDistanceIn, Vector3 posIn) : base(controller)
+        public Patrol(NPCController controller, Vector3 posIn,float chaseDistanceIn) : base(controller, StateID.Patrol)
         {
             chaseDistance = chaseDistanceIn;
-            hasPatrolPoint = hasPatrol;
+            hasPatrolPoint = false;
 
             position = posIn;
         }
@@ -47,20 +44,24 @@ namespace RPG.Control
                 {
                     controller.Aggrevated = true;
                     controller.SetTransition(Transition.PlayerInChaseDistance);
+                    return;
                 }
             }
 
             if (controller.Aggrevated)
             {
                 controller.SetTransition(Transition.Aggrevated);
+                return;
             }
 
             if (!hasPatrolPoint) return;
+
             if (AtWaypoint(npc))
             {
                 npc.GetComponent<Mover>().Cancel();
 
                 controller.SetTransition(Transition.AtWaypoint);
+                return;
             }
         }
 

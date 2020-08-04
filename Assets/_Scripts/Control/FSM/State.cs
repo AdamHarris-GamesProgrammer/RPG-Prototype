@@ -42,6 +42,7 @@ namespace RPG.Control
 
         public StateID GetOutputState(Transition transition)
         {
+            Debug.Log("Current State: " + stateID);
             if (stateMap.ContainsKey(transition))
             {
                 return stateMap[transition];
@@ -61,9 +62,10 @@ namespace RPG.Control
             }
             return false;
         }
-        public State(NPCController controller)
+        public State(NPCController controller, StateID id)
         {
             this.controller = controller;
+            stateID = id;
         }
 
         public virtual void OnEntry() { }

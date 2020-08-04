@@ -117,6 +117,7 @@ namespace RPG.Control
             }
 
             currentStateID = id;
+            bool stateFound = false;
             foreach (State state in states)
             {
                 if (state.ID == currentStateID)
@@ -124,10 +125,12 @@ namespace RPG.Control
                     currentState.OnExit();
                     currentState = state;
                     currentState.OnEntry();
+                    stateFound = true;
                     return;
                 }
             }
 
+            if (stateFound) return;
             Debug.LogError("[Error: StateMachine.cs]: " + id + " is not in state map");
         }
 
