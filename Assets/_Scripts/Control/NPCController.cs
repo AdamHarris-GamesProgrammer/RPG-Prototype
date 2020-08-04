@@ -151,6 +151,11 @@ namespace RPG.Control
             AddState(dead);
         }
 
+        private void OnParticleCollision(GameObject other)
+        {
+            GetComponent<Rigidbody>().AddForce(other.transform.forward * 5.0f, ForceMode.Impulse);
+        }
+
         //Called by Unity Editor
         private void OnDrawGizmosSelected()
         {

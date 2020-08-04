@@ -23,6 +23,8 @@ namespace RPG.Control
         List<NPCController> enemiesInImmediateCombatArea;
         public List<NPCController> aggrevatedEnemies;
 
+        [SerializeField] ParticleSystem spellParticle;
+
         float triggerRadius;
 
         public event Action OnCombat;
@@ -58,6 +60,18 @@ namespace RPG.Control
 
             MoveWithKeyboard();
 
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                CastSpell();
+            }
+        }
+
+        void CastSpell()
+        {
+            if (spellParticle.isEmitting) return;
+
+            spellParticle.Play();
         }
 
         private void InteractWithCombat()

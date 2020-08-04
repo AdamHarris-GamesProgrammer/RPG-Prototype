@@ -61,7 +61,6 @@ namespace RPG.Resources
                 {
                     xp.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
                 }
-
             }
         }
 
