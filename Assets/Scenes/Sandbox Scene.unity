@@ -2141,6 +2141,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2072129652}
     m_Modifications:
+    - target: {fileID: 5255382756406927231, guid: 4983db438b2ef304293fd381b8530493,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5255382756406927231, guid: 4983db438b2ef304293fd381b8530493,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5255382756406927231, guid: 4983db438b2ef304293fd381b8530493,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5297290013160516810, guid: 4983db438b2ef304293fd381b8530493,
         type: 3}
       propertyPath: uniqueIdentifier

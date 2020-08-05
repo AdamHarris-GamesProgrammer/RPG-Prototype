@@ -31,7 +31,7 @@ namespace RPG.Control
         public float AggrevationDuration { get { return aggrevationDuration; } }
 
         bool stunned;
-        public bool Stunned { get { return stunned; } set { stunned = Stunned; } }
+        public bool Stunned { get { return stunned; } set { stunned = value; } }
 
         private PlayerController player;
 
@@ -151,7 +151,7 @@ namespace RPG.Control
 
             AddTransitionToAll(Transition.Stunned, StateID.Stunned);
 
-            Stunned stun = new Stunned(this, 4.0f);
+            Stunned stun = new Stunned(this, 1.5f);
             stun.AddTransition(Transition.StunOver, StateID.Chase);
             stun.AddTransition(Transition.Stunned, StateID.Stunned);
 

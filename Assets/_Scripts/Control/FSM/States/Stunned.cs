@@ -19,7 +19,7 @@ namespace RPG.Control
         {
             stunTimer = 0.0f;
             controller.GetComponent<Mover>().Enabled = false;
-            controller.GetComponent<Mover>().Cancel();
+            //controller.GetComponent<Mover>().Cancel();
             controller.GetComponent<Animator>().SetTrigger("stun");
             controller.GetComponent<Animator>().SetBool("stunned", true);
             controller.Stunned = true;
