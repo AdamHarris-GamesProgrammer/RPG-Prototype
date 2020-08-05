@@ -30,6 +30,9 @@ namespace RPG.Control
         public float AggrevatedTimer { get { return aggrevationTimer; } set { aggrevationTimer = value; } }
         public float AggrevationDuration { get { return aggrevationDuration; } }
 
+        bool stunned;
+        public bool Stunned { get { return stunned; } set { stunned = Stunned; } }
+
         private PlayerController player;
 
         [SerializeField] private List<NPCController> enemiesInScene = null;
@@ -138,6 +141,8 @@ namespace RPG.Control
             Attack attack = new Attack(this, attackDistance);
             attack.AddTransition(Transition.PlayerLeavesAttackRange, StateID.Chase);
 
+            Dead dead = new Dead(this);
+
             AddState(patrol);
             AddState(guard);
             AddState(chase);
@@ -151,11 +156,13 @@ namespace RPG.Control
             stun.AddTransition(Transition.Stunned, StateID.Stunned);
 
             AddState(stun);
+            AddState(dead);
+
         }
 
         private void OnParticleCollision(GameObject other)
         {
-            GetComponent<Rigidbody>().AddForce(other.transform.forward * 5.0f, ForceMode.Impulse);
+            if (stunned) return;
             SetTransition(Transition.Stunned);
         }
 

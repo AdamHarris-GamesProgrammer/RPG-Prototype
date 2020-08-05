@@ -22,12 +22,16 @@ namespace RPG.Control
             controller.GetComponent<Mover>().Cancel();
             controller.GetComponent<Animator>().SetTrigger("stun");
             controller.GetComponent<Animator>().SetBool("stunned", true);
+            controller.Stunned = true;
+            Debug.Log("Stun Enter");
         }
 
         public override void OnExit()
         {
             controller.GetComponent<Mover>().Enabled = true;
             controller.GetComponent<Animator>().SetBool("stunned", false);
+            controller.Stunned = false;
+            Debug.Log("Stun Exit");
         }
 
         public override void Act(Transform player, Transform npc)

@@ -28,7 +28,7 @@ namespace RPG.Combat
 
             target = combatTarget.transform;
 
-            Debug.Log("Target Name: " + target.name);
+            //Debug.Log("Target Name: " + target.name);
 
             if (!IsInRangeOfWeapon(target.position)) return;
 
