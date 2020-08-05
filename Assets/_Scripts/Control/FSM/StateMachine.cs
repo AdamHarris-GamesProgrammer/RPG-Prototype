@@ -15,7 +15,9 @@ namespace RPG.Control
         PlayerLeavesAttackRange,
         SuspicionTimeUp,
         Aggrevated,
-        Deaggrevated
+        Deaggrevated, 
+        Stunned,
+        StunOver
     }
 
     public enum StateID
@@ -26,6 +28,7 @@ namespace RPG.Control
         Chase,
         Attack,
         Suspicion,
+        Stunned,
         Dead
     }
 
@@ -101,6 +104,13 @@ namespace RPG.Control
             Debug.LogError("[Error: StateMachine.cs]: The state passed in was not on the list. Cannot delete state");
         }
 
+        protected void AddTransitionToAll(Transition transition, StateID id)
+        {
+            foreach(State state in states)
+            {
+                state.AddTransition(transition, id);
+            }
+        }
         protected void PerformTransition(Transition transition)
         {
             if (transition == Transition.None)

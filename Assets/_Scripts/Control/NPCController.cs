@@ -105,7 +105,6 @@ namespace RPG.Control
         private void ConstructStateMachine()
         {
             Patrol patrol;
-
             if(patrolPath != null)
             {
                 patrol = new Patrol(this, patrolPath, chaseDistance, patrollingSpeedFraction, waypointTolerance);
@@ -123,7 +122,7 @@ namespace RPG.Control
             guard.AddTransition(Transition.Aggrevated, StateID.Chase);
             guard.AddTransition(Transition.WaitTimeOver, StateID.Patrol);
             guard.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
-            
+
 
             Chase chase = new Chase(this, chaseDistance, attackDistance);
             chase.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
@@ -139,21 +138,25 @@ namespace RPG.Control
             Attack attack = new Attack(this, attackDistance);
             attack.AddTransition(Transition.PlayerLeavesAttackRange, StateID.Chase);
 
-
-            Dead dead = new Dead(this);
-
-
             AddState(patrol);
             AddState(guard);
             AddState(chase);
             AddState(suspicion);
             AddState(attack);
-            AddState(dead);
+
+            AddTransitionToAll(Transition.Stunned, StateID.Stunned);
+
+            Stunned stun = new Stunned(this, 4.0f);
+            stun.AddTransition(Transition.StunOver, StateID.Chase);
+            stun.AddTransition(Transition.Stunned, StateID.Stunned);
+
+            AddState(stun);
         }
 
         private void OnParticleCollision(GameObject other)
         {
             GetComponent<Rigidbody>().AddForce(other.transform.forward * 5.0f, ForceMode.Impulse);
+            SetTransition(Transition.Stunned);
         }
 
         //Called by Unity Editor

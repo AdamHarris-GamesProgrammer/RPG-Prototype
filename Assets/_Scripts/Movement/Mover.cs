@@ -24,6 +24,8 @@ namespace RPG.Movement
 
         bool sprinting = false;
 
+        bool movementEnabled;
+        public bool Enabled { get { return movementEnabled; } set { movementEnabled = value; } }
 
 
         void Awake()
@@ -36,14 +38,19 @@ namespace RPG.Movement
             health = GetComponent<Health>();
 
             stamina = GetComponent<Stamina>();
+
+            movementEnabled = true;
         }
 
         private void Update()
         {
             agent.enabled = !health.isDead;
 
+            if (!movementEnabled) return;
+
             UpdateAnimator();
         }
+
 
         public void StartMoveAction(Vector3 location, float speedFraction, bool isSprinting, bool freeRotation = true)
         {
@@ -55,6 +62,7 @@ namespace RPG.Movement
         public void MoveTo(Vector3 location, float speedFraction, bool isSprinting, bool freeRotation = true)
         {
             if (health.isDead) return;
+            if (!movementEnabled) return;
 
             sprinting = isSprinting;
             agent.updateRotation = freeRotation;
