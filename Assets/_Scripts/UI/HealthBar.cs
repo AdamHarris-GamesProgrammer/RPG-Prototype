@@ -23,8 +23,11 @@ public class HealthBar : MonoBehaviour
             GUI.SetActive(false);
             return;
         }
+        else
+        {
+            healthBar.fillAmount = healthComponent.GetHealthPercentage();
+        }
 
-        healthBar.fillAmount = healthComponent.GetHealthPercentage();
 
     }
 }

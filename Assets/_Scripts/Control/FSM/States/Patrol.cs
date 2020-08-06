@@ -38,7 +38,7 @@ namespace RPG.Control
 
         public override void Reason(Transform player, Transform npc)
         {
-            if (Vector3.Distance(npc.position, player.position) < chaseDistance)
+            if (Vector3.Distance(npc.position, player.position) < controller.ChaseDistance)
             {
                 if (InFOV(player, npc))
                 {
@@ -46,6 +46,11 @@ namespace RPG.Control
                     controller.SetTransition(Transition.PlayerInChaseDistance);
                     return;
                 }
+            }
+
+            if (Vector3.Distance(npc.position, player.position) < controller.AttackDistance)
+            {
+                controller.SetTransition(Transition.PlayerInAttackRange);
             }
 
             if (controller.Aggrevated)

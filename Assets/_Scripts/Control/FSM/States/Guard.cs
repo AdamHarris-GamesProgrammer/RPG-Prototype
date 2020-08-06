@@ -21,12 +21,17 @@ namespace RPG.Control
 
         public override void Reason(Transform player, Transform npc)
         {
-            if (Vector3.Distance(npc.position, player.position) < chaseDistance)
+            if (Vector3.Distance(npc.position, player.position) < controller.ChaseDistance)
             {
                 if(InFOV(player, npc)){
                     controller.Aggrevated = true;
                     controller.SetTransition(Transition.PlayerInChaseDistance);
                 }
+            }
+
+            if (Vector3.Distance(npc.position, player.position) < controller.AttackDistance)
+            {
+                controller.SetTransition(Transition.PlayerInAttackRange);
             }
 
             if (dwellTimer > dwellDuration)

@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+
 using RPG.Saving;
 using RPG.Core;
 using RPG.Stats;
@@ -11,6 +13,13 @@ namespace RPG.Resources
     {
         float maxHealth;
         [SerializeField] private float health;
+        [SerializeField] TakeDamageEvent takeDamage;
+
+        [System.Serializable]
+        public class TakeDamageEvent : UnityEvent<float>
+        {
+
+        }
 
         public event Action OnHealthChanged;
         public event Action OnDeath;
@@ -49,19 +58,25 @@ namespace RPG.Resources
 
             health -= damageIn;
 
+            takeDamage.Invoke(damageIn);
+
             health = Mathf.Clamp(health, 0.0f, maxHealth);
 
-            OnHealthChanged();
+            
 
             if (health <= 0.0f)
             {
                 DeathBehaviour();
+
+                isDead = true;
 
                 if (instigator.TryGetComponent(out Experience xp))
                 {
                     xp.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
                 }
             }
+
+            OnHealthChanged();
         }
 
         void DeathBehaviour()

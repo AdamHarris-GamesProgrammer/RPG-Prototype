@@ -4,9 +4,16 @@ namespace RPG.UI
 {
     public class LookAtMainCamera : MonoBehaviour
     {
-        void Update()
+        Transform cameraTransform;
+        void Awake()
         {
-            transform.LookAt(Camera.main.transform);
+            cameraTransform = Camera.main.transform;
+        }
+
+        void FixedUpdate()
+        {
+            //transform.LookAt(Camera.main.transform);
+            transform.forward = cameraTransform.forward;
         }
     }
 }

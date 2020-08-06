@@ -23,6 +23,11 @@ namespace RPG.Control
         [SerializeField] float chaseDistance = 15.0f;
         [SerializeField] float attackDistance = 5.0f;
 
+
+        public float ChaseDistance { get { return chaseDistance; } }
+        public float AttackDistance { get { return attackDistance; } }
+
+
         bool aggrevated = false;
         public bool Aggrevated { get { return aggrevated; } set { aggrevated = value; } }
 
@@ -119,12 +124,14 @@ namespace RPG.Control
             }
             patrol.AddTransition(Transition.Aggrevated, StateID.Chase);
             patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
+            patrol.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
 
 
             Guard guard = new Guard(this, waypointDwellTime, chaseDistance);
             guard.AddTransition(Transition.Aggrevated, StateID.Chase);
             guard.AddTransition(Transition.WaitTimeOver, StateID.Patrol);
             guard.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
+            guard.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
 
 
             Chase chase = new Chase(this, chaseDistance, attackDistance);
