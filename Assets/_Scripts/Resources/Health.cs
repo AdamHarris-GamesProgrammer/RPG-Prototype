@@ -105,6 +105,14 @@ namespace RPG.Resources
             OnHealthChanged();
         }
 
+        public void FillHealth(float amount)
+        {
+            
+            health += amount;
+            health = Mathf.Clamp(health, 0f, maxHealth);
+            OnHealthChanged();
+        }
+
         //Implements the ISaveable interface
         public object CaptureState()
         {
