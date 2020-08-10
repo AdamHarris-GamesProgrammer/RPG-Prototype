@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using RPG.Saving;
 using System;
 using RPG.Resources;
@@ -13,7 +14,7 @@ namespace RPG.Stats
         int currentLevel = 0;
 
         public event Action onExperienceGained;
-        public event Action onLevelUp;
+        [SerializeField] public UnityEvent OnLevelUp;
 
         //TODO Remove later, programmer UI
         [SerializeField] Text levelText = null;
@@ -36,13 +37,13 @@ namespace RPG.Stats
         void OnEnable()
         {
             onExperienceGained += UpdateLevel;
-            onLevelUp += LevelUpEvents;
+            OnLevelUp.AddListener(LevelUpEvents);
         }
 
         void OnDisable()
         {
             onExperienceGained -= UpdateLevel;
-            onLevelUp -= LevelUpEvents;
+            OnLevelUp.RemoveListener(LevelUpEvents);
         }
 
         private void UpdateLevel()
@@ -85,7 +86,7 @@ namespace RPG.Stats
             if (experiencePoints > stats.GetExperienceRequirment())
             {
                 //LEVEL UP
-                onLevelUp();
+                OnLevelUp.Invoke();
 
                 experiencePoints = 0;
                 Debug.Log("Level Up: " + currentLevel);

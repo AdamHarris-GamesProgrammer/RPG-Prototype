@@ -12,7 +12,7 @@ namespace RPG.UI
         {
             DamageText textInstance = Instantiate<DamageText>(damageText, transform);
             textInstance.damageText.text = ((int)damageIn).ToString();
-            Debug.Log(damageIn);
+            //Debug.Log(damageIn);
         }
     }
 }

@@ -14,7 +14,6 @@ namespace RPG.Resources
         float maxHealth;
         [SerializeField] private float health;
         [SerializeField] TakeDamageEvent takeDamage;
-        [SerializeField] UnityEvent onDeath;
 
         [System.Serializable]
         public class TakeDamageEvent : UnityEvent<float>
@@ -23,7 +22,7 @@ namespace RPG.Resources
         }
 
         public event Action OnHealthChanged;
-        public event Action OnDeath;
+        [SerializeField] public UnityEvent OnDeath;
 
         public bool isDead;
         [SerializeField] bool canBeDamaged = true;
@@ -32,7 +31,7 @@ namespace RPG.Resources
         {
             health = GetComponent<BaseStats>().GetStat(Stat.Health);
             maxHealth = health;
-            GetComponent<Experience>().onLevelUp += FillHealth;
+            GetComponent<Experience>().OnLevelUp.AddListener(FillHealth);
         }
 
         public void TakeDamage(GameObject instigator, float damageIn, bool isHeavyAttack)
@@ -84,9 +83,7 @@ namespace RPG.Resources
         {
             if (isDead) return;
 
-            OnDeath();
-            onDeath.Invoke();
-            //onDeath.
+            OnDeath.Invoke();
 
             isDead = true;
             GetComponent<Animator>().SetTrigger("death");

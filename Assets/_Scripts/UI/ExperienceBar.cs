@@ -19,13 +19,13 @@ namespace RPG.Stats
         private void OnEnable()
         {
             experienceComponent.onExperienceGained += UpdateBar;
-            experienceComponent.onLevelUp += UpdateBar;
+            experienceComponent.OnLevelUp.AddListener(UpdateBar);
         }
 
         private void OnDisable()
         {
             experienceComponent.onExperienceGained -= UpdateBar;
-            experienceComponent.onLevelUp -= UpdateBar;
+            experienceComponent.OnLevelUp.RemoveListener(UpdateBar);
         }
 
         private void Start()

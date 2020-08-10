@@ -44,7 +44,7 @@ namespace RPG.Control
 
         private void Awake()
         {
-            GetComponent<Health>().OnDeath += RemoveAIFromGameSpace;
+            GetComponent<Health>().OnDeath.AddListener(RemoveAIFromGameSpace);
             GetComponent<Health>().OnHealthChanged += Aggrevate;
 
             GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
