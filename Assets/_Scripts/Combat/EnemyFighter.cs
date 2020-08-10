@@ -51,7 +51,7 @@ namespace RPG.Combat
 
         private void AttackBehaviour()
         {
-            if (heavyAttack && equippedWeapon.HasHeavyAttack)
+            if (heavyAttack && equippedWeaponConfig.HasHeavyAttack)
             {
                 fighterAnimator.SetTrigger("heavyAttack");
             }

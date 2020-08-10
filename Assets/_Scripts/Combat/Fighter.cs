@@ -15,9 +15,10 @@ namespace RPG.Combat
 
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Transform rightHandTransform = null;
-        [SerializeField] private Weapon defaultWeapon = null;
+        [SerializeField] private WeaponConfig defaultWeapon = null;
 
-        protected Weapon equippedWeapon = null;
+        protected WeaponConfig equippedWeaponConfig = null;
+        private Weapon currentWeapon;
 
         protected Transform target;
 
@@ -42,9 +43,9 @@ namespace RPG.Combat
 
         void Start()
         {
-            if (equippedWeapon == null)
+            if (equippedWeaponConfig == null)
             {
-                EquipWeapon(defaultWeapon);
+                currentWeapon = EquipWeapon(defaultWeapon);
             }
         }
 
@@ -62,7 +63,7 @@ namespace RPG.Combat
 
         public bool IsInRangeOfWeapon(Vector3 target)
         {
-            return Vector3.Distance(transform.position, target) < equippedWeapon.AttackRange;
+            return Vector3.Distance(transform.position, target) < equippedWeaponConfig.AttackRange;
         }
 
         public virtual void Attack(GameObject combatTarget, bool isHeavyAttack)
@@ -87,14 +88,18 @@ namespace RPG.Combat
 
             return true;
         }
-        
-        public void EquipWeapon(Weapon weapon)
-        {
-            if(!weapon) Debug.LogError("[Error]: Fighter.cs weapon is null");
 
-            equippedWeapon = weapon;
-            equippedWeapon.Spawn(rightHandTransform, leftHandTransform, fighterAnimator);
-            timeBetweenAttacks = equippedWeapon.AttackTime;
+        public Weapon EquipWeapon(WeaponConfig weapon)
+        {
+            if (!weapon) Debug.LogError("[Error]: Fighter.cs weapon is null");
+
+            equippedWeaponConfig = weapon;
+            timeBetweenAttacks = equippedWeaponConfig.AttackTime;
+            Weapon spawnedWeapon = equippedWeaponConfig.Spawn(rightHandTransform, leftHandTransform, fighterAnimator);
+
+            currentWeapon = spawnedWeapon;
+
+            return spawnedWeapon;
         }
 
         //Animation Event
@@ -121,11 +126,16 @@ namespace RPG.Combat
                 Cancel();
             }
 
+            if(currentWeapon != null)
+            {
+                currentWeapon.OnHit();
+            }
+
             //if the equipped weapon is a projectile based weapon
-            if (equippedWeapon.HasProjectile())
+            if (equippedWeaponConfig.HasProjectile())
             {
                 //Launch the projectile
-                equippedWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, enemyHealthComponent, gameObject);
+                equippedWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, enemyHealthComponent, gameObject);
             }
             else
             {
@@ -154,15 +164,15 @@ namespace RPG.Combat
         //Implements ISaveable interface
         public object CaptureState()
         {
-            return equippedWeapon.name;
+            return equippedWeaponConfig.name;
         }
 
         public void RestoreState(object state)
         {
             string weaponName = (string)state;
 
-            Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
-            EquipWeapon(weapon);
+            WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
+            currentWeapon = EquipWeapon(weapon);
         }
         #endregion
 
@@ -170,17 +180,17 @@ namespace RPG.Combat
         //Implements IModifierProvider interface
         public IEnumerable<float> GetAdditiveModifiers(Stat stat)
         {
-            if(stat == Stat.Damage)
+            if (stat == Stat.Damage)
             {
-                yield return equippedWeapon.CalculateDamage();
+                yield return equippedWeaponConfig.CalculateDamage();
             }
         }
 
         public IEnumerable<float> GetPercentageModifiers(Stat stat)
         {
-            if(stat == Stat.Damage)
+            if (stat == Stat.Damage)
             {
-                yield return equippedWeapon.PercentageBonus;
+                yield return equippedWeaponConfig.PercentageBonus;
             }
         }
         #endregion

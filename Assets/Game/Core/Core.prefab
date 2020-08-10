@@ -360,6 +360,16 @@ PrefabInstance:
       propertyPath: m_FollowOffset.z
       value: -6.15
       objectReference: {fileID: 0}
+    - target: {fileID: 3027623711126125096, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027623711126125096, guid: e24197e9db2041242b25fa80e8f912a5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.22
+      objectReference: {fileID: 0}
     - target: {fileID: 3507857709530799348, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalPosition.z

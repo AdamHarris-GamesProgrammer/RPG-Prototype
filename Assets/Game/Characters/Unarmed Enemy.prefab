@@ -33,7 +33,7 @@ RectTransform:
   - {fileID: 9160155255670194925}
   - {fileID: 4033927729233319791}
   m_Father: {fileID: 3648758160771100024}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandTransform: {fileID: 4305946543972283766}
   rightHandTransform: {fileID: 4305946543972210036}
-  defaultWeapon: {fileID: 0}
+  defaultWeapon: {fileID: 11400000, guid: ee44e3eb2cd849547b91a5e5f61f7c8a, type: 2}
   chanceForHeavyAttack: 0.2
 --- !u!1 &4633230299192540482
 GameObject:
@@ -476,7 +476,7 @@ PrefabInstance:
     - target: {fileID: 3221800478460553644, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7878368480476391472, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}

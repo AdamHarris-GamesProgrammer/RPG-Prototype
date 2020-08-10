@@ -6,7 +6,7 @@ using RPG.Control;
 
 public class Pickup : MonoBehaviour, IInteractive
 {
-    [SerializeField] private Weapon pickup = null;
+    [SerializeField] private WeaponConfig pickup = null;
     [SerializeField] private float respawnTimer = 5.0f;
 
     [SerializeField] GameObject interactImage = null;

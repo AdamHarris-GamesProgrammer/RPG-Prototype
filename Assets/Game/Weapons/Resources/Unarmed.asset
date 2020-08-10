@@ -13,8 +13,15 @@ MonoBehaviour:
   m_Name: Unarmed
   m_EditorClassIdentifier: 
   weaponOverride: {fileID: 0}
-  weaponPrefab: {fileID: 0}
-  weaponDamage: 5
-  attackRange: 2.5
+  weaponPrefab: {fileID: 1000086405400484026, guid: f0de5bb09bad0c04091c0a04111d1daf,
+    type: 3}
   projectile: {fileID: 0}
+  mininumDamage: 8
+  maxinumDamage: 12
+  percentageBonus: 0
+  criticalChance: 0.05
+  criticalDamage: 80
+  attackRange: 2.5
+  timeBetweenAttacks: 1
   isRightHanded: 1
+  hasHeavyAttack: 1
