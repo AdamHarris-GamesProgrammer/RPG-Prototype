@@ -56,10 +56,6 @@ namespace RPG.Control
         {
             if (GetComponent<Health>().isDead) return;
 
-
-
-            
-
             foreach (NPCController aiController in FindObjectsOfType<NPCController>())
             {
                 if (!aiController.GetComponent<Health>().isDead)

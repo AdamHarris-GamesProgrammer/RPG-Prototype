@@ -14,6 +14,7 @@ namespace RPG.Resources
         float maxHealth;
         [SerializeField] private float health;
         [SerializeField] TakeDamageEvent takeDamage;
+        [SerializeField] UnityEvent onDeath;
 
         [System.Serializable]
         public class TakeDamageEvent : UnityEvent<float>
@@ -84,6 +85,8 @@ namespace RPG.Resources
             if (isDead) return;
 
             OnDeath();
+            onDeath.Invoke();
+            //onDeath.
 
             isDead = true;
             GetComponent<Animator>().SetTrigger("death");

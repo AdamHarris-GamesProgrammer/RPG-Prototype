@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RPG.Control;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,7 @@ namespace RPG.SceneManagement
         [SerializeField] public Transform spawnPoint;
         [SerializeField] private GameObject uiGroup = null;
 
+        bool disableInteraction = false;
 
         public enum DestinationIdentifier
         {
@@ -40,7 +42,11 @@ namespace RPG.SceneManagement
 
             DontDestroyOnLoad(gameObject);
 
+            //remove control
+            FindObjectOfType<PlayerController>().enabled = false;
+
             yield return StartCoroutine(fader.FadeIn());
+
 
             //Destroys the serialized image 
             Destroy(uiGroup);
@@ -51,6 +57,9 @@ namespace RPG.SceneManagement
 
             yield return SceneManager.LoadSceneAsync(sceneName);
 
+            //remove control from new player
+            FindObjectOfType<PlayerController>().enabled = false;
+
             //Load current level
             saveComponent.Load();
 
@@ -60,6 +69,9 @@ namespace RPG.SceneManagement
             saveComponent.Save();
 
             yield return StartCoroutine(fader.FadeWait());
+
+            //Restore control to player 
+            FindObjectOfType<PlayerController>().enabled = true;
 
             yield return StartCoroutine(fader.FadeOut());
 
@@ -91,15 +103,22 @@ namespace RPG.SceneManagement
         //IInteractive interface implementation
         public void Interact()
         {
+            if (disableInteraction) return;
+
+
             if (Input.GetKeyDown(KeyCode.E))
             {
+                disableInteraction = true;
                 TransitionTo();
                 GetComponent<Collider>().enabled = false;
             }
         }
 
+
         public void ShowUI(bool isActive)
         {
+            if (uiGroup == null) return;
+
             uiGroup.SetActive(isActive);
         }
     }
