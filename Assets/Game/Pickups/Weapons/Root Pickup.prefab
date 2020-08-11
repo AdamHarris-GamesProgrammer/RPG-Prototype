@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickup: {fileID: 11400000, guid: ee44e3eb2cd849547b91a5e5f61f7c8a, type: 2}
+  healthToRestore: 0
   respawnTimer: 5
   interactImage: {fileID: 7244138818300968751}
 --- !u!54 &2805314353613633022
@@ -374,7 +375,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.12800002}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &1395941713342397023
 ParticleSystem:

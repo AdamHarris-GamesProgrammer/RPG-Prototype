@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Superb Steel Sword
   m_EditorClassIdentifier: 
   weaponOverride: {fileID: 22100000, guid: 972dfce2d277cc644bd2adf4ec1ba63c, type: 2}
-  weaponPrefab: {fileID: -8495428398495888888, guid: 20ceeda25393bac49ab43d13034ba0f9,
+  weaponPrefab: {fileID: 2569240450942299015, guid: 3851a7f48a54f60429b1bb5089545098,
     type: 3}
   projectile: {fileID: 0}
   mininumDamage: 30

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Exquisite Steel Sword
   m_EditorClassIdentifier: 
   weaponOverride: {fileID: 22100000, guid: 972dfce2d277cc644bd2adf4ec1ba63c, type: 2}
-  weaponPrefab: {fileID: 2533175255078512343, guid: 99e6e3735cce805479b7ed2412aa6816,
+  weaponPrefab: {fileID: 2569240450942299015, guid: 3851a7f48a54f60429b1bb5089545098,
     type: 3}
   projectile: {fileID: 0}
   mininumDamage: 40
