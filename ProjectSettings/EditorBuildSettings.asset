@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Prologue/00_PrologueLevel.unity
     guid: f8823ec89060ee047a45625c32c664dd
   - enabled: 1
-    path: Assets/Scenes/Sandbox Scene.unity
+    path: Assets/Scenes/Dev/Sandbox Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Scenes/00_VillageGates.unity

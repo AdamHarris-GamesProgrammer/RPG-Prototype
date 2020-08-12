@@ -37,6 +37,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 11cfe23ad06f2134fbb34fa02e265d00,
         type: 2}
+    - target: {fileID: 1403819599366721837, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
+        type: 3}
+      propertyPath: hasRangedAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3648758160771100020, guid: 2f9fa0c33641e7d4bae7dce2424c57a4,
         type: 3}
       propertyPath: m_Name
