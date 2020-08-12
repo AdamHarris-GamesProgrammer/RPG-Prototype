@@ -3828,6 +3828,16 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: 7dd9879a-b8dc-4db4-9d51-f17bdae952cf
       objectReference: {fileID: 0}
+    - target: {fileID: 5862210851550909963, guid: 4983db438b2ef304293fd381b8530493,
+        type: 3}
+      propertyPath: attackDistance
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862210851550909963, guid: 4983db438b2ef304293fd381b8530493,
+        type: 3}
+      propertyPath: chaseDistance
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8107431498649201234, guid: 4983db438b2ef304293fd381b8530493,
         type: 3}
       propertyPath: m_Name

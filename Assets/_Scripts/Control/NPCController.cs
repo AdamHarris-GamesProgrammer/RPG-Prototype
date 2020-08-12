@@ -23,6 +23,8 @@ namespace RPG.Control
         [SerializeField] float chaseDistance = 15.0f;
         [SerializeField] float attackDistance = 5.0f;
 
+        [Header("Attack settings")]
+        [SerializeField] bool hasRangedAttack = false;
 
         public float ChaseDistance { get { return chaseDistance; } }
         public float AttackDistance { get { return attackDistance; } }
@@ -141,7 +143,7 @@ namespace RPG.Control
             suspicion.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
 
-            Attack attack = new Attack(this, attackDistance);
+            Attack attack = new Attack(this, attackDistance, hasRangedAttack);
             attack.AddTransition(Transition.PlayerLeavesAttackRange, StateID.Chase);
 
             Dead dead = new Dead(this);

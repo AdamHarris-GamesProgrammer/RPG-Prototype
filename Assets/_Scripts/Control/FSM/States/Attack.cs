@@ -10,23 +10,37 @@ namespace RPG.Control
     {
         float attackDistance;
 
-        public Attack(NPCController controller, float attackDistanceIn) : base(controller, StateID.Attack)
+        bool rangedEnemy;
+
+        Fighter npcFighter;
+
+        public Attack(NPCController controller, float attackDistanceIn, bool rangedEnemyIn = false) : base(controller, StateID.Attack)
         {
             attackDistance = attackDistanceIn;
+            rangedEnemy = rangedEnemyIn;
+            npcFighter = controller.GetComponent<Fighter>();
         }
 
         public override void Reason(Transform player, Transform npc)
         {
-            if(Vector3.Distance(player.position, npc.position) > attackDistance)
+            if (rangedEnemy)
             {
-                controller.SetTransition(Transition.PlayerLeavesAttackRange);
+                if (!npcFighter.IsInRangeOfWeapon(player.position))
+                {
+                    controller.SetTransition(Transition.PlayerLeavesAttackRange);
+                }
+            }
+            else
+            {
+                if (Vector3.Distance(player.position, npc.position) > attackDistance)
+                {
+                    controller.SetTransition(Transition.PlayerLeavesAttackRange);
+                }
             }
         }
 
         public override void Act(Transform player, Transform npc)
         {
-            Fighter npcFighter = controller.GetComponent<Fighter>();
-
             if (npcFighter.IsInRangeOfWeapon(player.position))
             {
                 npcFighter.Attack(player.gameObject);
