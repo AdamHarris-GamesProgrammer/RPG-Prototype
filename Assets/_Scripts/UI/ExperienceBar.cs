@@ -14,6 +14,7 @@ namespace RPG.Stats
         private void Awake()
         {
             experienceComponent = GetComponent<Experience>();
+            experienceComponent.OnLevelUp.AddListener(UpdateBar);
         }
 
         private void OnEnable()

@@ -71,7 +71,9 @@ namespace RPG.Control
 
         private void RemoveAIFromGameSpace()
         {
+            aggrevated = false;
             player.GetComponent<PlayerController>().RemoveAI(this);
+            Destroy(this, 3f);
         }
 
         private void Aggrevate()
@@ -92,7 +94,12 @@ namespace RPG.Control
 
         protected override void StateUpdate()
         {
+            if (GetComponent<Health>().isDead) return;
 
+            if (aggrevated)
+            {
+                SmoothLookAt(playerTransform.gameObject);
+            }
         }
 
         protected override void StateFixedUpdate()
@@ -107,6 +114,8 @@ namespace RPG.Control
         {
             PerformTransition(t);
         }
+
+
 
         private void ConstructStateMachine()
         {
@@ -161,8 +170,20 @@ namespace RPG.Control
             stun.AddTransition(Transition.Stunned, StateID.Stunned);
 
             AddState(stun);
+
+            AddTransitionToAll(Transition.Dead, StateID.Dead);
+
             AddState(dead);
 
+        }
+
+        public void SmoothLookAt(GameObject target)
+        {
+            float rotSpeed = 15.0f;
+
+            Quaternion targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
         }
 
         private void OnParticleCollision(GameObject other)

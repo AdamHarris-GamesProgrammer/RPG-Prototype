@@ -62,6 +62,7 @@ namespace RPG.Resources
 
             health = Mathf.Clamp(health, 0.0f, maxHealth);
 
+            transform.LookAt(instigator.transform);
             
 
             if (health <= 0.0f)
@@ -84,6 +85,7 @@ namespace RPG.Resources
             if (isDead) return;
 
             OnDeath.Invoke();
+
 
             isDead = true;
             GetComponent<Animator>().SetTrigger("death");

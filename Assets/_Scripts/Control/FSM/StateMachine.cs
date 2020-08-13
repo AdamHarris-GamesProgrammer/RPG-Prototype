@@ -17,7 +17,8 @@ namespace RPG.Control
         Aggrevated,
         Deaggrevated, 
         Stunned,
-        StunOver
+        StunOver,
+        Dead
     }
 
     public enum StateID

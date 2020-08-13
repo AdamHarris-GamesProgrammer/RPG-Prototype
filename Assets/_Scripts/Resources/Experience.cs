@@ -85,10 +85,11 @@ namespace RPG.Stats
         {
             if (experiencePoints > stats.GetExperienceRequirment())
             {
+                experiencePoints = 0;
+
                 //LEVEL UP
                 OnLevelUp.Invoke();
 
-                experiencePoints = 0;
                 Debug.Log("Level Up: " + currentLevel);
             }
 

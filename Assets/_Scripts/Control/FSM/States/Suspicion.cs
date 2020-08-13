@@ -37,6 +37,7 @@ namespace RPG.Control
         {
             if(suspicionTimer > suspicionDuration)
             {
+                controller.Aggrevated = false;
                controller.SetTransition(Transition.SuspicionTimeUp);
             }
 
