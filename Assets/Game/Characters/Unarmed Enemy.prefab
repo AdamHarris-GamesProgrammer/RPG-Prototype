@@ -162,6 +162,7 @@ MonoBehaviour:
   aggrevationDuration: 10
   chaseDistance: 12
   attackDistance: 3
+  hasRangedAttack: 0
   enemiesInScene: []
 --- !u!114 &3533307096120806944
 MonoBehaviour:
@@ -362,6 +363,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4633939622390390606, guid: b1455ee34a0258048b8c40775fe25942,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: -2824290862129192347, guid: b1455ee34a0258048b8c40775fe25942,
         type: 3}
       propertyPath: m_Speed
