@@ -13,6 +13,13 @@ public class Pickup : MonoBehaviour, IInteractive
 
     [SerializeField] GameObject interactImage = null;
 
+    private PlayerController controller;
+
+    void Awake()
+    {
+        controller = FindObjectOfType<PlayerController>();
+    }
+
     private IEnumerator HideForSeconds(float seconds)
     {
         foreach(Transform child in transform)
@@ -31,6 +38,8 @@ public class Pickup : MonoBehaviour, IInteractive
     //IInteractive interface implementation
     public void Interact()
     {
+        if (controller.InCombat()) return;
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if(pickup == null)

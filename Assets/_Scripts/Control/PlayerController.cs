@@ -221,6 +221,7 @@ namespace RPG.Control
         {
             enemiesInImmediateCombatArea.Add(ai);
 
+
             OnCombat();
             inCombat = true;
         }

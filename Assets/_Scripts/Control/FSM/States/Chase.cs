@@ -10,7 +10,7 @@ namespace RPG.Control
     {
         float chaseDistance, attackDistance;
 
-        public Chase(NPCController controller, float chaseDistanceIn, float attackDistanceIn) : base(controller, StateID.Chase)
+        public Chase(PlayerController player, NPCController controller, float chaseDistanceIn, float attackDistanceIn) : base(controller, StateID.Chase, player)
         {
             chaseDistance = chaseDistanceIn;
             attackDistance = attackDistanceIn;
@@ -44,6 +44,7 @@ namespace RPG.Control
         public override void OnEntry()
         {
             controller.AggrevatedTimer = 0.0f;
+            playerController.aggrevatedEnemies.Add(controller);
         }
 
         public override void Act(Transform player, Transform npc)

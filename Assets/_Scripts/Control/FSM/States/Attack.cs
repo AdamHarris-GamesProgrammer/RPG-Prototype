@@ -14,7 +14,7 @@ namespace RPG.Control
 
         Fighter npcFighter;
 
-        public Attack(NPCController controller, float attackDistanceIn, bool rangedEnemyIn = false) : base(controller, StateID.Attack)
+        public Attack(PlayerController player, NPCController controller, float attackDistanceIn, bool rangedEnemyIn = false) : base(controller, StateID.Attack, player)
         {
             attackDistance = attackDistanceIn;
             rangedEnemy = rangedEnemyIn;
@@ -45,6 +45,11 @@ namespace RPG.Control
             {
                 npcFighter.Attack(player.gameObject);
             }
+        }
+
+        public override void OnEntry()
+        {
+            playerController.aggrevatedEnemies.Add(controller);
         }
     }
 }

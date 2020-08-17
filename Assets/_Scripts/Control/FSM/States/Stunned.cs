@@ -10,7 +10,7 @@ namespace RPG.Control
         float stunDuration;
         float stunTimer;
 
-        public Stunned(NPCController controller, float stunDurationIn) : base(controller, StateID.Stunned)
+        public Stunned(PlayerController player, NPCController controller, float stunDurationIn) : base(controller, StateID.Stunned, player)
         {
             stunDuration = stunDurationIn;
         }

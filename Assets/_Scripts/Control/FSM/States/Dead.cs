@@ -8,7 +8,7 @@ namespace RPG.Control
     public class Dead : State
     {
         bool animPlayed;
-        public Dead(NPCController controller) : base(controller, StateID.Dead)
+        public Dead(PlayerController player, NPCController controller) : base(controller, StateID.Dead, player)
         {
             stateID = StateID.Dead;
         }

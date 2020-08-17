@@ -13,7 +13,7 @@ namespace RPG.Control
 
         float chaseDistance;
 
-        public Suspicion(NPCController controller, float suspicionDurationIn, float chaseDistanceIn) : base(controller, StateID.Suspicion)
+        public Suspicion(PlayerController player, NPCController controller, float suspicionDurationIn, float chaseDistanceIn) : base(controller, StateID.Suspicion, player)
         {
             suspicionDuration = suspicionDurationIn;
             chaseDistance = chaseDistanceIn;
@@ -31,13 +31,15 @@ namespace RPG.Control
         public override void OnExit()
         {
             suspicionTimer = 0.0f;
+            Debug.Log("Exiting Suspicion State");
+            playerController.RemoveAI(controller);
         }
 
         public override void Reason(Transform player, Transform npc)
         {
             if(suspicionTimer > suspicionDuration)
             {
-                controller.Aggrevated = false;
+               controller.Aggrevated = false;
                controller.SetTransition(Transition.SuspicionTimeUp);
             }
 
@@ -54,7 +56,6 @@ namespace RPG.Control
         public override void Act(Transform player, Transform npc)
         {
             suspicionTimer += Time.fixedDeltaTime;
-            //controller.GetComponent<Mover>().MoveTo(npc.position, 1.0f, false);
         }
     }
 }

@@ -14,6 +14,8 @@ namespace RPG.SceneManagement
 
         bool disableInteraction = false;
 
+        private PlayerController controller;
+
         public enum DestinationIdentifier
         {
             A, B, C, D, E, F, G
@@ -21,6 +23,11 @@ namespace RPG.SceneManagement
 
         [SerializeField] public DestinationIdentifier destination;
         [SerializeField] public DestinationIdentifier destinationToGo;
+
+        void Awake()
+        {
+            controller = FindObjectOfType<PlayerController>();
+        }
 
         public void TransitionTo()
         {
@@ -103,6 +110,7 @@ namespace RPG.SceneManagement
         //IInteractive interface implementation
         public void Interact()
         {
+            if (controller.InCombat()) return;
             if (disableInteraction) return;
 
 

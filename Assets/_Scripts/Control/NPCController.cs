@@ -122,40 +122,40 @@ namespace RPG.Control
             Patrol patrol;
             if(patrolPath != null)
             {
-                patrol = new Patrol(this, patrolPath, chaseDistance, patrollingSpeedFraction, waypointTolerance);
+                patrol = new Patrol(player, this, patrolPath, chaseDistance, patrollingSpeedFraction, waypointTolerance);
                 patrol.AddTransition(Transition.AtWaypoint, StateID.Guard);
             }
             else
             {
-                patrol = new Patrol(this, transform.position, chaseDistance);
+                patrol = new Patrol(player, this, transform.position, chaseDistance);
             }
             patrol.AddTransition(Transition.Aggrevated, StateID.Chase);
             patrol.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
             patrol.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
 
 
-            Guard guard = new Guard(this, waypointDwellTime, chaseDistance);
+            Guard guard = new Guard(player, this, waypointDwellTime, chaseDistance);
             guard.AddTransition(Transition.Aggrevated, StateID.Chase);
             guard.AddTransition(Transition.WaitTimeOver, StateID.Patrol);
             guard.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
             guard.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
 
 
-            Chase chase = new Chase(this, chaseDistance, attackDistance);
+            Chase chase = new Chase(player, this, chaseDistance, attackDistance);
             chase.AddTransition(Transition.PlayerInAttackRange, StateID.Attack);
             chase.AddTransition(Transition.PlayerLeavesChaseDistance, StateID.Suspicion);
             chase.AddTransition(Transition.Deaggrevated, StateID.Suspicion);
 
 
-            Suspicion suspicion = new Suspicion(this, suspicionDuration, chaseDistance);
+            Suspicion suspicion = new Suspicion(player, this, suspicionDuration, chaseDistance);
             suspicion.AddTransition(Transition.SuspicionTimeUp, StateID.Patrol);
             suspicion.AddTransition(Transition.PlayerInChaseDistance, StateID.Chase);
 
 
-            Attack attack = new Attack(this, attackDistance, hasRangedAttack);
+            Attack attack = new Attack(player, this, attackDistance, hasRangedAttack);
             attack.AddTransition(Transition.PlayerLeavesAttackRange, StateID.Chase);
 
-            Dead dead = new Dead(this);
+            Dead dead = new Dead(player, this);
 
             AddState(patrol);
             AddState(guard);
@@ -165,7 +165,7 @@ namespace RPG.Control
 
             AddTransitionToAll(Transition.Stunned, StateID.Stunned);
 
-            Stunned stun = new Stunned(this, 1.5f);
+            Stunned stun = new Stunned(player, this, 1.5f);
             stun.AddTransition(Transition.StunOver, StateID.Chase);
             stun.AddTransition(Transition.Stunned, StateID.Stunned);
 

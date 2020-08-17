@@ -18,7 +18,7 @@ namespace RPG.Control
 
         Vector3 position;
 
-        public Patrol(NPCController controller, PatrolPath inPath, float chaseDistanceIn, float speedFractionIn, float waypointToleranceIn) : base(controller, StateID.Patrol)
+        public Patrol(PlayerController player, NPCController controller, PatrolPath inPath, float chaseDistanceIn, float speedFractionIn, float waypointToleranceIn) : base(controller, StateID.Patrol, player)
         {
             waypoints = inPath;
 
@@ -27,7 +27,7 @@ namespace RPG.Control
             waypointTolerance = waypointToleranceIn;
         }
 
-        public Patrol(NPCController controller, Vector3 posIn,float chaseDistanceIn) : base(controller, StateID.Patrol)
+        public Patrol(PlayerController player, NPCController controller, Vector3 posIn,float chaseDistanceIn) : base(controller, StateID.Patrol, player)
         {
             chaseDistance = chaseDistanceIn;
             hasPatrolPoint = false;
@@ -35,6 +35,10 @@ namespace RPG.Control
             position = posIn;
         }
 
+        public override void OnEntry()
+        {
+            controller.GetComponent<Mover>().StartMoveAction(waypoints.GetWaypointPosition(currentWaypoint), speedFraction, false);
+        }
 
         public override void Reason(Transform player, Transform npc)
         {

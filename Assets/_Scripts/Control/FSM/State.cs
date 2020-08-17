@@ -17,6 +17,7 @@ namespace RPG.Control
 
         protected PatrolPath waypoints;
         protected NPCController controller;
+        protected PlayerController playerController;
 
         public void AddTransition(Transition transition, StateID id)
         {
@@ -61,9 +62,10 @@ namespace RPG.Control
             }
             return false;
         }
-        public State(NPCController controller, StateID id)
+        public State(NPCController controller, StateID id, PlayerController player)
         {
             this.controller = controller;
+            playerController = player;
             stateID = id;
         }
 

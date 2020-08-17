@@ -11,7 +11,7 @@ namespace RPG.Control
 
         float chaseDistance;
 
-        public Guard(NPCController controller, float time, float chaseDistanceIn) : base(controller, StateID.Guard)
+        public Guard(PlayerController player, NPCController controller, float time, float chaseDistanceIn) : base(controller, StateID.Guard, player)
         {
             dwellDuration = time;
             dwellTimer = 0.0f;
