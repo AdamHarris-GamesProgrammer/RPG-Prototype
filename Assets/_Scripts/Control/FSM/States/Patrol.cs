@@ -37,6 +37,8 @@ namespace RPG.Control
 
         public override void OnEntry()
         {
+            if (!hasPatrolPoint) return;
+
             controller.GetComponent<Mover>().StartMoveAction(waypoints.GetWaypointPosition(currentWaypoint), speedFraction, false);
         }
 

@@ -13,7 +13,9 @@ namespace RPG.Resources
     {
         float maxHealth;
         [SerializeField] private float health;
+        [SerializeField] bool useBaseStats = true;
         [SerializeField] TakeDamageEvent takeDamage;
+
 
         [System.Serializable]
         public class TakeDamageEvent : UnityEvent<float>
@@ -29,7 +31,10 @@ namespace RPG.Resources
 
         private void Awake()
         {
-            health = GetComponent<BaseStats>().GetStat(Stat.Health);
+            if (useBaseStats)
+            {
+                health = GetComponent<BaseStats>().GetStat(Stat.Health);
+            }
             maxHealth = health;
             GetComponent<Experience>().OnLevelUp.AddListener(FillHealth);
         }
