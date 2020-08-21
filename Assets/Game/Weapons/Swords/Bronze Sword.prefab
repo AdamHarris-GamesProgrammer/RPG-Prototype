@@ -48,7 +48,7 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8059193974769407388}
+      - m_Target: {fileID: 4959057055624948659}
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -69,6 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1238783259545015908}
   - component: {fileID: 8059193974769407388}
+  - component: {fileID: 4959057055624948659}
   m_Layer: 0
   m_Name: Hit Sound
   m_TagString: Untagged
@@ -186,6 +187,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4959057055624948659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428488012995137362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b39c2b462684c42a22a4c88624fa29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: ecb1846d8f5334e4098e073700dc88fb, type: 3}
+  - {fileID: 8300000, guid: 379e40c9ee994864fa1cbcd90934c6a9, type: 3}
+  - {fileID: 8300000, guid: cdaa435ececc19348a0781d42da35abc, type: 3}
+  - {fileID: 8300000, guid: ecd22e27033ea8046811908b0d8ebf86, type: 3}
+  - {fileID: 8300000, guid: db2e1e0b0a7d23f41b46ec1f840f2671, type: 3}
+  pitchMin: 0.2
+  pitchMax: 0.3
 --- !u!1001 &6327577615081377913
 PrefabInstance:
   m_ObjectHideFlags: 0

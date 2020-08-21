@@ -28,8 +28,6 @@ public class AudioModder : MonoBehaviour
 
         source.pitch = Random.Range(pitchBeforeMod - pitchMin, pitchBeforeMod + pitchMax);
 
-        Debug.Log("Pitch: " + source.pitch);
-
         source.Play();
     }
 }
