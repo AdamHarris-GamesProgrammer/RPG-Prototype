@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.unity.2d.sprite": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
     "com.unity.cinemachine": {
       "version": "2.6.0",
       "depth": 0,
@@ -22,7 +16,7 @@
     },
     "com.unity.ext.nunit": {
       "version": "1.0.0",
-      "depth": 0,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
