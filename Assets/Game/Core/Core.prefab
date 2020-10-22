@@ -377,12 +377,12 @@ PrefabInstance:
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000012442802
+      value: -7.7134765e-10
       objectReference: {fileID: 0}
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 2.7300325e-11
+      value: 1.6923877e-11
       objectReference: {fileID: 0}
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -607,12 +607,12 @@ PrefabInstance:
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.0000000037214958
       objectReference: {fileID: 0}
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -1.6810962e-10
       objectReference: {fileID: 0}
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -761,12 +761,12 @@ PrefabInstance:
     - target: {fileID: 9106660902145615505, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000202756
+      value: -0.0000000202756
       objectReference: {fileID: 0}
     - target: {fileID: 9106660902145615505, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -4.209935e-10
+      value: 4.209935e-10
       objectReference: {fileID: 0}
     - target: {fileID: 9106660902145615505, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -818,6 +818,10 @@ PrefabInstance:
     - target: {fileID: 1618136693512946, guid: 07dc30b6f1bbb4147acd5fd5555a18f5, type: 3}
       propertyPath: m_Name
       value: Inventory Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618136693512946, guid: 07dc30b6f1bbb4147acd5fd5555a18f5, type: 3}
+      propertyPath: m_TagString
+      value: InventoryCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 114020269127578112, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}

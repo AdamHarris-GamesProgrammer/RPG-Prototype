@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 
 using RPG.Resources;
+using RPG.UI;
 
 [RequireComponent(typeof(Health))]
 public class HealthBar : MonoBehaviour
@@ -14,6 +15,19 @@ public class HealthBar : MonoBehaviour
     {
         healthComponent = GetComponent<Health>();
         healthComponent.OnHealthChanged += UpdateBar;
+
+        ShowHideUI ui = GameObject.FindGameObjectWithTag("InventoryCanvas").GetComponent<ShowHideUI>();
+        ui.showUI += ShowBar;
+        ui.closeUI += CloseBar;
+    }
+
+    void ShowBar()
+    {
+        GUI.SetActive(true);
+    }
+    void CloseBar()
+    {
+        GUI.SetActive(false);
     }
 
     public void UpdateBar()
