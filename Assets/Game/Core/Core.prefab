@@ -377,12 +377,12 @@ PrefabInstance:
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 7.7134765e-10
+      value: -0.0000000012442802
       objectReference: {fileID: 0}
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.6923877e-11
+      value: 2.7300325e-11
       objectReference: {fileID: 0}
     - target: {fileID: 1992959787395009378, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -607,12 +607,12 @@ PrefabInstance:
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000037214958
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.6810962e-10
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5237197074626736066, guid: e24197e9db2041242b25fa80e8f912a5,
         type: 3}
@@ -844,21 +844,6 @@ PrefabInstance:
       propertyPath: m_TextStyleHashCode
       value: -1183493901
       objectReference: {fileID: 0}
-    - target: {fileID: 114020269127578112, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
-        type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114020269127578112, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
-        type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 114020269127578112, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
-        type: 3}
-      propertyPath: m_textAlignment
-      value: 65535
-      objectReference: {fileID: 0}
     - target: {fileID: 114624768180834898, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -989,6 +974,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224153372062608982, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224285457996228904, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1102,7 +1092,7 @@ PrefabInstance:
     - target: {fileID: 224338124537362198, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.00048828125
       objectReference: {fileID: 0}
     - target: {fileID: 224928911778522548, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}

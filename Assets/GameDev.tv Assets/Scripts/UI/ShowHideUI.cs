@@ -21,6 +21,20 @@ namespace RPG.UI
             if (Input.GetKeyDown(toggleKey))
             {
                 uiContainer.SetActive(!uiContainer.activeSelf);
+
+                if (!uiContainer.active)
+                {
+                    Time.timeScale = 1;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+                else
+                {
+                    Time.timeScale = 0;
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+
             }
         }
     }
