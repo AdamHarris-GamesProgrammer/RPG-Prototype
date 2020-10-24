@@ -17,8 +17,6 @@ namespace RPG.UI
         void Start()
         {
             uiContainer.SetActive(false);
-
-
         }
 
         // Update is called once per frame

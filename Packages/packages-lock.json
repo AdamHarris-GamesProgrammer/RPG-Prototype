@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
     "com.unity.cinemachine": {
       "version": "2.6.0",
       "depth": 0,
@@ -45,8 +51,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "7.4.3",
-      "depth": 2,
+      "version": "7.5.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "1.0.0"
@@ -64,21 +70,21 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.universal": {
-      "version": "7.4.3",
-      "depth": 1,
+      "version": "7.5.1",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.render-pipelines.core": "7.4.3",
-        "com.unity.shadergraph": "7.4.3"
+        "com.unity.render-pipelines.core": "7.5.1",
+        "com.unity.shadergraph": "7.5.1"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "7.4.3",
-      "depth": 2,
+      "version": "7.5.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.render-pipelines.core": "7.4.3"
+        "com.unity.render-pipelines.core": "7.5.1"
       },
       "url": "https://packages.unity.com"
     },
