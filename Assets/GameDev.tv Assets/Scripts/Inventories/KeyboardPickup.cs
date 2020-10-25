@@ -13,7 +13,10 @@ namespace RPG.Inventories
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                pickup.PickupItem();
+                if (pickup.CanBePickedUp())
+                {
+                    pickup.PickupItem();
+                }
             }
         }
 

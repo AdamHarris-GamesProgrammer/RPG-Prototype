@@ -7,7 +7,7 @@ namespace RPG.SceneManagement
     public class SavingWrapper : MonoBehaviour
     {
         const string saveFile = "save";
-        [SerializeField] bool loadLastScene = false;
+        [SerializeField] bool loadLastScene = true;
         IEnumerator Start()
         {
             if (loadLastScene)

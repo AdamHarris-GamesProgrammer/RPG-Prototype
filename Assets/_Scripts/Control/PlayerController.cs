@@ -123,11 +123,9 @@ namespace RPG.Control
             if (Input.GetKey(KeyCode.E) && stamina.CurrentStamina - staminaReductionFromBlocking > 0)
             {
                 blocking = true;
-                Debug.Log("Blocking");
             }
             else
             {
-                //Debug.Log("Not blocking");
                 blocking = false;
             }
         }
