@@ -6,6 +6,7 @@ using RPG.Resources;
 using System;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using RPG.Inventories;
 
 namespace RPG.Control
 {
@@ -15,6 +16,8 @@ namespace RPG.Control
 
         bool isSprinting = false;
         bool inCombat;
+
+        ActionStore actionBar;
 
         public bool InCombat() { return inCombat; }
 
@@ -45,6 +48,8 @@ namespace RPG.Control
             triggerRadius = 2.5f;
 
             OnCombat += CombatBehaviour;
+
+            actionBar = GetComponent<ActionStore>();
         }
 
 
@@ -60,6 +65,7 @@ namespace RPG.Control
 
             MoveWithKeyboard();
 
+            InteractWithActionBar();
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -242,5 +248,19 @@ namespace RPG.Control
                 OnCombat();
             }
         }
+
+        private void InteractWithActionBar()
+        {
+            int size = 6;
+
+            for(int i = 1; i <= size; i++)
+            {
+                if (Input.GetKeyDown(i.ToString()))
+                {
+                    actionBar.Use(i - 1, gameObject);
+                }
+            }
+        }
+
     }
 }

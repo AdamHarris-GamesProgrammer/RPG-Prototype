@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using RPG.Core.UI.Dragging;
 using RPG.Inventories;
+using TMPro;
 using UnityEngine;
 
 namespace RPG.UI.Inventories
@@ -14,6 +15,7 @@ namespace RPG.UI.Inventories
         // CONFIG DATA
         [SerializeField] InventoryItemIcon icon = null;
         [SerializeField] int index = 0;
+        [SerializeField] TextMeshProUGUI textObject;
 
         // CACHE
         ActionStore store;
@@ -26,6 +28,8 @@ namespace RPG.UI.Inventories
             store = player.GetComponent<ActionStore>();
             if (!store) return;
             store.storeUpdated += UpdateIcon;
+
+            textObject.text = string.Format("{0}", index + 1);
         }
 
         // PUBLIC

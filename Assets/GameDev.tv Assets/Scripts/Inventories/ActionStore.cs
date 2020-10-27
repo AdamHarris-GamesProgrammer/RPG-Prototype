@@ -24,6 +24,14 @@ namespace RPG.Inventories
         // PUBLIC
 
         /// <summary>
+        /// Gets the amount of action slots the player has access to.
+        /// </summary>
+        public int GetActionBarSize()
+        {
+            return dockedItems.Count;
+        }
+
+        /// <summary>
         /// Broadcasts when the items in the slots are added/removed.
         /// </summary>
         public event Action storeUpdated;
