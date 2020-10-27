@@ -9,6 +9,8 @@ namespace RPG.Inventories
     {
         Pickup pickup;
 
+        [SerializeField] GameObject pickupPrompt;
+
         public void Interact()
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -22,8 +24,8 @@ namespace RPG.Inventories
 
         public void ShowUI(bool isActive)
         {
-
-        }//TODO: Add ui prompt
+            pickupPrompt.SetActive(isActive);
+        }
 
         void Awake()
         {
