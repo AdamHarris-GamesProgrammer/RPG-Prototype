@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Steel Hat
   m_EditorClassIdentifier: 
-  itemID: c7cfb9a7-73c4-4aeb-ab39-73b554a1b353
+  itemID: 4cb0b8fb-282e-4481-968d-552af101ce8d
   displayName: Steel Helmet
   description: 'Even less comfy than a Iron Helmet but at least arrows wont be able
     to get through it. '

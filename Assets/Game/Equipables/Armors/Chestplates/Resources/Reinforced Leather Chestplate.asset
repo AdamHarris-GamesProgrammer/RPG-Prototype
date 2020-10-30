@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Reinforced Leather Chestplate
   m_EditorClassIdentifier: 
-  itemID: f0e833ad-9ae6-4182-8e64-528eb1b356a6
+  itemID: c70492ec-564d-42a6-bee1-9da79cee5d30
   displayName: Reinforced Leather Chestplate
   description: 'A leather chestplate in pristine condition with some metal plates
     near your main organs. '

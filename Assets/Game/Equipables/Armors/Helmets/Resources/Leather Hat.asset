@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Leather Hat
   m_EditorClassIdentifier: 
-  itemID: c7cfb9a7-73c4-4aeb-ab39-73b554a1b353
+  itemID: 1dc576b4-17da-43e0-82af-382b15a7a9b2
   displayName: Leather Helmet
   description: Basic leather helmet, dosent do much except keep the rain off.
   icon: {fileID: 21300000, guid: dbca4088e67b3b840ab6b7ab21adf0f3, type: 3}

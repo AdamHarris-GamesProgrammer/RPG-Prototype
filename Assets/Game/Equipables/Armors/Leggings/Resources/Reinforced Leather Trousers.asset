@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Reinforced Leather Trousers
   m_EditorClassIdentifier: 
-  itemID: df6ef8e9-8e80-47c4-91b0-4d169ccd95aa
+  itemID: d19579a7-e69e-4030-9d23-2f609a90b33e
   displayName: Reinforced Leather Trousers
   description: 'A set of reinforced leater trousers in pristine condition. '
   icon: {fileID: 21300000, guid: a7d038a8786b46f47b7f6c67ea4d45cc, type: 3}

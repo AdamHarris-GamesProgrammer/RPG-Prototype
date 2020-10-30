@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Iron Trousers
   m_EditorClassIdentifier: 
-  itemID: df6ef8e9-8e80-47c4-91b0-4d169ccd95aa
+  itemID: 0d2f4fe0-2ed2-4918-953d-7dd4c58cde3b
   displayName: Iron Trousers
   description: A set of iron trousers, every step makes a slight clank.
   icon: {fileID: 21300000, guid: 1d3d50c553a7c254e9ec1296609eb81b, type: 3}

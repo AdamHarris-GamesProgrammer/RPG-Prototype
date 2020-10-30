@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Leather Chestplate
   m_EditorClassIdentifier: 
-  itemID: f0e833ad-9ae6-4182-8e64-528eb1b356a6
+  itemID: 6ccf0223-27b8-4ba9-a38f-ae5aac04f6bc
   displayName: Leather Chestplate
   description: A simple chestplate, but littered in holes of different sizes. Cleary
     this has seen many fights.

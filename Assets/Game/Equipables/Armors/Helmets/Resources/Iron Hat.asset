@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Iron Hat
   m_EditorClassIdentifier: 
-  itemID: c7cfb9a7-73c4-4aeb-ab39-73b554a1b353
+  itemID: 59ee259c-6ab9-4770-8663-10025addf812
   displayName: Iron Helmet
   description: A helmet made of pure iron, hurts like hell to wear but it will save
     your hide.

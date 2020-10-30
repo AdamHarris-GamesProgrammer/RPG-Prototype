@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Iron Chestplate
   m_EditorClassIdentifier: 
-  itemID: f0e833ad-9ae6-4182-8e64-528eb1b356a6
+  itemID: 6b9b22ac-0819-4f94-87a9-99e6ad9c7ba6
   displayName: Iron Chestplate
   description: 'A Iron Chestplate, would break anyone hand if they punched you. '
   icon: {fileID: 21300000, guid: 42f186db55eab7f4995be3cc49f4b304, type: 3}

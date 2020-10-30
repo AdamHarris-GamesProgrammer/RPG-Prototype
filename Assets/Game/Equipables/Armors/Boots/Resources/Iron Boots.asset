@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Iron Boots
   m_EditorClassIdentifier: 
-  itemID: d27d3575-a2f6-468b-9143-fd9ec0ad2f4e
+  itemID: b5c2fd5f-c885-4629-ae9f-d415483c3356
   displayName: Iron Boots
   description: 'Protects your feet but makes a rather annoying clank as you walk. '
   icon: {fileID: 21300000, guid: d902c330ad186be40bd0b3c249177765, type: 3}

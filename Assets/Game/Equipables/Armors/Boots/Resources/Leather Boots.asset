@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Leather Boots
   m_EditorClassIdentifier: 
-  itemID: d27d3575-a2f6-468b-9143-fd9ec0ad2f4e
+  itemID: d09ddb08-fd8b-4ca0-89ed-d3a22dc33757
   displayName: Leather Boots
   description: Protects your feet somewhat, but theres holes in the bottom.
   icon: {fileID: 21300000, guid: cad72002ee7bf8344aa821519e9e4029, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Steel Boots
   m_EditorClassIdentifier: 
-  itemID: d27d3575-a2f6-468b-9143-fd9ec0ad2f4e
+  itemID: f3724ac6-4b70-4fa3-b9b0-da11baa9c1a3
   displayName: Steel Boots
   description: Protects your feet as much as you would want, however they also weigh
     a tonne.

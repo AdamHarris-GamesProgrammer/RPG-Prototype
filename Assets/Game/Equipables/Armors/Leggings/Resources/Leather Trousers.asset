@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Leather Trousers
   m_EditorClassIdentifier: 
-  itemID: df6ef8e9-8e80-47c4-91b0-4d169ccd95aa
+  itemID: dfd395f8-2b35-4e48-8ec0-2d741466898f
   displayName: Leather Trousers
   description: A set of leather trousers, a lot of holes in them though.
   icon: {fileID: 21300000, guid: 75b5fbdd9719fdb4c8f5eb4962618e8d, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Steel Trousers
   m_EditorClassIdentifier: 
-  itemID: df6ef8e9-8e80-47c4-91b0-4d169ccd95aa
+  itemID: d71bbbd2-4c2d-43df-93d2-2f57c9e3e9ac
   displayName: Steel Trousers
   description: 'A set of steel trousers. Every day is now leg day. Never skip leg
     day. '

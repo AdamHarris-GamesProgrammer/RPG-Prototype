@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Steel Chestplate
   m_EditorClassIdentifier: 
-  itemID: f0e833ad-9ae6-4182-8e64-528eb1b356a6
+  itemID: dd4b8801-9340-4bfd-ad5b-1460a33c93b5
   displayName: Steel Chestplate
   description: 'A steel chestplate, not even daggers can scratch this. '
   icon: {fileID: 21300000, guid: b9aa8653f468d4e41bc7f1e54e71fa4b, type: 3}
