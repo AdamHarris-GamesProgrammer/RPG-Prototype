@@ -18,6 +18,7 @@ namespace RPG.Control
         bool inCombat;
 
         ActionStore actionBar;
+        Inventory playerInventory;
 
         public bool InCombat() { return inCombat; }
 
@@ -50,6 +51,7 @@ namespace RPG.Control
             OnCombat += CombatBehaviour;
 
             actionBar = GetComponent<ActionStore>();
+            playerInventory = GetComponent<Inventory>();
         }
 
 
@@ -66,6 +68,8 @@ namespace RPG.Control
             MoveWithKeyboard();
 
             InteractWithActionBar();
+
+            InteractWithInventory();
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -259,6 +263,15 @@ namespace RPG.Control
                 {
                     actionBar.Use(i - 1, gameObject);
                 }
+            }
+        }
+
+        private void InteractWithInventory()
+        {
+            //TODO Add check that inventory is open
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                playerInventory.EquipItem();
             }
         }
 

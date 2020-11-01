@@ -12,7 +12,7 @@ namespace RPG.UI.Inventories
         [SerializeField] InventoryItemIcon icon = null;
 
         // STATE
-        int index;
+        public int index;
         InventoryItem item;
         Inventory inventory;
 

@@ -18,6 +18,18 @@ namespace RPG.Inventories
 
         // PUBLIC
 
+        //public int FindSlotOfType(EquipLocation location)
+        //{
+        //    //for(int i = 0; i < equippedItems.Count; i++)
+        //    //{
+        //        if (equippedItems.ContainsKey(location))
+        //        {
+                    
+        //        }
+        //    //}
+        //}
+
+
         /// <summary>
         /// Broadcasts when the items in the slots are added/removed.
         /// </summary>

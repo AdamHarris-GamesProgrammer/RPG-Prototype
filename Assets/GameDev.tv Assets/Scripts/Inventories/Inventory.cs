@@ -23,7 +23,43 @@ namespace RPG.Inventories
         {
             public InventoryItem item;
             public int number;
+            public bool isSelected;
         }
+
+        public void SelectItem(int index)
+        {
+            for(int i = 0; i < slots.Length; i++)
+            {
+                slots[i].isSelected = false;
+            }
+
+            Debug.Log("Slot " + index + " has been selected");
+            slots[index].isSelected = true;
+        }
+
+        public void EquipItem()
+        {
+            int index = -1;
+
+            for(int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i].isSelected)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index < 0) return;
+
+            EquipableItem item = slots[index].item as EquipableItem;
+
+            if (!item) return;
+
+            GetComponent<Equipment>().AddItem(item.GetAllowedEquipLocation(), item);
+            RemoveFromSlot(index, 1);
+        }
+
 
         // PUBLIC
 

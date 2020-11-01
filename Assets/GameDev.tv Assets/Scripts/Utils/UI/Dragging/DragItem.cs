@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using RPG.Inventories;
+using RPG.UI.Inventories;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,7 +21,7 @@ namespace RPG.Core.UI.Dragging
     /// has occurred.
     /// </summary>
     /// <typeparam name="T">The type that represents the item being dragged.</typeparam>
-    public class DragItem<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class DragItem<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         where T : class
     {
         // PRIVATE STATE
@@ -198,6 +200,16 @@ namespace RPG.Core.UI.Dragging
                 }
             }
             return takeBackNumber;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Inventory playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+
+            int indexOfItem = GetComponentInParent<InventorySlotUI>().index;
+
+            playerInventory.SelectItem(indexOfItem);
+
         }
     }
 }
