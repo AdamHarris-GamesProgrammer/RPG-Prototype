@@ -56,8 +56,25 @@ namespace RPG.Inventories
 
             if (!item) return;
 
-            GetComponent<Equipment>().AddItem(item.GetAllowedEquipLocation(), item);
+            Equipment equipment = GetComponent<Equipment>();
+
+            int result = equipment.GetIndexOfType(item.GetAllowedEquipLocation());
+
+            InventoryItem newItem = null;
+            if (result > 0)
+            {
+                newItem = equipment.GetItemInSlot(item.GetAllowedEquipLocation());
+            }
+
+            equipment.AddItem(item.GetAllowedEquipLocation(), item);
             RemoveFromSlot(index, 1);
+
+            if (newItem != null) AddToFirstEmptySlot(newItem, 1);
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].isSelected = false;
+            }
         }
 
 

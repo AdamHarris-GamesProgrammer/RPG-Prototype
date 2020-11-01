@@ -64,6 +64,20 @@ namespace RPG.Inventories
             }
         }
 
+        public int GetIndexOfType(EquipLocation location)
+        {
+            int index = -1;
+
+            for (int i = 0; i < equippedItems.Count; i++) 
+            {
+                if (equippedItems[location]) index = 1;
+            }
+
+            Debug.Log(index);
+
+            return index;
+        }
+
         /// <summary>
         /// Remove the item for the given slot.
         /// </summary>
