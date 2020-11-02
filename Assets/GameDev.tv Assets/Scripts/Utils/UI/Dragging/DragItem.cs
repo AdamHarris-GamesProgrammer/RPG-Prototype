@@ -205,10 +205,23 @@ namespace RPG.Core.UI.Dragging
         public void OnPointerClick(PointerEventData eventData)
         {
             Inventory playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+            Equipment playerEquipment = GameObject.FindGameObjectWithTag("Player").GetComponent<Equipment>();
 
-            int indexOfItem = GetComponentInParent<InventorySlotUI>().index;
+            InventorySlotUI inventorySlot = GetComponentInParent<InventorySlotUI>();
 
-            playerInventory.SelectItem(indexOfItem);
+            if (inventorySlot)
+            {
+                int indexOfItem = inventorySlot.index;
+                playerInventory.SelectItem(indexOfItem);
+            }
+            else
+            {
+                EquipmentSlotUI equipmentSlot = GetComponentInParent<EquipmentSlotUI>();
+                EquipLocation location = equipmentSlot.GetEquipLocation();
+                playerEquipment.Select(location);
+            }
+
+
 
         }
     }

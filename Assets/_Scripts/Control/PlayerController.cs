@@ -17,8 +17,9 @@ namespace RPG.Control
         bool isSprinting = false;
         bool inCombat;
 
-        ActionStore actionBar;
+        ActionStore playerActionBar;
         Inventory playerInventory;
+        Equipment playerEquipment;
 
         public bool InCombat() { return inCombat; }
 
@@ -50,8 +51,9 @@ namespace RPG.Control
 
             OnCombat += CombatBehaviour;
 
-            actionBar = GetComponent<ActionStore>();
+            playerActionBar = GetComponent<ActionStore>();
             playerInventory = GetComponent<Inventory>();
+            playerEquipment = GetComponent<Equipment>();
         }
 
 
@@ -70,6 +72,7 @@ namespace RPG.Control
             InteractWithActionBar();
 
             InteractWithInventory();
+            InteractWithEquipment();
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -261,7 +264,7 @@ namespace RPG.Control
             {
                 if (Input.GetKeyDown(i.ToString()))
                 {
-                    actionBar.Use(i - 1, gameObject);
+                    playerActionBar.Use(i - 1, gameObject);
                 }
             }
         }
@@ -272,6 +275,14 @@ namespace RPG.Control
             if (Input.GetKeyDown(KeyCode.E))
             {
                 playerInventory.EquipItem();
+            }
+        }
+
+        private void InteractWithEquipment()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                playerEquipment.Unequip();
             }
         }
 

@@ -18,16 +18,26 @@ namespace RPG.Inventories
 
         // PUBLIC
 
-        //public int FindSlotOfType(EquipLocation location)
-        //{
-        //    //for(int i = 0; i < equippedItems.Count; i++)
-        //    //{
-        //        if (equippedItems.ContainsKey(location))
-        //        {
-                    
-        //        }
-        //    //}
-        //}
+        EquipLocation currentlySelectedLocation = EquipLocation.None;
+
+        public void Unequip()
+        {
+            if (currentlySelectedLocation == EquipLocation.None) return;
+
+            EquipableItem item = GetItemInSlot(currentlySelectedLocation);
+
+            RemoveItem(currentlySelectedLocation);
+
+            GetComponent<Inventory>().AddToFirstEmptySlot(item, 1);
+
+            currentlySelectedLocation = EquipLocation.None;
+        }
+
+        public void Select(EquipLocation location)
+        {
+            currentlySelectedLocation = location;
+            Debug.Log("Current selected location  is: " + currentlySelectedLocation);
+        }
 
 
         /// <summary>

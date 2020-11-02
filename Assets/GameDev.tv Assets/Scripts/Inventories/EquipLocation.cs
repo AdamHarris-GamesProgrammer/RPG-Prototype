@@ -15,5 +15,6 @@ namespace RPG.Inventories
         Weapon,
         Shield,
         Gloves,
+        None
     }
 }

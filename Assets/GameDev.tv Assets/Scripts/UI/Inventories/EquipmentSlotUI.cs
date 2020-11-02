@@ -22,6 +22,11 @@ namespace RPG.UI.Inventories
 
         // LIFECYCLE METHODS
        
+        public EquipLocation GetEquipLocation()
+        {
+            return equipLocation;
+        }
+
         private void Awake() 
         {
             var player = GameObject.FindGameObjectWithTag("Player");

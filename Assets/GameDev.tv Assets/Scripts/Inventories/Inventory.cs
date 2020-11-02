@@ -30,7 +30,6 @@ namespace RPG.Inventories
         public void SelectItem(int index)
         {
             currentSelectedSlot = index;
-
             Debug.Log("Slot " + index + " has been selected");
         }
 
@@ -47,6 +46,7 @@ namespace RPG.Inventories
 
             int result = equipment.GetIndexOfType(item.GetAllowedEquipLocation());
 
+            //Get the currently equipped item if it exists
             InventoryItem newItem = null;
             if (result > 0)
             {
@@ -56,8 +56,10 @@ namespace RPG.Inventories
             equipment.AddItem(item.GetAllowedEquipLocation(), item);
             RemoveFromSlot(currentSelectedSlot, 1);
 
+            //Equip the old equipped item if there was a item equipped
             if (newItem != null) AddToFirstEmptySlot(newItem, 1);
 
+            //Change currentSelectedSlot back to non-selected
             currentSelectedSlot = -1;
         }
 
