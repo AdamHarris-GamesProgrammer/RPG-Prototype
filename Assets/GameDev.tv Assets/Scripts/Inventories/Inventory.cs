@@ -16,6 +16,8 @@ namespace RPG.Inventories
         [Tooltip("Allowed size")]
         [SerializeField] int inventorySize = 16;
 
+        int currentSelectedSlot;
+
         // STATE
         InventorySlot[] slots;
 
@@ -23,36 +25,21 @@ namespace RPG.Inventories
         {
             public InventoryItem item;
             public int number;
-            public bool isSelected;
         }
 
         public void SelectItem(int index)
         {
-            for(int i = 0; i < slots.Length; i++)
-            {
-                slots[i].isSelected = false;
-            }
+            currentSelectedSlot = index;
 
             Debug.Log("Slot " + index + " has been selected");
-            slots[index].isSelected = true;
         }
 
         public void EquipItem()
         {
-            int index = -1;
+            //When currentSelectedSlot is -1 it means no slot is selected
+            if (currentSelectedSlot == -1) return;
 
-            for(int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i].isSelected)
-                {
-                    index = i;
-                    break;
-                }
-            }
-
-            if (index < 0) return;
-
-            EquipableItem item = slots[index].item as EquipableItem;
+            EquipableItem item = slots[currentSelectedSlot].item as EquipableItem;
 
             if (!item) return;
 
@@ -67,14 +54,11 @@ namespace RPG.Inventories
             }
 
             equipment.AddItem(item.GetAllowedEquipLocation(), item);
-            RemoveFromSlot(index, 1);
+            RemoveFromSlot(currentSelectedSlot, 1);
 
             if (newItem != null) AddToFirstEmptySlot(newItem, 1);
 
-            for (int i = 0; i < slots.Length; i++)
-            {
-                slots[i].isSelected = false;
-            }
+            currentSelectedSlot = -1;
         }
 
 
@@ -220,10 +204,11 @@ namespace RPG.Inventories
         private void Awake()
         {
             slots = new InventorySlot[inventorySize];
+            currentSelectedSlot = -1;
         }
 
         /// <summary>
-        /// Find a slot that can accomodate the given item.
+        /// Find a slot that can accommodate the given item.
         /// </summary>
         /// <returns>-1 if no slot is found.</returns>
         private int FindSlot(InventoryItem item)
