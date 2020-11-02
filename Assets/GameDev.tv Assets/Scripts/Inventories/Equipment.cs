@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Saving;
+using RPG.UI.Inventories;
 
 namespace RPG.Inventories
 {
@@ -29,6 +30,8 @@ namespace RPG.Inventories
             RemoveItem(currentlySelectedLocation);
 
             GetComponent<Inventory>().AddToFirstEmptySlot(item, 1);
+
+            GameObject.FindObjectOfType<ItemTooltip>().Close();
 
             currentlySelectedLocation = EquipLocation.None;
         }

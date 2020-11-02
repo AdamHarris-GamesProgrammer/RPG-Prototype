@@ -20,5 +20,10 @@ namespace RPG.UI.Inventories
             titleText.text = item.GetDisplayName();
             bodyText.text = item.GetDescription();
         }
+
+        public void Close()
+        {
+            Destroy(gameObject);
+        }
     }
 }
