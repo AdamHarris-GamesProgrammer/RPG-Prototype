@@ -42,6 +42,24 @@ namespace RPG.Inventories
             Debug.Log("Current selected location  is: " + currentlySelectedLocation);
         }
 
+        public void DropSelected()
+        {
+            if (currentlySelectedLocation == EquipLocation.None) return;
+
+            EquipableItem item = GetItemInSlot(currentlySelectedLocation);
+
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ItemDropper>().DropItem(item, 1);
+
+            ItemTooltip tooltip = GameObject.FindObjectOfType<ItemTooltip>();
+            if (tooltip)
+            {
+               tooltip.Close();
+            }
+
+            RemoveItem(currentlySelectedLocation);
+
+            currentlySelectedLocation = EquipLocation.None;
+        }
 
         /// <summary>
         /// Broadcasts when the items in the slots are added/removed.

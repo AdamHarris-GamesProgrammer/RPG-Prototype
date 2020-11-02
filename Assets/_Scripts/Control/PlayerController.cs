@@ -82,6 +82,7 @@ namespace RPG.Control
 
         void CastSpell()
         {
+            return; //TODO: Decide on if magic will be in game
             if (spellParticle.isEmitting) return;
 
             spellParticle.Play();
@@ -275,6 +276,9 @@ namespace RPG.Control
             if (Input.GetKeyDown(KeyCode.E))
             {
                 playerInventory.EquipItem();
+            }else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                playerInventory.DropSelected();
             }
         }
 
@@ -283,6 +287,10 @@ namespace RPG.Control
             if (Input.GetKeyDown(KeyCode.E))
             {
                 playerEquipment.Unequip();
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                playerEquipment.DropSelected();
             }
         }
 

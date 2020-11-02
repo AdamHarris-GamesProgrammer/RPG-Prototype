@@ -63,6 +63,19 @@ namespace RPG.Inventories
             currentSelectedSlot = -1;
         }
 
+        public void DropSelected()
+        {
+            if (currentSelectedSlot == -1) return;
+
+            InventoryItem item = GetItemInSlot(currentSelectedSlot);
+
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ItemDropper>().DropItem(item);
+
+            //TODO: Add drop dialog for when player has more than 3 items of a type
+            RemoveFromSlot(currentSelectedSlot, 1);
+
+            currentSelectedSlot = -1;
+        }
 
         // PUBLIC
 
