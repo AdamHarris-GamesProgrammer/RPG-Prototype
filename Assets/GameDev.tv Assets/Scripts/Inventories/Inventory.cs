@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 using RPG.Saving;
+using RPG.UI.Inventories;
+using System.Linq;
+using System.Collections;
 
 namespace RPG.Inventories
 {
@@ -18,6 +21,8 @@ namespace RPG.Inventories
 
         int currentSelectedSlot;
 
+        
+
         // STATE
         InventorySlot[] slots;
 
@@ -30,6 +35,12 @@ namespace RPG.Inventories
         public void SelectItem(int index)
         {
             currentSelectedSlot = index;
+
+            //InventorySlotUI[] ui;
+            //ui = FindObjectsOfType<InventorySlotUI>();
+            
+            //ui[currentSelectedSlot].SetSelected(true);
+
             Debug.Log("Slot " + index + " has been selected");
         }
 
@@ -59,6 +70,12 @@ namespace RPG.Inventories
             //Equip the old equipped item if there was a item equipped
             if (newItem != null) AddToFirstEmptySlot(newItem, 1);
 
+            InventorySlotUI[] ui;
+
+            ui = FindObjectsOfType<InventorySlotUI>();
+
+            ui[currentSelectedSlot].SetSelected(false);
+
             //Change currentSelectedSlot back to non-selected
             currentSelectedSlot = -1;
         }
@@ -73,6 +90,12 @@ namespace RPG.Inventories
 
             //TODO: Add drop dialog for when player has more than 3 items of a type
             RemoveFromSlot(currentSelectedSlot, 1);
+
+            InventorySlotUI[] ui;
+
+            ui = FindObjectsOfType<InventorySlotUI>();
+
+            ui[currentSelectedSlot].SetSelected(false);
 
             currentSelectedSlot = -1;
         }
@@ -220,6 +243,13 @@ namespace RPG.Inventories
         {
             slots = new InventorySlot[inventorySize];
             currentSelectedSlot = -1;
+
+
+        }
+
+        void Start()
+        {
+
         }
 
         /// <summary>

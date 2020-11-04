@@ -10,7 +10,8 @@ namespace RPG.UI.Inventories
     {
         // CONFIG DATA
         [SerializeField] InventoryItemIcon icon = null;
-        [SerializeField] GameObject selectedIcon = null;
+        [SerializeField] Sprite selectedIcon = null;
+        Sprite defaultIcon;
 
         // STATE
         public int index;
@@ -18,6 +19,11 @@ namespace RPG.UI.Inventories
         Inventory inventory;
 
         // PUBLIC
+
+        void Awake()
+        {
+            defaultIcon = GetComponent<Image>().sprite;
+        }
 
         public void Setup(Inventory inventory, int index)
         {
@@ -57,7 +63,16 @@ namespace RPG.UI.Inventories
 
         public void SetSelected(bool isSelected)
         {
-            selectedIcon.SetActive(isSelected);
+            Image image = GetComponent<Image>();
+            if (isSelected)
+            {
+                image.sprite = selectedIcon;
+            }
+            else
+            {
+                image.sprite = defaultIcon;
+            }
+
         }
     }
 }

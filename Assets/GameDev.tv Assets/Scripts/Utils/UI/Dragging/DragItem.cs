@@ -209,11 +209,13 @@ namespace RPG.Core.UI.Dragging
 
             InventorySlotUI inventorySlot = GetComponentInParent<InventorySlotUI>();
 
+
+
             if (inventorySlot)
             {
                 int indexOfItem = inventorySlot.index;
                 playerInventory.SelectItem(indexOfItem);
-                
+                inventorySlot.SetSelected(true);
             }
             else
             {

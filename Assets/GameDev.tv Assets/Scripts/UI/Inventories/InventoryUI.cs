@@ -42,6 +42,7 @@ namespace RPG.UI.Inventories
             for (int i = 0; i < playerInventory.GetSize(); i++)
             {
                 var itemUI = Instantiate(InventoryItemPrefab, transform);
+                itemUI.name = i.ToString();
                 itemUI.Setup(playerInventory, i);
             }
         }
