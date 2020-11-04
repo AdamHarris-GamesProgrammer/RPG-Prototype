@@ -213,6 +213,7 @@ namespace RPG.Core.UI.Dragging
             {
                 int indexOfItem = inventorySlot.index;
                 playerInventory.SelectItem(indexOfItem);
+                
             }
             else
             {

@@ -309,7 +309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017660698, y: 0.91}
   m_AnchorMax: {x: 0.017660698, y: 0.91}
-  m_AnchoredPosition: {x: -66.00012, y: -882}
+  m_AnchoredPosition: {x: -66, y: -882}
   m_SizeDelta: {x: 723.2, y: 1419.2302}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &222700524279229864
@@ -367,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &224280479845048150
 RectTransform:
   m_ObjectHideFlags: 0
@@ -718,7 +718,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05036661, y: 0.3091507}
   m_AnchorMax: {x: 0.9277333, y: 0.9332121}
-  m_AnchoredPosition: {x: 16.200012, y: -202.15009}
+  m_AnchoredPosition: {x: 16.200012, y: -202.15039}
   m_SizeDelta: {x: 0.39990234, y: 158.30005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222072374976095502
@@ -1194,7 +1194,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -0.8500366, y: -0.8515625}
   m_SizeDelta: {x: 19.71, y: 19.6}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1272,7 +1272,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1211.9001, y: 202.9}
+  m_AnchoredPosition: {x: -1211.8984, y: 202.90039}
   m_SizeDelta: {x: 1100.9, y: -763.69336}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &222212814192087734
@@ -1660,7 +1660,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Equip Item: E'
+  m_text: 'Unequip Item: E'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}

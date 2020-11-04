@@ -10,6 +10,7 @@ namespace RPG.UI.Inventories
     {
         // CONFIG DATA
         [SerializeField] InventoryItemIcon icon = null;
+        [SerializeField] GameObject selectedIcon = null;
 
         // STATE
         public int index;
@@ -52,6 +53,11 @@ namespace RPG.UI.Inventories
         public void RemoveItems(int number)
         {
             inventory.RemoveFromSlot(index, number);
+        }
+
+        public void SetSelected(bool isSelected)
+        {
+            selectedIcon.SetActive(isSelected);
         }
     }
 }
