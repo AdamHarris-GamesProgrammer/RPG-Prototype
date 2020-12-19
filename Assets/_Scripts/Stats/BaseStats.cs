@@ -32,7 +32,7 @@ namespace RPG.Stats
         {
             if (progression != null)
             {
-                return (GetBaseStat(desiredStat, level) + GetAdditiveModifier(desiredStat)) * 1 + GetPercentageModifier(desiredStat) / 100f;
+                return (GetBaseStat(desiredStat, level) + GetAdditiveModifier(desiredStat)) * (1 + GetPercentageModifier(desiredStat) / 100f);
             }
             else
             {

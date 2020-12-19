@@ -39,6 +39,11 @@ namespace RPG.Resources
             GetComponent<Experience>().OnLevelUp.AddListener(FillHealth);
         }
 
+        void FixedUpdate()
+        {
+            maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
+        }
+
         public void TakeDamage(GameObject instigator, float damageIn, bool isHeavyAttack)
         {
             if (!canBeDamaged) return;
@@ -62,6 +67,8 @@ namespace RPG.Resources
 
 
             health -= damageIn;
+
+            Debug.Log(health);
 
             takeDamage.Invoke(damageIn);
 

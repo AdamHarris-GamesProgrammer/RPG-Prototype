@@ -10,7 +10,7 @@ using RPG.Inventories;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         protected float timeBetweenAttacks = 1.0f;
 
@@ -217,25 +217,6 @@ namespace RPG.Combat
 
             WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
             currentWeapon = EquipWeapon(weapon);
-        }
-        #endregion
-
-        #region IModifierProvider
-        //Implements IModifierProvider interface
-        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
-        {
-            if (stat == Stat.Damage)
-            {
-                yield return equippedWeaponConfig.CalculateDamage();
-            }
-        }
-
-        public IEnumerable<float> GetPercentageModifiers(Stat stat)
-        {
-            if (stat == Stat.Damage)
-            {
-                yield return equippedWeaponConfig.PercentageBonus;
-            }
         }
         #endregion
     }

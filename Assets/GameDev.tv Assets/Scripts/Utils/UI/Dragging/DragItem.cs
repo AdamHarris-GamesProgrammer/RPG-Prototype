@@ -47,13 +47,11 @@ namespace RPG.Core.UI.Dragging
             // Else won't get the drop event.
             GetComponent<CanvasGroup>().blocksRaycasts = false;
             transform.SetParent(parentCanvas.transform, true);
-            print("On begin drag");
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
             transform.position = eventData.position;
-            print("On drag");
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
@@ -166,7 +164,6 @@ namespace RPG.Core.UI.Dragging
         private bool AttemptSimpleTransfer(IDragDestination<T> destination)
         {
             var draggingItem = source.GetItem();
-            print("Attempt simple transfer");
             var draggingNumber = source.GetNumber();
 
             var acceptable = destination.MaxAcceptable(draggingItem);

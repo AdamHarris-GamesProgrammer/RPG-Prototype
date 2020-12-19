@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using RPG.Resources;
 using RPG.Inventories;
+using RPG.Stats;
+using System.Collections.Generic;
 
 namespace RPG.Combat 
 {
     [CreateAssetMenu(menuName = "RPG/Make New Weapon")]
-    public class WeaponConfig : EquipableItem
+    public class WeaponConfig : EquipableItem, IModifierProvider;
     {
         [Header("Animator Settings")]
         public AnimatorOverrideController weaponOverride = null;
@@ -122,6 +124,22 @@ namespace RPG.Combat
             }
 
             return damage;
+        }
+
+        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
+        {
+            if(stat == Stat.Damage)
+            {
+                yield return CalculateDamage();
+            }
+        }
+
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if(stat == Stat.Damage)
+            {
+                yield return 
+            }
         }
     }
 
