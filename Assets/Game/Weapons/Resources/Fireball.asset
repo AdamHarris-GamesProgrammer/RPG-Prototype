@@ -12,10 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589f48009734aeb4e93231c016197d1f, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  itemID: b82a9d71-54e5-4ca0-963d-ab96a06638b3
+  displayName: Basic Fireball
+  description: 'A chaotic ball of pure fire. '
+  icon: {fileID: 21300000, guid: aba0f700d91d4fc4fa8c724899ab04ab, type: 3}
+  pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   weaponOverride: {fileID: 22100000, guid: 190e265207641dd4e99dd6d0ec7e1dbb, type: 2}
   weaponPrefab: {fileID: 0}
-  weaponDamage: 20
-  attackRange: 20
   projectile: {fileID: 3834127845759088759, guid: 78ace334a47462b47a926731d4da13ff,
     type: 3}
+  mininumDamage: 15
+  maxinumDamage: 22
+  percentageBonus: 4
+  criticalChance: 0.05
+  criticalDamage: 80
+  attackRange: 20
+  timeBetweenAttacks: 2.5
   isRightHanded: 0
+  hasHeavyAttack: 0

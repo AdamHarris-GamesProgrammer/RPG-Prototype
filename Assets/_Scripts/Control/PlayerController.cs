@@ -252,6 +252,7 @@ namespace RPG.Control
 
             if (aggrevatedEnemies.Count == 0)
             {
+                Debug.Log("No longer in combat");
                 inCombat = false;
                 OnCombat();
             }

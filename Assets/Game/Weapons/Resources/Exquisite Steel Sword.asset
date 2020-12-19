@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589f48009734aeb4e93231c016197d1f, type: 3}
   m_Name: Exquisite Steel Sword
   m_EditorClassIdentifier: 
+  itemID: 17880ee9-1572-41b5-a46d-2c2c2dd5141d
+  displayName: Exquisate Steel Sword
+  description: 'A blade fine enough for kings. '
+  icon: {fileID: 21300000, guid: c4230e16a4f1bbc4f8b0977e34a5486d, type: 3}
+  pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   weaponOverride: {fileID: 22100000, guid: 972dfce2d277cc644bd2adf4ec1ba63c, type: 2}
   weaponPrefab: {fileID: 2569240450942299015, guid: 3851a7f48a54f60429b1bb5089545098,
     type: 3}

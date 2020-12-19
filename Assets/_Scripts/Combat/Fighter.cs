@@ -6,6 +6,7 @@ using RPG.Resources;
 using UnityEngine;
 using RPG.Stats;
 using System.Collections.Generic;
+using RPG.Inventories;
 
 namespace RPG.Combat
 {
@@ -21,6 +22,7 @@ namespace RPG.Combat
         private Weapon currentWeapon;
 
         protected Transform target;
+        protected Equipment equipment;
 
         protected float timeSinceLastAttack = 5.0f;
 
@@ -32,6 +34,8 @@ namespace RPG.Combat
         protected Experience fighterExperience;
         protected Animator fighterAnimator;
 
+        private WeaponConfig unarmedConfig;
+
         private void Awake()
         {
             fighterMover = GetComponent<Mover>();
@@ -39,6 +43,20 @@ namespace RPG.Combat
             fighterStats = GetComponent<BaseStats>();
             fighterExperience = GetComponent<Experience>();
             fighterAnimator = GetComponent<Animator>();
+
+            equipment = GetComponent<Equipment>();
+
+            if (equipment)
+            {
+                equipment.equipmentUpdated += UpdateWeapon;
+            }
+
+            unarmedConfig = UnityEngine.Resources.Load<WeaponConfig>("Unarmed");
+
+            if(equippedWeaponConfig == null)
+            {
+                equippedWeaponConfig = unarmedConfig;
+            }
         }
 
         void Start()
@@ -101,6 +119,32 @@ namespace RPG.Combat
 
             return spawnedWeapon;
         }
+
+        private void UpdateWeapon()
+        {
+            Debug.Log("Update Weapon");
+
+            //Gets the weapon in the weapon slot
+            WeaponConfig weapon = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
+
+
+            
+            //If a weapon is in the slot
+            if(weapon)
+            {
+                Debug.Log("Equipping "+ weapon.GetDisplayName());
+                //Equip the weapon
+                EquipWeapon(weapon);
+            }
+            else
+            {
+                Debug.Log("Equipping fists");
+                //if there is no weapon then equip unarmed.
+                EquipWeapon(unarmedConfig);
+                
+            }
+        }
+
 
         //Animation Event
         void Hit()

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using RPG.Resources;
+using RPG.Inventories;
 
 namespace RPG.Combat 
 {
     [CreateAssetMenu(menuName = "RPG/Make New Weapon")]
-    public class WeaponConfig : ScriptableObject
+    public class WeaponConfig : EquipableItem
     {
         [Header("Animator Settings")]
         public AnimatorOverrideController weaponOverride = null;

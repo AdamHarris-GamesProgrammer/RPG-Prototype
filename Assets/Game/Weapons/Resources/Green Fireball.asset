@@ -12,10 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589f48009734aeb4e93231c016197d1f, type: 3}
   m_Name: Green Fireball
   m_EditorClassIdentifier: 
+  itemID: 681623b5-d5fc-4c04-9d12-4de48f23e58b
+  displayName: Apprentices Fireball
+  description: A experianced magician can cast this to deal devestation upon their
+    enemy
+  icon: {fileID: 21300000, guid: aba0f700d91d4fc4fa8c724899ab04ab, type: 3}
+  pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   weaponOverride: {fileID: 22100000, guid: 190e265207641dd4e99dd6d0ec7e1dbb, type: 2}
   weaponPrefab: {fileID: 0}
-  weaponDamage: 20
-  attackRange: 20
   projectile: {fileID: 5624536188437153595, guid: b05a1650c0d56374dbc12b40113b8c52,
     type: 3}
+  mininumDamage: 25
+  maxinumDamage: 34
+  percentageBonus: 10
+  criticalChance: 0.1
+  criticalDamage: 100
+  attackRange: 20
+  timeBetweenAttacks: 2
   isRightHanded: 0
+  hasHeavyAttack: 0

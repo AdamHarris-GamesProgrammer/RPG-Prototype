@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 589f48009734aeb4e93231c016197d1f, type: 3}
-  m_Name: Steel Sword
+  m_Name: Kingslayer Sword
   m_EditorClassIdentifier: 
-  itemID: af939873-5ae8-4766-bf26-9438a7b4ba7d
-  displayName: Steel Sword
-  description: 'A simple steel blade, can kill a man quick and clean. '
-  icon: {fileID: 21300000, guid: 5739b8c193b657045b89a9062ea12346, type: 3}
+  itemID: 17880ee9-1572-41b5-a46d-2c2c2dd5141d
+  displayName: Kingslayer Sword
+  description: 'A blade made to cut through an army and a king in a day. '
+  icon: {fileID: 21300000, guid: 76dea55267ed80c459a70d4b6d36840e, type: 3}
   pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
   stackable: 0
   allowedEquipLocation: 5
@@ -23,11 +23,11 @@ MonoBehaviour:
   weaponPrefab: {fileID: 2569240450942299015, guid: 3851a7f48a54f60429b1bb5089545098,
     type: 3}
   projectile: {fileID: 0}
-  mininumDamage: 20
-  maxinumDamage: 32
-  percentageBonus: 12
-  criticalChance: 0.15
-  criticalDamage: 100
+  mininumDamage: 56
+  maxinumDamage: 85
+  percentageBonus: 40
+  criticalChance: 0.5
+  criticalDamage: 150
   attackRange: 2.5
   timeBetweenAttacks: 1
   isRightHanded: 1

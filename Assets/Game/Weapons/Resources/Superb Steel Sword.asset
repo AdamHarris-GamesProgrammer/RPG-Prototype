@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589f48009734aeb4e93231c016197d1f, type: 3}
   m_Name: Superb Steel Sword
   m_EditorClassIdentifier: 
+  itemID: 542d2f60-6489-42de-8eb5-001cba17fbcb
+  displayName: Superb Steel Sword
+  description: A Superbly made steel sword. Fit for a royal knight
+  icon: {fileID: 21300000, guid: a3bb42de9de49cf4e81001e2653ea57a, type: 3}
+  pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   weaponOverride: {fileID: 22100000, guid: 972dfce2d277cc644bd2adf4ec1ba63c, type: 2}
   weaponPrefab: {fileID: 2569240450942299015, guid: 3851a7f48a54f60429b1bb5089545098,
     type: 3}

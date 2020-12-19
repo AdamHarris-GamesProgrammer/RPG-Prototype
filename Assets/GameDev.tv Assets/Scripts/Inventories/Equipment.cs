@@ -91,6 +91,7 @@ namespace RPG.Inventories
 
             if (equipmentUpdated != null)
             {
+                Debug.Log("Equipment Updated");
                 equipmentUpdated();
             }
         }
@@ -117,6 +118,7 @@ namespace RPG.Inventories
             equippedItems.Remove(slot);
             if (equipmentUpdated != null)
             {
+                Debug.Log("Equipment Updated");
                 equipmentUpdated();
             }
         }

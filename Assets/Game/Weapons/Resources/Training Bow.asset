@@ -10,19 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 589f48009734aeb4e93231c016197d1f, type: 3}
-  m_Name: Bow
+  m_Name: Training Bow
   m_EditorClassIdentifier: 
+  itemID: 2f484e28-91ab-41cf-b8c3-94120bd90c13
+  displayName: Training Bow
+  description: A bow good enough for killing  a small animal
+  icon: {fileID: 21300000, guid: e6c58628c3d13e34abcb3a10c0e1b26a, type: 3}
+  pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   weaponOverride: {fileID: 22100000, guid: cdf4148fb1443504092a274276b46a7e, type: 2}
   weaponPrefab: {fileID: -1001707384269723948, guid: 5edd5c15d5be31e4abe8a2f1d4526ecc,
     type: 3}
   projectile: {fileID: 3834127845759088759, guid: 44e40cac278da2047af7d4b09026ed30,
     type: 3}
-  mininumDamage: 8
-  maxinumDamage: 12
+  mininumDamage: 10
+  maxinumDamage: 16
   percentageBonus: 0
   criticalChance: 0.05
   criticalDamage: 80
   attackRange: 14
-  timeBetweenAttacks: 2.5
+  timeBetweenAttacks: 3.8
   isRightHanded: 0
   hasHeavyAttack: 0
