@@ -122,8 +122,6 @@ namespace RPG.Combat
 
         private void UpdateWeapon()
         {
-            Debug.Log("Update Weapon");
-
             //Gets the weapon in the weapon slot
             WeaponConfig weapon = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
 
@@ -132,13 +130,11 @@ namespace RPG.Combat
             //If a weapon is in the slot
             if(weapon)
             {
-                Debug.Log("Equipping "+ weapon.GetDisplayName());
                 //Equip the weapon
                 EquipWeapon(weapon);
             }
             else
             {
-                Debug.Log("Equipping fists");
                 //if there is no weapon then equip unarmed.
                 EquipWeapon(unarmedConfig);
                 

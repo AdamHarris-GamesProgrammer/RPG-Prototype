@@ -57,18 +57,13 @@ namespace RPG.Resources
                 {
                     float reduction = controller.BlockReduction;
 
-                    //Debug.Log("Damage before block: " + damageIn);
                     damageIn *= 1 - reduction;
-                    //Debug.Log("Damage after block: " + damageIn);
-
                     controller.BlockDamage(isHeavyAttack);
                 }
             }
 
 
             health -= damageIn;
-
-            Debug.Log(health);
 
             takeDamage.Invoke(damageIn);
 

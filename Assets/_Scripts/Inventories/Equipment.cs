@@ -91,7 +91,6 @@ namespace RPG.Inventories
 
             if (equipmentUpdated != null)
             {
-                Debug.Log("Equipment Updated");
                 equipmentUpdated();
             }
         }

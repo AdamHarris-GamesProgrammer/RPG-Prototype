@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace RPG.Combat 
 {
     [CreateAssetMenu(menuName = "RPG/Make New Weapon")]
-    public class WeaponConfig : EquipableItem, IModifierProvider;
+    public class WeaponConfig : EquipableItem, IModifierProvider
     {
         [Header("Animator Settings")]
         public AnimatorOverrideController weaponOverride = null;
@@ -138,7 +138,7 @@ namespace RPG.Combat
         {
             if(stat == Stat.Damage)
             {
-                yield return 
+                yield return percentageBonus;
             }
         }
     }
