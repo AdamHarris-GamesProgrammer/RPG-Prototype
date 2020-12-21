@@ -9,7 +9,7 @@ namespace RPG.Inventories
     {
         [Tooltip("How far the pickups can be scattered from the dropper.")]
         [SerializeField] float scatterDistance = 1.0f;
-        [SerializeField] InventoryItem[] dropLibrary;
+        [SerializeField] DropLibrary dropLibrary;
         [SerializeField] int numberOfDrops = 2;
 
         //CONSTANTS
@@ -17,18 +17,18 @@ namespace RPG.Inventories
 
         public void RandomDrop()
         {
-            for(int i = 0; i < numberOfDrops; i++)
-            {
-                int index = Random.Range(0, dropLibrary.Length);
+            var drops = dropLibrary.GetRandomDrops();
 
-                DropItem(dropLibrary[index]);
+            foreach (var drop in drops)
+            {
+                DropItem(drop.item, drop.number);
             }
         }
 
         protected override Vector3 GetDropLocation()
         {
 
-            for(int i = 0; i < ATTEMPTS; i++)
+            for (int i = 0; i < ATTEMPTS; i++)
             {
                 Vector3 randomPoint = transform.position + (Random.insideUnitSphere * scatterDistance);
 
@@ -40,7 +40,7 @@ namespace RPG.Inventories
                 }
             }
             return transform.position;
-            
+
         }
     }
 }
