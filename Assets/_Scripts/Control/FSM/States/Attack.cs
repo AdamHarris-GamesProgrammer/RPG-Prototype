@@ -49,7 +49,7 @@ namespace RPG.Control
 
         public override void OnEntry()
         {
-            playerController.aggrevatedEnemies.Add(controller);
+            playerController.AddAggrevatedAI(controller);
         }
     }
 }

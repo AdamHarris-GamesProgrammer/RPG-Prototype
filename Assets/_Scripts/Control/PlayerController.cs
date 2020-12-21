@@ -26,7 +26,7 @@ namespace RPG.Control
         Camera mainCamera;
 
         List<NPCController> enemiesInImmediateCombatArea;
-        public List<NPCController> aggrevatedEnemies;
+        List<NPCController> aggrevatedEnemies;
 
         [SerializeField] ParticleSystem spellParticle;
 
@@ -231,23 +231,41 @@ namespace RPG.Control
 
         public void AddAI(NPCController ai)
         {
-            enemiesInImmediateCombatArea.Add(ai);
+            if (enemiesInImmediateCombatArea.Contains(ai)) return;
 
+            enemiesInImmediateCombatArea.Add(ai);
 
             OnCombat();
             inCombat = true;
         }
 
+        public void AddAggrevatedAI(NPCController ai)
+        {
+            if (aggrevatedEnemies.Contains(ai)) return;
+
+            aggrevatedEnemies.Add(ai);
+        }
+
         public void RemoveAI(NPCController ai)
         {
+            Debug.Log("Remove AI Called");
             if (aggrevatedEnemies.Contains(ai))
             {
-                aggrevatedEnemies.Remove(ai);
+                Debug.Log("Aggrevated Enemies contains the AI");
+                if(aggrevatedEnemies.Remove(ai))
+                {
+                    Debug.Log("AI Removed from Aggrevated Enemies");
+                }
+                
             }
 
             if (enemiesInImmediateCombatArea.Contains(ai))
             {
-                enemiesInImmediateCombatArea.Remove(ai);
+                Debug.Log("Immediate Combat Enemies contains the AI");
+                if (enemiesInImmediateCombatArea.Remove(ai))
+                {
+                    Debug.Log("AI Removed from the immediate combat area ");
+                }
             }
 
             if (aggrevatedEnemies.Count == 0)
@@ -255,6 +273,10 @@ namespace RPG.Control
                 Debug.Log("No longer in combat");
                 inCombat = false;
                 OnCombat();
+            }
+            else
+            {
+                Debug.Log("Aggrevated enemies contains " + aggrevatedEnemies.Count + " enemies");
             }
         }
 

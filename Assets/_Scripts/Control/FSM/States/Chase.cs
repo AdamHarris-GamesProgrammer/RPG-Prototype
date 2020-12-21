@@ -44,7 +44,7 @@ namespace RPG.Control
         public override void OnEntry()
         {
             controller.AggrevatedTimer = 0.0f;
-            playerController.aggrevatedEnemies.Add(controller);
+            playerController.AddAggrevatedAI(controller);
         }
 
         public override void Act(Transform player, Transform npc)

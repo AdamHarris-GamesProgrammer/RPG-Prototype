@@ -25,6 +25,11 @@ namespace RPG.Control
                 animPlayed = true;
             }
         }
+
+        public override void OnEntry()
+        {
+            playerController.RemoveAI(controller);
+        }
     }
 }
 
