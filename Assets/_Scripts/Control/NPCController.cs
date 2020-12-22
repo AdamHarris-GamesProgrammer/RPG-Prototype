@@ -29,6 +29,7 @@ namespace RPG.Control
         public float ChaseDistance { get { return chaseDistance; } }
         public float AttackDistance { get { return attackDistance; } }
 
+        public bool isDead = false;
 
         bool aggrevated = false;
         public bool Aggrevated { get { return aggrevated; } set { aggrevated = value; } }
@@ -94,8 +95,11 @@ namespace RPG.Control
 
         protected override void StateUpdate()
         {
-            if (GetComponent<Health>().isDead) return;
-
+            if (GetComponent<Health>().isDead)
+            {
+                isDead = true;
+                return;
+            }
             if (aggrevated)
             {
                 SmoothLookAt(playerTransform.gameObject);

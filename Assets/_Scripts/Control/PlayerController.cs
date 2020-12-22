@@ -20,6 +20,7 @@ namespace RPG.Control
         ActionStore playerActionBar;
         Inventory playerInventory;
         Equipment playerEquipment;
+        PlayerFighter playerFighter;
 
         public bool InCombat() { return inCombat; }
 
@@ -54,6 +55,7 @@ namespace RPG.Control
             playerActionBar = GetComponent<ActionStore>();
             playerInventory = GetComponent<Inventory>();
             playerEquipment = GetComponent<Equipment>();
+            playerFighter = GetComponent<PlayerFighter>();
         }
 
 
@@ -90,38 +92,42 @@ namespace RPG.Control
 
         private void InteractWithCombat()
         {
-            if (enemiesInImmediateCombatArea.Count == 0) return;
-
             if (Input.GetMouseButtonDown(0))
             {
 
-                Vector3 rayPoint = GetMouseRay().GetPoint(triggerRadius);
+                WeaponConfig weapon = playerFighter.GetWeaponConfig();
+
+                Vector3 rayPoint = GetMouseRay().GetPoint(weapon.AttackRange);
 
                 //Find the closest enemy to the player
-                NPCController closestEnemy = ClosestEnemyToPoint(rayPoint);
+                NPCController closestEnemy = ClosestEnemyToPoint(weapon, rayPoint);
 
-                if (GetComponent<Fighter>().CanAttack(closestEnemy.gameObject))
+                if (closestEnemy == null) return;
+
+                if (playerFighter.CanAttack(closestEnemy.gameObject))
                 {
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
-                        GetComponent<Fighter>().Attack(closestEnemy.gameObject, true);
+                        playerFighter.Attack(closestEnemy.gameObject, true);
                     }
                     else
                     {
-                        GetComponent<Fighter>().Attack(closestEnemy.gameObject, false);
+                        playerFighter.Attack(closestEnemy.gameObject, false);
                     }
                 }
 
             }
         }
 
-        private NPCController ClosestEnemyToPoint(Vector3 point)
+        private NPCController ClosestEnemyToPoint(WeaponConfig weapon, Vector3 point)
         {
             NPCController closestEnemy = null;
-            float closestEnemyDistance = 10.0f;
-            foreach (NPCController enemy in enemiesInImmediateCombatArea)
+            float closestEnemyDistance = float.MaxValue;
+
+            foreach (NPCController enemy in FindObjectsOfType<NPCController>())
             {
                 float distanceToEnemy = Vector3.Distance(enemy.transform.position, point);
+                if (enemy.isDead || distanceToEnemy > weapon.AttackRange) continue;
 
                 if (distanceToEnemy < closestEnemyDistance)
                 {
@@ -129,7 +135,9 @@ namespace RPG.Control
                     closestEnemyDistance = distanceToEnemy;
                 }
             }
+
             return closestEnemy;
+
         }
 
         private void Block()
@@ -252,11 +260,11 @@ namespace RPG.Control
             if (aggrevatedEnemies.Contains(ai))
             {
                 Debug.Log("Aggrevated Enemies contains the AI");
-                if(aggrevatedEnemies.Remove(ai))
+                if (aggrevatedEnemies.Remove(ai))
                 {
                     Debug.Log("AI Removed from Aggrevated Enemies");
                 }
-                
+
             }
 
             if (enemiesInImmediateCombatArea.Contains(ai))
@@ -284,7 +292,7 @@ namespace RPG.Control
         {
             int size = 6;
 
-            for(int i = 1; i <= size; i++)
+            for (int i = 1; i <= size; i++)
             {
                 if (Input.GetKeyDown(i.ToString()))
                 {
@@ -299,7 +307,8 @@ namespace RPG.Control
             if (Input.GetKeyDown(KeyCode.E))
             {
                 playerInventory.EquipItem();
-            }else if (Input.GetKeyDown(KeyCode.Q))
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
             {
                 playerInventory.DropSelected();
             }

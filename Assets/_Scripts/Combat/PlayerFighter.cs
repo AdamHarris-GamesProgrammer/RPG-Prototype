@@ -28,8 +28,6 @@ namespace RPG.Combat
 
             target = combatTarget.transform;
 
-            //Debug.Log("Target Name: " + target.name);
-
             if (!IsInRangeOfWeapon(target.position)) return;
 
             transform.LookAt(target);
@@ -42,9 +40,6 @@ namespace RPG.Combat
             {
                 fighterAnimator.SetTrigger("lightAttack");
             }
-
-            //TODO: Implement Decide defense in NPC Controller, create dodge, block and take hit states
-            //target.GetComponent<AIController>().DecideDefence();
         }
     }
 }

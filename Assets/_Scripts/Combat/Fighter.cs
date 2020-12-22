@@ -13,7 +13,7 @@ namespace RPG.Combat
     public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         protected float timeBetweenAttacks = 1.0f;
-
+        
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private WeaponConfig defaultWeapon = null;
@@ -57,6 +57,11 @@ namespace RPG.Combat
             {
                 equippedWeaponConfig = unarmedConfig;
             }
+        }
+
+        public WeaponConfig GetWeaponConfig()
+        {
+            return equippedWeaponConfig;
         }
 
         void Start()
@@ -124,8 +129,6 @@ namespace RPG.Combat
         {
             //Gets the weapon in the weapon slot
             WeaponConfig weapon = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
-
-
             
             //If a weapon is in the slot
             if(weapon)

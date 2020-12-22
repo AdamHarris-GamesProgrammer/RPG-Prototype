@@ -9,7 +9,7 @@ namespace RPG.Combat
         [SerializeField] private float projectileSpeed = 5.0f;
         [SerializeField] float projectileDamage = 4f;
         [SerializeField] bool isHoming = false;
-        [SerializeField] float maxDuration = 10.0f;
+        [SerializeField] float maxDuration = 15.0f;
         [SerializeField] GameObject hitEffect = null;
         [SerializeField] GameObject[] destroyOnHit = null;
         [SerializeField] float lifeAfterImpact = 0.2f;
