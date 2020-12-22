@@ -98,7 +98,7 @@ namespace RPG.Inventories
             return displayName;
         }
 
-        public string GetDescription()
+        public virtual string GetDescription()
         {
             return description;
         }

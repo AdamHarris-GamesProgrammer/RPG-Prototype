@@ -110,7 +110,34 @@ namespace RPG.Combat
             Destroy(oldWeapon.gameObject);
         }
 
+        public override string GetDescription()
+        {
+            string desc = base.GetDescription();
 
+            desc += "\n" + GetStatDescription();
+
+            return desc;
+
+        }
+
+        private string GetStatDescription()
+        {
+            string result = "";
+
+            result += "Damage: " + mininumDamage + "-" + maxinumDamage + "\n";
+            result += "Attack Range: " + attackRange + "\n";
+            result += "Time between Attacks: " + AttackTime + "\n";
+
+            if (hasHeavyAttack)
+            {
+                result += "Heavy Attack Bonus: " + "50%" + "\n";
+            }
+
+            result += "Critical Chance: " + criticalChance + "\n";
+            result += "Critical Damage: " + criticalDamage + "\n";
+
+            return result;
+        }
 
         public float CalculateDamage()
         {
