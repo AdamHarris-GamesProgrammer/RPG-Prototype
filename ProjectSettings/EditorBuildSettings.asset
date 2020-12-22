@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Dev/Sandbox Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/Prologue/00_PrologueLevel.unity
     guid: f8823ec89060ee047a45625c32c664dd
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Chapter 1/01_ColindaleAttack.unity
+    guid: 8028a493f7e4acc41921201498ff1ade
   m_configObjects: {}

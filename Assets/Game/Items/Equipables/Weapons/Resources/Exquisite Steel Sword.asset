@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589f48009734aeb4e93231c016197d1f, type: 3}
   m_Name: Exquisite Steel Sword
   m_EditorClassIdentifier: 
-  itemID: 17880ee9-1572-41b5-a46d-2c2c2dd5141d
+  itemID: d56e95c3-5156-446f-8d4b-e57be98bbd35
   displayName: Exquisate Steel Sword
   description: 'A blade fine enough for kings. '
   icon: {fileID: 21300000, guid: c4230e16a4f1bbc4f8b0977e34a5486d, type: 3}

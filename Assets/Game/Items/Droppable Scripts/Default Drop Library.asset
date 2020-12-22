@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Default Drop Library
   m_EditorClassIdentifier: 
   dropChancePercentage: 0.6
-  minDrops: 5
-  maxDrops: 10
+  minDrops: 1
+  maxDrops: 3
   potentialDrops:
   - item: {fileID: 11400000, guid: f12d2f40c218aed4b97a9e33d5123464, type: 2}
     chance: 10

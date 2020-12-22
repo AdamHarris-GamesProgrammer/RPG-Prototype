@@ -18,10 +18,7 @@ namespace RPG.Resources
 
 
         [System.Serializable]
-        public class TakeDamageEvent : UnityEvent<float>
-        {
-
-        }
+        public class TakeDamageEvent : UnityEvent<float> {}
 
         public event Action OnHealthChanged;
         [SerializeField] public UnityEvent OnDeath;
@@ -62,17 +59,14 @@ namespace RPG.Resources
                 }
             }
 
-
-            health -= damageIn;
+            health = Mathf.Max(health -= damageIn, 0f);
 
             takeDamage.Invoke(damageIn);
-
-            health = Mathf.Clamp(health, 0.0f, maxHealth);
 
             transform.LookAt(instigator.transform);
             
 
-            if (health <= 0.0f)
+            if (health == 0.0f)
             {
                 DeathBehaviour();
 
@@ -116,9 +110,8 @@ namespace RPG.Resources
 
         public void FillHealth(float amount)
         {
-            
-            health += amount;
-            health = Mathf.Clamp(health, 0f, maxHealth);
+            //Fills the health within the bounds specified
+            health = Mathf.Clamp(health += amount, 0f, maxHealth);
             OnHealthChanged();
         }
 
@@ -130,7 +123,6 @@ namespace RPG.Resources
 
         public void RestoreState(object state)
         {
-            //Debug.Log(gameObject.name + " health is: " + (float)state);
             health = (float)state;
             OnHealthChanged();
 

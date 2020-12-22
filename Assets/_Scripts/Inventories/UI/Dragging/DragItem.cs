@@ -91,8 +91,10 @@ namespace RPG.Core.UI.Dragging
 
         private void DropItemIntoContainer(IDragDestination<T> destination)
         {
+            //if the destination is the same as the source
             if (object.ReferenceEquals(destination, source)) return;
 
+            //Gets the IDragContainer of the destination
             var destinationContainer = destination as IDragContainer<T>;
             var sourceContainer = source as IDragContainer<T>;
 
