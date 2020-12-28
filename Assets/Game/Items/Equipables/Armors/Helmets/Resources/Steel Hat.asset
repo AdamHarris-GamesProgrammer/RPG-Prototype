@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
-  m_Name: Steel Hat
+  m_Script: {fileID: 11500000, guid: 57dfbe048fc6f384d8e4e3c411915be2, type: 3}
+  m_Name: Steel Hat 1
   m_EditorClassIdentifier: 
   itemID: 4cb0b8fb-282e-4481-968d-552af101ce8d
   displayName: Steel Helmet
@@ -20,3 +20,6 @@ MonoBehaviour:
   pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
   stackable: 0
   allowedEquipLocation: 0
+  additiveModifiers: []
+  percentageModifiers: []
+  armor: 0

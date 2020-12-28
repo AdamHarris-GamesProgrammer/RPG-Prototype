@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 57dfbe048fc6f384d8e4e3c411915be2, type: 3}
   m_Name: Leather Boots
   m_EditorClassIdentifier: 
   itemID: d09ddb08-fd8b-4ca0-89ed-d3a22dc33757
@@ -19,3 +19,4 @@ MonoBehaviour:
   pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
   stackable: 0
   allowedEquipLocation: 4
+  armor: 0

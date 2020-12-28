@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf629ad7e1f23de4996efd7e0a4196ee, type: 3}
-  m_Name: Healthy Hat
+  m_Script: {fileID: 11500000, guid: 57dfbe048fc6f384d8e4e3c411915be2, type: 3}
+  m_Name: Healthy Hat 1
   m_EditorClassIdentifier: 
   itemID: 915f6ea9-392e-4905-8fbb-ca3c8a109a14
   displayName: Healthy Hat
@@ -25,3 +25,5 @@ MonoBehaviour:
   percentageModifiers:
   - stat: 0
     value: 10
+
+  armor: 0

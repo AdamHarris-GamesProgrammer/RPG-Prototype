@@ -17,19 +17,19 @@ namespace RPG.Combat
         [SerializeField] private Projectile projectile = null;
 
         [Header("Damage Settings")]
-        [SerializeField] private float mininumDamage = 8.0f;
-        [SerializeField] private float maxinumDamage = 12.0f;
-        [SerializeField] private float percentageBonus = 0f;
+        [Min(0f)][SerializeField] private float mininumDamage = 8.0f;
+        [Min(1f)][SerializeField] private float maxinumDamage = 12.0f;
+        [Min(0f)][SerializeField] private float percentageBonus = 0f;
 
 
         [Header("Critical Settings")]
-        [SerializeField] float criticalChance = 0.05f;
+        [Min(0f)][SerializeField] float criticalChance = 0.05f;
         [Tooltip("This is a percentage boost to damage, 80 means there will be an additional 80% damage when theres a crit")]
-        [SerializeField] float criticalDamage = 80.0f;
+        [Min(0f)][SerializeField] float criticalDamage = 80.0f;
 
         [Header("General Settings")]
-        [SerializeField] private float attackRange = 2.5f;
-        [SerializeField] private float timeBetweenAttacks = 1.0f;
+        [Min(0f)][SerializeField] private float attackRange = 2.5f;
+        [Min(0f)][SerializeField] private float timeBetweenAttacks = 1.0f;
 
         [SerializeField] bool isRightHanded = true;
         [SerializeField] bool hasHeavyAttack = true;
@@ -96,12 +96,13 @@ namespace RPG.Combat
 
         private void DestroyOldWeapon(Transform rightHand, Transform leftHand)
         {
+            //Finds the old weapon game objects
             Transform oldWeapon = rightHand.Find(weaponName);
             if(oldWeapon == null)
             {
                 oldWeapon = leftHand.Find(weaponName);
+                if (oldWeapon == null) return;
             }
-            if (oldWeapon == null) return;
 
             //renames the old weapon for debugging purposes
             oldWeapon.name = "DESTROYING WEAPON";
@@ -112,41 +113,59 @@ namespace RPG.Combat
 
         public override string GetDescription()
         {
+            //Gets the base item description
             string desc = base.GetDescription();
 
+            //Adds the weapons stats to the description
             desc += "\n" + GetStatDescription();
 
             return desc;
-
         }
 
         private string GetStatDescription()
         {
+            //Base result
             string result = "";
 
+            //Damage
             result += "Damage: " + mininumDamage + "-" + maxinumDamage + "\n";
+
+            if(percentageBonus != 0.0f)
+            {
+                //Attack Bonus damage, if applicable
+                result += "Attack Bonus: " + percentageBonus;
+            }
+
+            //Attack range and time between attacks
             result += "Attack Range: " + attackRange + "\n";
-            result += "Time between Attacks: " + AttackTime + "\n";
+            result += "Time between Attacks: " + timeBetweenAttacks + "\n";
+
 
             if (hasHeavyAttack)
             {
+                //Heavy attack bonus damage if applicable
                 result += "Heavy Attack Bonus: " + "50%" + "\n";
             }
 
+            //Crit chance and damage 
             result += "Critical Chance: " + criticalChance + "\n";
             result += "Critical Damage: " + criticalDamage + "\n";
 
+            //Returns the full stat description
             return result;
         }
 
         public float CalculateDamage()
         {
+            //Calculates the damage between min and max values
             float damage = UnityEngine.Random.Range(mininumDamage, maxinumDamage);
 
+            //Is it a critical hit
             bool isCritHit = UnityEngine.Random.Range(0.0f, 1.0f) < criticalChance;
 
             if (isCritHit)
             {
+                //Add the crit damage as percentage
                 damage += (damage / 100) * criticalDamage;
             }
 
