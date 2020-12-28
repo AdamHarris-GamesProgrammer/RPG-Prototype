@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57dfbe048fc6f384d8e4e3c411915be2, type: 3}
-  m_Name: Iron Hat 1
+  m_Name: Iron Hat
   m_EditorClassIdentifier: 
   itemID: 59ee259c-6ab9-4770-8663-10025addf812
   displayName: Iron Helmet
@@ -22,4 +22,4 @@ MonoBehaviour:
   allowedEquipLocation: 0
   additiveModifiers: []
   percentageModifiers: []
-  armor: 0
+  armor: 17

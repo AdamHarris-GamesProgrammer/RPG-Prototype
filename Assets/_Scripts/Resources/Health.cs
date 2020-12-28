@@ -6,19 +6,20 @@ using RPG.Core;
 using RPG.Stats;
 using RPG.Control;
 using System;
+using RPG.Inventories;
 
 namespace RPG.Resources
 {
     public class Health : MonoBehaviour, ISaveable
     {
         float maxHealth;
-        [SerializeField] private float health;
+        [SerializeField] private float mHealth;
         [SerializeField] bool useBaseStats = true;
         [SerializeField] TakeDamageEvent takeDamage;
 
 
         [System.Serializable]
-        public class TakeDamageEvent : UnityEvent<float> {}
+        public class TakeDamageEvent : UnityEvent<float> { }
 
         public event Action OnHealthChanged;
         [SerializeField] public UnityEvent OnDeath;
@@ -26,14 +27,27 @@ namespace RPG.Resources
         public bool isDead;
         [SerializeField] bool canBeDamaged = true;
 
+        private Controller mController;
+        private Equipment mEquipment;
+
+
         private void Awake()
         {
+            mController = GetComponent<Controller>();
+            if (mController == null)
+            {
+                Debug.LogError(gameObject.name + " controller is null.");
+            }
+
+
             if (useBaseStats)
             {
-                health = GetComponent<BaseStats>().GetStat(Stat.Health);
+                mHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
             }
-            maxHealth = health;
+            maxHealth = mHealth;
             GetComponent<Experience>().OnLevelUp.AddListener(FillHealth);
+
+            mEquipment = GetComponent<Equipment>();
         }
 
         void FixedUpdate()
@@ -45,28 +59,46 @@ namespace RPG.Resources
         {
             if (!canBeDamaged) return;
 
-            Controller controller = gameObject.GetComponent<Controller>();
-            if(controller != null)
+            if (mController.IsStrafing) return;
+
+            //Calculate Blocking Protection
+            if (mController.IsBlocking)
             {
-                if (controller.IsStrafing) return;
+                float reduction = mController.BlockReduction;
 
-                if (controller.IsBlocking)
-                {
-                    float reduction = controller.BlockReduction;
-
-                    damageIn *= 1 - reduction;
-                    controller.BlockDamage(isHeavyAttack);
-                }
+                damageIn *= 1 - reduction;
+                mController.BlockDamage(isHeavyAttack);
             }
 
-            health = Mathf.Max(health -= damageIn, 0f);
+            //Calculates Armor Protection
+            int armor = 0;
+            
+            if(mEquipment != null)
+            {
+                armor = mEquipment.GetTotalArmor();
+            }
 
-            takeDamage.Invoke(damageIn);
+            float damageToGoThrough = (damageIn / 100) * 10.0f;
+
+            float leftOverDamage = damageIn - damageToGoThrough;
+
+            float armorBlocks = 0.0f;
+            if(armor > 0)
+            {
+                armorBlocks = (leftOverDamage / 100) * armor;
+            }
+
+            leftOverDamage = leftOverDamage - armorBlocks + damageToGoThrough;
+
+            //Takes Damage
+            mHealth = Mathf.Max(mHealth -= leftOverDamage, 0f);
+
+            takeDamage.Invoke(leftOverDamage);
 
             transform.LookAt(instigator.transform);
-            
 
-            if (health == 0.0f)
+            //Death Check
+            if (mHealth == 0.0f)
             {
                 DeathBehaviour();
 
@@ -98,35 +130,35 @@ namespace RPG.Resources
 
         public float GetHealthPercentage()
         {
-            return health / maxHealth;
+            return mHealth / maxHealth;
         }
 
         public void FillHealth()
         {
             maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health, GetComponent<Experience>().GetLevel());
-            health = maxHealth;
+            mHealth = maxHealth;
             OnHealthChanged();
         }
 
         public void FillHealth(float amount)
         {
             //Fills the health within the bounds specified
-            health = Mathf.Clamp(health += amount, 0f, maxHealth);
+            mHealth = Mathf.Clamp(mHealth += amount, 0f, maxHealth);
             OnHealthChanged();
         }
 
         //Implements the ISaveable interface
         public object CaptureState()
         {
-            return health;
+            return mHealth;
         }
 
         public void RestoreState(object state)
         {
-            health = (float)state;
+            mHealth = (float)state;
             OnHealthChanged();
 
-            if (health <= 0)
+            if (mHealth <= 0)
             {
                 DeathBehaviour();
             }

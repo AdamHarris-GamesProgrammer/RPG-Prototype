@@ -11,7 +11,7 @@ namespace RPG.UI
         public void Spawn(float damageIn)
         {
             DamageText textInstance = Instantiate<DamageText>(damageText, transform);
-            textInstance.damageText.text = ((int)damageIn).ToString();
+            textInstance.damageText.text = (damageIn).ToString("0.00");
             //Debug.Log(damageIn);
         }
     }

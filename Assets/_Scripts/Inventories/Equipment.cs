@@ -17,10 +17,37 @@ namespace RPG.Inventories
         // STATE
         Dictionary<EquipLocation, EquipableItem> equippedItems = new Dictionary<EquipLocation, EquipableItem>();
 
-        // PUBLIC
-
         EquipLocation currentlySelectedLocation = EquipLocation.None;
 
+        private int mTotalArmor;
+
+        /// <summary>
+        /// Broadcasts when the items in the slots are added/removed.
+        /// </summary>
+        public event Action equipmentUpdated;
+
+        private void Awake()
+        {
+            equipmentUpdated += UpdateArmor;
+        }
+
+        private void UpdateArmor()
+        {
+            int total = 0;
+
+            foreach(EquipLocation location in GetAllPopulatedSlots())
+            {
+                ArmorConfig armor = GetItemInSlot(location) as ArmorConfig;
+                if (armor != null)
+                {
+                    total += armor.GetArmor();
+                }
+            }
+
+            mTotalArmor = total;
+        }
+
+        // PUBLIC
         public void Unequip()
         {
             if (currentlySelectedLocation == EquipLocation.None) return;
@@ -34,6 +61,11 @@ namespace RPG.Inventories
             GameObject.FindObjectOfType<ItemTooltip>().Close();
 
             currentlySelectedLocation = EquipLocation.None;
+        }
+
+        public int GetTotalArmor()
+        {
+            return mTotalArmor;
         }
 
         public void Select(EquipLocation location)
@@ -61,10 +93,7 @@ namespace RPG.Inventories
             currentlySelectedLocation = EquipLocation.None;
         }
 
-        /// <summary>
-        /// Broadcasts when the items in the slots are added/removed.
-        /// </summary>
-        public event Action equipmentUpdated;
+
 
         /// <summary>
         /// Return the item in the given equip location.
@@ -132,6 +161,7 @@ namespace RPG.Inventories
 
         // PRIVATE
 
+        //ISavable Interface Implementation
         object ISaveable.CaptureState()
         {
             var equippedItemsForSerialization = new Dictionary<EquipLocation, string>();
@@ -141,7 +171,6 @@ namespace RPG.Inventories
             }
             return equippedItemsForSerialization;
         }
-
         void ISaveable.RestoreState(object state)
         {
             equippedItems = new Dictionary<EquipLocation, EquipableItem>();

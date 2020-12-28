@@ -22,7 +22,6 @@ namespace RPG.Combat
         private Weapon currentWeapon;
 
         protected Transform target;
-        protected Equipment equipment;
 
         protected float timeSinceLastAttack = 5.0f;
 
@@ -33,6 +32,7 @@ namespace RPG.Combat
         protected BaseStats fighterStats;
         protected Experience fighterExperience;
         protected Animator fighterAnimator;
+        protected Equipment fighterEquipment;
 
         private WeaponConfig unarmedConfig;
 
@@ -44,11 +44,11 @@ namespace RPG.Combat
             fighterExperience = GetComponent<Experience>();
             fighterAnimator = GetComponent<Animator>();
 
-            equipment = GetComponent<Equipment>();
+            fighterEquipment = GetComponent<Equipment>();
 
-            if (equipment)
+            if (fighterEquipment)
             {
-                equipment.equipmentUpdated += UpdateWeapon;
+                fighterEquipment.equipmentUpdated += UpdateWeapon;
             }
 
             unarmedConfig = UnityEngine.Resources.Load<WeaponConfig>("Unarmed");
@@ -128,7 +128,7 @@ namespace RPG.Combat
         private void UpdateWeapon()
         {
             //Gets the weapon in the weapon slot
-            WeaponConfig weapon = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
+            WeaponConfig weapon = fighterEquipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
             
             //If a weapon is in the slot
             if(weapon)

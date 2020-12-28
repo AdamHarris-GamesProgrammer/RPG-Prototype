@@ -19,4 +19,6 @@ MonoBehaviour:
   pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
   stackable: 0
   allowedEquipLocation: 2
-  armor: 0
+  additiveModifiers: []
+  percentageModifiers: []
+  armor: 42

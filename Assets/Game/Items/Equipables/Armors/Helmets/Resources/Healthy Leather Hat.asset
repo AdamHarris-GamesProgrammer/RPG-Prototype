@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57dfbe048fc6f384d8e4e3c411915be2, type: 3}
-  m_Name: Healthy Hat 1
+  m_Name: Healthy Leather Hat
   m_EditorClassIdentifier: 
   itemID: 915f6ea9-392e-4905-8fbb-ca3c8a109a14
-  displayName: Healthy Hat
+  displayName: Healthy Leather Hat
   description: A hat which boosts your health by 10%
   icon: {fileID: 21300000, guid: 7faa0ba3329dbf1408d4d8e788110cda, type: 3}
   pickup: {fileID: 8631572063211454623, guid: ec81300795f94c044ac4af515f4175a6, type: 3}
@@ -25,5 +25,4 @@ MonoBehaviour:
   percentageModifiers:
   - stat: 0
     value: 10
-
-  armor: 0
+  armor: 7
