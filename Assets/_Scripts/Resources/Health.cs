@@ -7,16 +7,18 @@ using RPG.Stats;
 using RPG.Control;
 using System;
 using RPG.Inventories;
+using TMPro;
 
 namespace RPG.Resources
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        float maxHealth;
-        [SerializeField] private float mHealth;
+        float _maxHealth;
+        [SerializeField] private float _health;
         [SerializeField] bool useBaseStats = true;
         [SerializeField] TakeDamageEvent takeDamage;
 
+        [SerializeField] TMP_Text _healthText;
 
         [System.Serializable]
         public class TakeDamageEvent : UnityEvent<float> { }
@@ -30,6 +32,8 @@ namespace RPG.Resources
         private Controller mController;
         private Equipment mEquipment;
 
+        private BaseStats mBaseStats;
+
 
         private void Awake()
         {
@@ -39,12 +43,13 @@ namespace RPG.Resources
                 Debug.LogError(gameObject.name + " controller is null.");
             }
 
+            mBaseStats = GetComponent<BaseStats>();
 
             if (useBaseStats)
             {
-                mHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
+                _health = mBaseStats.GetStat(Stat.Health, mBaseStats.GetLevel());
             }
-            maxHealth = mHealth;
+            _maxHealth = _health;
             GetComponent<Experience>().OnLevelUp.AddListener(FillHealth);
 
             mEquipment = GetComponent<Equipment>();
@@ -52,7 +57,12 @@ namespace RPG.Resources
 
         void FixedUpdate()
         {
-            maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
+            _maxHealth = mBaseStats.GetStat(Stat.Health, mBaseStats.GetLevel());
+
+            if (_healthText)
+            {
+                _healthText.text = _maxHealth.ToString();
+            }
         }
 
         public void TakeDamage(GameObject instigator, float damageIn, bool isHeavyAttack)
@@ -91,14 +101,14 @@ namespace RPG.Resources
             leftOverDamage = leftOverDamage - armorBlocks + damageToGoThrough;
 
             //Takes Damage
-            mHealth = Mathf.Max(mHealth -= leftOverDamage, 0f);
+            _health = Mathf.Max(_health -= leftOverDamage, 0f);
 
             takeDamage.Invoke(leftOverDamage);
 
             transform.LookAt(instigator.transform);
 
             //Death Check
-            if (mHealth == 0.0f)
+            if (_health == 0.0f)
             {
                 DeathBehaviour();
 
@@ -106,7 +116,7 @@ namespace RPG.Resources
 
                 if (instigator.TryGetComponent(out Experience xp))
                 {
-                    xp.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
+                    xp.GainExperience(mBaseStats.GetStat(Stat.ExperienceReward));
                 }
             }
 
@@ -130,39 +140,38 @@ namespace RPG.Resources
 
         public float GetHealthPercentage()
         {
-            return mHealth / maxHealth;
+            return _health / _maxHealth;
         }
 
         public void FillHealth()
         {
-            maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health, GetComponent<Experience>().GetLevel());
-            mHealth = maxHealth;
+            _maxHealth = mBaseStats.GetStat(Stat.Health, GetComponent<Experience>().GetLevel());
+            _health = _maxHealth;
             OnHealthChanged();
         }
 
         public void FillHealth(float amount)
         {
             //Fills the health within the bounds specified
-            mHealth = Mathf.Clamp(mHealth += amount, 0f, maxHealth);
+            _health = Mathf.Clamp(_health += amount, 0f, _maxHealth);
             OnHealthChanged();
         }
 
         //Implements the ISaveable interface
         public object CaptureState()
         {
-            return mHealth;
+            return _health;
         }
 
         public void RestoreState(object state)
         {
-            mHealth = (float)state;
+            _health = (float)state;
             OnHealthChanged();
 
-            if (mHealth <= 0)
+            if (_health <= 0)
             {
                 DeathBehaviour();
             }
         }
     }
 }
-

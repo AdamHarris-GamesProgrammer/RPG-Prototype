@@ -35,13 +35,6 @@ namespace RPG.Inventories
         public void SelectItem(int index)
         {
             currentSelectedSlot = index;
-
-            //InventorySlotUI[] ui;
-            //ui = FindObjectsOfType<InventorySlotUI>();
-            
-            //ui[currentSelectedSlot].SetSelected(true);
-
-            Debug.Log("Slot " + index + " has been selected");
         }
 
         public void EquipItem()

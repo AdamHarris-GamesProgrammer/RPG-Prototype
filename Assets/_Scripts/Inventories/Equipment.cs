@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Saving;
 using RPG.UI.Inventories;
+using TMPro;
 
 namespace RPG.Inventories
 {
@@ -21,6 +22,9 @@ namespace RPG.Inventories
 
         private int mTotalArmor;
 
+        [SerializeField] private TMP_Text _ArmorText;
+        
+
         /// <summary>
         /// Broadcasts when the items in the slots are added/removed.
         /// </summary>
@@ -29,6 +33,8 @@ namespace RPG.Inventories
         private void Awake()
         {
             equipmentUpdated += UpdateArmor;
+
+            _ArmorText.text = mTotalArmor.ToString();
         }
 
         private void UpdateArmor()
@@ -45,7 +51,10 @@ namespace RPG.Inventories
             }
 
             mTotalArmor = total;
+
+            _ArmorText.text = mTotalArmor.ToString();
         }
+
 
         // PUBLIC
         public void Unequip()
@@ -133,8 +142,6 @@ namespace RPG.Inventories
                 if (equippedItems[location]) index = 1;
             }
 
-            Debug.Log(index);
-
             return index;
         }
 
@@ -146,7 +153,6 @@ namespace RPG.Inventories
             equippedItems.Remove(slot);
             if (equipmentUpdated != null)
             {
-                Debug.Log("Equipment Updated");
                 equipmentUpdated();
             }
         }
