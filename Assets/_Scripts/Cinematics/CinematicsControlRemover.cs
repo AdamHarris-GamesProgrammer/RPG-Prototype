@@ -7,25 +7,34 @@ namespace RPG.Cinematics
 {
     public class CinematicsControlRemover : MonoBehaviour
     {
-        GameObject player;
+        //STATE
+        GameObject _player;
 
+        //UNITY MESSAGES
         private void Start()
         {
+            //Adds the Enable and Disable Control methods to the stopped and played events
             GetComponent<PlayableDirector>().stopped += EnableControl;
             GetComponent<PlayableDirector>().played += DisableControl;
-            player = GameObject.FindGameObjectWithTag("Player");
+
+            //Finds the Player
+            _player = GameObject.FindGameObjectWithTag("Player");
         }
 
+        //EVENT LISTENERS
         void DisableControl(PlayableDirector director)
         {
-            player.GetComponent<ActionScheduler>().CancelCurrentAction();
+            //Cancels the current action
+            _player.GetComponent<ActionScheduler>().CancelCurrentAction();
 
-            player.GetComponent<PlayerController>().enabled = false;
+            //Stops the player from moving
+            _player.GetComponent<PlayerController>().enabled = false;
         }
 
         void EnableControl(PlayableDirector director)
         {
-            player.GetComponent<PlayerController>().enabled = true;
+            //Allows the player to move
+            _player.GetComponent<PlayerController>().enabled = true;
         }
     }
 }

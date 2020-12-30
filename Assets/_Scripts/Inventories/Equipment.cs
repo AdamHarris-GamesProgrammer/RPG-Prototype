@@ -16,25 +16,25 @@ namespace RPG.Inventories
     public class Equipment : MonoBehaviour, ISaveable
     {
         // STATE
-        Dictionary<EquipLocation, EquipableItem> equippedItems = new Dictionary<EquipLocation, EquipableItem>();
+        Dictionary<EquipLocation, EquipableItem> _equippedItems = new Dictionary<EquipLocation, EquipableItem>();
 
-        EquipLocation currentlySelectedLocation = EquipLocation.None;
+        EquipLocation _currentlySelectedLocation = EquipLocation.None;
 
-        private int mTotalArmor;
+        private int _totalArmor;
 
-        [SerializeField] private TMP_Text _ArmorText;
+        [SerializeField] private TMP_Text _armorText;
         
 
         /// <summary>
         /// Broadcasts when the items in the slots are added/removed.
         /// </summary>
-        public event Action equipmentUpdated;
+        public event Action EquipmentUpdated;
 
         private void Awake()
         {
-            equipmentUpdated += UpdateArmor;
+            EquipmentUpdated += UpdateArmor;
 
-            _ArmorText.text = mTotalArmor.ToString();
+            _armorText.text = _totalArmor.ToString();
         }
 
         private void UpdateArmor()
@@ -50,44 +50,44 @@ namespace RPG.Inventories
                 }
             }
 
-            mTotalArmor = total;
+            _totalArmor = total;
 
-            _ArmorText.text = mTotalArmor.ToString();
+            _armorText.text = _totalArmor.ToString();
         }
 
 
         // PUBLIC
         public void Unequip()
         {
-            if (currentlySelectedLocation == EquipLocation.None) return;
+            if (_currentlySelectedLocation == EquipLocation.None) return;
 
-            EquipableItem item = GetItemInSlot(currentlySelectedLocation);
+            EquipableItem item = GetItemInSlot(_currentlySelectedLocation);
 
-            RemoveItem(currentlySelectedLocation);
+            RemoveItem(_currentlySelectedLocation);
 
             GetComponent<Inventory>().AddToFirstEmptySlot(item, 1);
 
-            GameObject.FindObjectOfType<ItemTooltip>().Close();
+            FindObjectOfType<ItemTooltip>().Close();
 
-            currentlySelectedLocation = EquipLocation.None;
+            _currentlySelectedLocation = EquipLocation.None;
         }
 
         public int GetTotalArmor()
         {
-            return mTotalArmor;
+            return _totalArmor;
         }
 
         public void Select(EquipLocation location)
         {
-            currentlySelectedLocation = location;
-            Debug.Log("Current selected location  is: " + currentlySelectedLocation);
+            _currentlySelectedLocation = location;
+            Debug.Log("Current selected location  is: " + _currentlySelectedLocation);
         }
 
         public void DropSelected()
         {
-            if (currentlySelectedLocation == EquipLocation.None) return;
+            if (_currentlySelectedLocation == EquipLocation.None) return;
 
-            EquipableItem item = GetItemInSlot(currentlySelectedLocation);
+            EquipableItem item = GetItemInSlot(_currentlySelectedLocation);
 
             GameObject.FindGameObjectWithTag("Player").GetComponent<ItemDropper>().DropItem(item, 1);
 
@@ -97,9 +97,9 @@ namespace RPG.Inventories
                tooltip.Close();
             }
 
-            RemoveItem(currentlySelectedLocation);
+            RemoveItem(_currentlySelectedLocation);
 
-            currentlySelectedLocation = EquipLocation.None;
+            _currentlySelectedLocation = EquipLocation.None;
         }
 
 
@@ -109,12 +109,12 @@ namespace RPG.Inventories
         /// </summary>
         public EquipableItem GetItemInSlot(EquipLocation equipLocation)
         {
-            if (!equippedItems.ContainsKey(equipLocation))
+            if (!_equippedItems.ContainsKey(equipLocation))
             {
                 return null;
             }
 
-            return equippedItems[equipLocation];
+            return _equippedItems[equipLocation];
         }
 
         /// <summary>
@@ -125,11 +125,11 @@ namespace RPG.Inventories
         {
             Debug.Assert(item.GetAllowedEquipLocation() == slot);
 
-            equippedItems[slot] = item;
+            _equippedItems[slot] = item;
 
-            if (equipmentUpdated != null)
+            if (EquipmentUpdated != null)
             {
-                equipmentUpdated();
+                EquipmentUpdated();
             }
         }
 
@@ -137,9 +137,9 @@ namespace RPG.Inventories
         {
             int index = -1;
 
-            for (int i = 0; i < equippedItems.Count; i++) 
+            for (int i = 0; i < _equippedItems.Count; i++) 
             {
-                if (equippedItems[location]) index = 1;
+                if (_equippedItems[location]) index = 1;
             }
 
             return index;
@@ -150,10 +150,10 @@ namespace RPG.Inventories
         /// </summary>
         public void RemoveItem(EquipLocation slot)
         {
-            equippedItems.Remove(slot);
-            if (equipmentUpdated != null)
+            _equippedItems.Remove(slot);
+            if (EquipmentUpdated != null)
             {
-                equipmentUpdated();
+                EquipmentUpdated();
             }
         }
 
@@ -162,7 +162,7 @@ namespace RPG.Inventories
         /// </summary>
         public IEnumerable<EquipLocation> GetAllPopulatedSlots()
         {
-            return equippedItems.Keys;
+            return _equippedItems.Keys;
         }
 
         // PRIVATE
@@ -171,7 +171,7 @@ namespace RPG.Inventories
         object ISaveable.CaptureState()
         {
             var equippedItemsForSerialization = new Dictionary<EquipLocation, string>();
-            foreach (var pair in equippedItems)
+            foreach (var pair in _equippedItems)
             {
                 equippedItemsForSerialization[pair.Key] = pair.Value.GetItemID();
             }
@@ -179,7 +179,7 @@ namespace RPG.Inventories
         }
         void ISaveable.RestoreState(object state)
         {
-            equippedItems = new Dictionary<EquipLocation, EquipableItem>();
+            _equippedItems = new Dictionary<EquipLocation, EquipableItem>();
 
             var equippedItemsForSerialization = (Dictionary<EquipLocation, string>)state;
 
@@ -188,7 +188,7 @@ namespace RPG.Inventories
                 var item = (EquipableItem)InventoryItem.GetFromID(pair.Value);
                 if (item != null)
                 {
-                    equippedItems[pair.Key] = item;
+                    _equippedItems[pair.Key] = item;
                 }
             }
         }

@@ -33,7 +33,7 @@ namespace RPG.UI.Inventories
             if (!player) return;
 
             playerEquipment = player.GetComponent<Equipment>();
-            playerEquipment.equipmentUpdated += RedrawUI;
+            playerEquipment.EquipmentUpdated += RedrawUI;
         }
 
         private void Start() 

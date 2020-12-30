@@ -6,13 +6,14 @@ namespace RPG.UI
 {
     public class DamageTextSpawner : MonoBehaviour
     {
-        [SerializeField] DamageText damageText = null;
+        [Tooltip("The Damage Text Prefab.")]
+        [SerializeField] DamageText _damageText = null;
 
         public void Spawn(float damageIn)
         {
-            DamageText textInstance = Instantiate<DamageText>(damageText, transform);
+            //Spawns a damage text instance with this game object as the parent
+            DamageText textInstance = Instantiate(_damageText, transform);
             textInstance.damageText.text = (damageIn).ToString("0.00");
-            //Debug.Log(damageIn);
         }
     }
 }

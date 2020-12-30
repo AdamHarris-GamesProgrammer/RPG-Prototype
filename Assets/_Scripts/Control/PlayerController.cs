@@ -29,8 +29,6 @@ namespace RPG.Control
         List<NPCController> enemiesInImmediateCombatArea;
         List<NPCController> aggrevatedEnemies;
 
-        [SerializeField] ParticleSystem spellParticle;
-
         float triggerRadius;
 
         public event Action OnCombat;
@@ -75,19 +73,6 @@ namespace RPG.Control
 
             InteractWithInventory();
             InteractWithEquipment();
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                CastSpell();
-            }
-        }
-
-        void CastSpell()
-        {
-            return; //TODO: Decide on if magic will be in game
-            if (spellParticle.isEmitting) return;
-
-            spellParticle.Play();
         }
 
         private void InteractWithCombat()

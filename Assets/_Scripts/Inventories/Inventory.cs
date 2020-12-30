@@ -17,32 +17,57 @@ namespace RPG.Inventories
     {
         // CONFIG DATA
         [Tooltip("Allowed size")]
-        [SerializeField] int inventorySize = 16;
+        [SerializeField] int _inventorySize = 16;
 
-        int currentSelectedSlot;
-
-        
 
         // STATE
-        InventorySlot[] slots;
+        InventorySlot[] _slots;
+        int _currentSelectedSlot;
 
+
+        // EVENTS
+        /// <summary>
+        /// Broadcasts when the items in the slots are added/removed.
+        /// </summary>
+        public event Action InventoryUpdated;
+
+        /// <summary>
+        /// Struct that represents everyhting to do with a Inventory Slot. Contains the item and number of that item
+        /// </summary>
         public struct InventorySlot
         {
             public InventoryItem item;
             public int number;
         }
 
-        public void SelectItem(int index)
+
+        //UNITY MESSAGES
+        private void Awake()
         {
-            currentSelectedSlot = index;
+            _slots = new InventorySlot[_inventorySize];
+            _currentSelectedSlot = -1;
         }
 
+        // PUBLIC
+
+        /// <summary>
+        /// Selects the item at the designated index.
+        /// </summary>
+        /// <param name="index">The desired item index to select.</param>
+        public void SelectItem(int index)
+        {
+            _currentSelectedSlot = index;
+        }
+
+        /// <summary>
+        /// Equips the currently selected item. 
+        /// </summary>
         public void EquipItem()
         {
             //When currentSelectedSlot is -1 it means no slot is selected
-            if (currentSelectedSlot == -1) return;
+            if (_currentSelectedSlot == -1) return;
 
-            EquipableItem item = slots[currentSelectedSlot].item as EquipableItem;
+            EquipableItem item = _slots[_currentSelectedSlot].item as EquipableItem;
 
             if (!item) return;
 
@@ -58,7 +83,7 @@ namespace RPG.Inventories
             }
 
             equipment.AddItem(item.GetAllowedEquipLocation(), item);
-            RemoveFromSlot(currentSelectedSlot, 1);
+            RemoveFromSlot(_currentSelectedSlot, 1);
 
             //Equip the old equipped item if there was a item equipped
             if (newItem != null) AddToFirstEmptySlot(newItem, 1);
@@ -67,38 +92,43 @@ namespace RPG.Inventories
 
             ui = FindObjectsOfType<InventorySlotUI>();
 
-            ui[currentSelectedSlot].SetSelected(false);
+            ui[_currentSelectedSlot].SetSelected(false);
 
             //Change currentSelectedSlot back to non-selected
-            currentSelectedSlot = -1;
+            _currentSelectedSlot = -1;
         }
 
+        /// <summary>
+        /// Drops the selected item. 
+        /// </summary>
         public void DropSelected()
         {
-            if (currentSelectedSlot == -1) return;
+            //safety check that a object is selected
+            if (_currentSelectedSlot == -1) return;
 
-            InventoryItem item = GetItemInSlot(currentSelectedSlot);
+            //Gets the item to drop
+            InventoryItem item = GetItemInSlot(_currentSelectedSlot);
 
+            //Gets the item dropper and drops the item
             GameObject.FindGameObjectWithTag("Player").GetComponent<ItemDropper>().DropItem(item);
 
             //TODO: Add drop dialog for when player has more than 3 items of a type
-            RemoveFromSlot(currentSelectedSlot, 1);
 
+            //Removes the item from the currently selected slot
+            RemoveFromSlot(_currentSelectedSlot, 1);
+
+            
             InventorySlotUI[] ui;
 
+            //Finds the SlotUIs
             ui = FindObjectsOfType<InventorySlotUI>();
 
-            ui[currentSelectedSlot].SetSelected(false);
+            //Deselects the current slot
+            ui[_currentSelectedSlot].SetSelected(false);
 
-            currentSelectedSlot = -1;
+            //Sets the current slot to -1
+            _currentSelectedSlot = -1;
         }
-
-        // PUBLIC
-
-        /// <summary>
-        /// Broadcasts when the items in the slots are added/removed.
-        /// </summary>
-        public event Action inventoryUpdated;
 
         /// <summary>
         /// Convenience for getting the player's inventory.
@@ -123,7 +153,7 @@ namespace RPG.Inventories
         /// </summary>
         public int GetSize()
         {
-            return slots.Length;
+            return _slots.Length;
         }
 
         /// <summary>
@@ -141,11 +171,11 @@ namespace RPG.Inventories
                 return false;
             }
 
-            slots[i].item = item;
-            slots[i].number += number;
-            if (inventoryUpdated != null)
+            _slots[i].item = item;
+            _slots[i].number += number;
+            if (InventoryUpdated != null)
             {
-                inventoryUpdated();
+                InventoryUpdated();
             }
             return true;
         }
@@ -155,9 +185,9 @@ namespace RPG.Inventories
         /// </summary>
         public bool HasItem(InventoryItem item)
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < _slots.Length; i++)
             {
-                if (object.ReferenceEquals(slots[i].item, item))
+                if (object.ReferenceEquals(_slots[i].item, item))
                 {
                     return true;
                 }
@@ -170,7 +200,7 @@ namespace RPG.Inventories
         /// </summary>
         public InventoryItem GetItemInSlot(int slot)
         {
-            return slots[slot].item;
+            return _slots[slot].item;
         }
 
         /// <summary>
@@ -178,7 +208,7 @@ namespace RPG.Inventories
         /// </summary>
         public int GetNumberInSlot(int slot)
         {
-            return slots[slot].number;
+            return _slots[slot].number;
         }
 
         /// <summary>
@@ -187,15 +217,15 @@ namespace RPG.Inventories
         /// </summary>
         public void RemoveFromSlot(int slot, int number)
         {
-            slots[slot].number -= number;
-            if (slots[slot].number <= 0)
+            _slots[slot].number -= number;
+            if (_slots[slot].number <= 0)
             {
-                slots[slot].number = 0;
-                slots[slot].item = null;
+                _slots[slot].number = 0;
+                _slots[slot].item = null;
             }
-            if (inventoryUpdated != null)
+            if (InventoryUpdated != null)
             {
-                inventoryUpdated();
+                InventoryUpdated();
             }
         }
 
@@ -210,7 +240,7 @@ namespace RPG.Inventories
         /// <returns>True if the item was added anywhere in the inventory.</returns>
         public bool AddItemToSlot(int slot, InventoryItem item, int number)
         {
-            if (slots[slot].item != null)
+            if (_slots[slot].item != null)
             {
                 return AddToFirstEmptySlot(item, number); ;
             }
@@ -221,29 +251,16 @@ namespace RPG.Inventories
                 slot = i;
             }
 
-            slots[slot].item = item;
-            slots[slot].number += number;
-            if (inventoryUpdated != null)
+            _slots[slot].item = item;
+            _slots[slot].number += number;
+            if (InventoryUpdated != null)
             {
-                inventoryUpdated();
+                InventoryUpdated();
             }
             return true;
         }
 
         // PRIVATE
-
-        private void Awake()
-        {
-            slots = new InventorySlot[inventorySize];
-            currentSelectedSlot = -1;
-
-
-        }
-
-        void Start()
-        {
-
-        }
 
         /// <summary>
         /// Find a slot that can accommodate the given item.
@@ -265,9 +282,9 @@ namespace RPG.Inventories
         /// <returns>-1 if all slots are full.</returns>
         private int FindEmptySlot()
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < _slots.Length; i++)
             {
-                if (slots[i].item == null)
+                if (_slots[i].item == null)
                 {
                     return i;
                 }
@@ -286,9 +303,9 @@ namespace RPG.Inventories
                 return -1;
             }
 
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < _slots.Length; i++)
             {
-                if (object.ReferenceEquals(slots[i].item, item))
+                if (object.ReferenceEquals(_slots[i].item, item))
                 {
                     return i;
                 }
@@ -296,6 +313,10 @@ namespace RPG.Inventories
             return -1;
         }
 
+
+        /// <summary>
+        /// Struct used for saving what items are in the inventory. Contains a item Id and a number of that item.
+        /// </summary>
         [System.Serializable]
         private struct InventorySlotRecord
         {
@@ -303,15 +324,16 @@ namespace RPG.Inventories
             public int number;
         }
     
+        //Implements the ISaveable interface
         object ISaveable.CaptureState()
         {
-            var slotStrings = new InventorySlotRecord[inventorySize];
-            for (int i = 0; i < inventorySize; i++)
+            var slotStrings = new InventorySlotRecord[_inventorySize];
+            for (int i = 0; i < _inventorySize; i++)
             {
-                if (slots[i].item != null)
+                if (_slots[i].item != null)
                 {
-                    slotStrings[i].itemID = slots[i].item.GetItemID();
-                    slotStrings[i].number = slots[i].number;
+                    slotStrings[i].itemID = _slots[i].item.GetItemID();
+                    slotStrings[i].number = _slots[i].number;
                 }
             }
             return slotStrings;
@@ -320,14 +342,14 @@ namespace RPG.Inventories
         void ISaveable.RestoreState(object state)
         {
             var slotStrings = (InventorySlotRecord[])state;
-            for (int i = 0; i < inventorySize; i++)
+            for (int i = 0; i < _inventorySize; i++)
             {
-                slots[i].item = InventoryItem.GetFromID(slotStrings[i].itemID);
-                slots[i].number = slotStrings[i].number;
+                _slots[i].item = InventoryItem.GetFromID(slotStrings[i].itemID);
+                _slots[i].number = slotStrings[i].number;
             }
-            if (inventoryUpdated != null)
+            if (InventoryUpdated != null)
             {
-                inventoryUpdated();
+                InventoryUpdated();
             }
         }
     }

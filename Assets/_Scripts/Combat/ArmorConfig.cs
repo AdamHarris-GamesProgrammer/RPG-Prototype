@@ -7,11 +7,11 @@ using UnityEngine;
 public class ArmorConfig : StatsEquipableItem
 {
     [Header("Armor Settings")]
-    [SerializeField] private int armor = 0;
+    [SerializeField] private int _armor = 0;
 
     public int GetArmor()
     {
-        return armor;
+        return _armor;
     }
 
 }

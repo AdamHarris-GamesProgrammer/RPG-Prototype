@@ -14,6 +14,8 @@ namespace RPG.Resources
     public class Health : MonoBehaviour, ISaveable
     {
         float _maxHealth;
+
+
         [SerializeField] private float _health;
         [SerializeField] bool useBaseStats = true;
         [SerializeField] TakeDamageEvent takeDamage;
@@ -29,7 +31,7 @@ namespace RPG.Resources
         public bool isDead;
         [SerializeField] bool canBeDamaged = true;
 
-        private Controller mController;
+        private Controller _controller;
         private Equipment mEquipment;
 
         private BaseStats mBaseStats;
@@ -37,8 +39,8 @@ namespace RPG.Resources
 
         private void Awake()
         {
-            mController = GetComponent<Controller>();
-            if (mController == null)
+            _controller = GetComponent<Controller>();
+            if (_controller == null)
             {
                 Debug.LogError(gameObject.name + " controller is null.");
             }
@@ -69,15 +71,15 @@ namespace RPG.Resources
         {
             if (!canBeDamaged) return;
 
-            if (mController.IsStrafing) return;
+            if (_controller.IsStrafing) return;
 
             //Calculate Blocking Protection
-            if (mController.IsBlocking)
+            if (_controller.IsBlocking)
             {
-                float reduction = mController.BlockReduction;
+                float reduction = _controller.BlockReduction;
 
                 damageIn *= 1 - reduction;
-                mController.BlockDamage(isHeavyAttack);
+                _controller.BlockDamage(isHeavyAttack);
             }
 
             //Calculates Armor Protection

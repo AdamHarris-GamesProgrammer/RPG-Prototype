@@ -48,7 +48,7 @@ namespace RPG.Combat
 
             if (fighterEquipment)
             {
-                fighterEquipment.equipmentUpdated += UpdateWeapon;
+                fighterEquipment.EquipmentUpdated += UpdateWeapon;
             }
 
             unarmedConfig = UnityEngine.Resources.Load<WeaponConfig>("Unarmed");

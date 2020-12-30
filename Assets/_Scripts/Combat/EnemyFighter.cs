@@ -6,27 +6,30 @@ namespace RPG.Combat
 {
     public class EnemyFighter : Fighter
     {
+        //EDITOR PROPERTIES
         [Header("Heavy Attack Settings")]
-        [Range(0f, 1f)]
-        [SerializeField] private float chanceForHeavyAttack = 0.2f;
+        [Tooltip("Chance that the enemy will perform a heavy attack.")]
+        [Range(0f, 1f)][SerializeField] private float _chanceForHeavyAttack = 0.2f;
         
+        //OVERRIDE METHODS
+        
+        /// <summary>
+        /// Overrides the base attack method to perform the enemies attack behavior
+        /// </summary>
+        /// <param name="combatTarget"></param>
         public override void Attack(GameObject combatTarget)
         {
             base.Attack(combatTarget);
 
             if (fighterHealth.isDead || target == null) return;
 
-            //checks if the target is in range
-            bool inRange = IsInRangeOfWeapon(target.position);
-
             //if the target is not in range
-            if (inRange)
+            if (IsInRangeOfWeapon(target.position))
             {
                 //if the time since last attacked is greater than the cooldown
                 if (timeSinceLastAttack >= timeBetweenAttacks)
                 {
                     //then attack
-                    GenerateHeavyAttackChance();
                     AttackBehaviour();
 
 
@@ -35,30 +38,42 @@ namespace RPG.Combat
             }
         }
 
-        private void GenerateHeavyAttackChance()
+        //PRIVATE METHODS 
+
+        /// <summary>
+        /// This method generates a value between 0 and 1 to see if a attack is heavy or not.
+        /// </summary>
+        /// <returns>Returns a bool saying if a attack is heavy</returns>
+        private bool GenerateHeavyAttackChance()
         {
-            if (UnityEngine.Random.value < chanceForHeavyAttack)
+            bool result = false;
+
+            if (Random.value < _chanceForHeavyAttack)
             {
-                heavyAttack = true;
-                //Debug.Log("Enemy Heavy Attack");
+                result = true;
             }
-            else
-            {
-                heavyAttack = false;
-                //Debug.Log("Enemy Light Attack");
-            }
+
+            return result;
         }
 
+        /// <summary>
+        /// Performs the attack behavior for the enemy, mainly setting there animation triggers and looking at a opponent.
+        /// </summary>
         private void AttackBehaviour()
         {
-            if (heavyAttack && equippedWeaponConfig.HasHeavyAttack)
+            //Checks if the equipped weapon has a heavy attack and if it does then generates a heavy attack chance
+            if (equippedWeaponConfig.HasHeavyAttack && GenerateHeavyAttackChance())
             {
+                //if the heavy attack went through then set the heavy attack trigger
                 fighterAnimator.SetTrigger("heavyAttack");
             }
             else
             {
+                //if the attack was not heavy then set the light attack trigger
                 fighterAnimator.SetTrigger("lightAttack");
             }
+
+            //Looks at the opponent
             transform.LookAt(target);
         }
     }
