@@ -190,12 +190,6 @@ namespace RPG.Control
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
         }
 
-        private void OnParticleCollision(GameObject other)
-        {
-            if (stunned) return;
-            SetTransition(Transition.Stunned);
-        }
-
         //Called by Unity Editor
         private void OnDrawGizmosSelected()
         {

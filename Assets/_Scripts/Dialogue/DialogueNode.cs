@@ -10,6 +10,7 @@ namespace RPG.Dialogue
         public string _uniqueID;
         public string _text;
         public string[] _children;
+        public Rect _rect = new Rect(10,10,350,75);
     }
 }
 

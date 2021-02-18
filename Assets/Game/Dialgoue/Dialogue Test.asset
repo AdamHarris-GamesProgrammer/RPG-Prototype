@@ -12,4 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7286edb21b7f84ab7fcc50e6c362fc, type: 3}
   m_Name: Dialogue Test
   m_EditorClassIdentifier: 
-  _nodes: []
+  _nodes:
+  - _uniqueID: 1
+    _text: 'Hello. how are you? '
+    _children:
+    - 2
+    - 4
+    _rect:
+      serializedVersion: 2
+      x: -21
+      y: 200
+      width: 200
+      height: 75
+  - _uniqueID: 2
+    _text: What are you doing?
+    _children:
+    - 3
+    _rect:
+      serializedVersion: 2
+      x: 228
+      y: 119
+      width: 200
+      height: 75
+  - _uniqueID: 3
+    _text: Eating bread.
+    _children:
+    - Good
+    _rect:
+      serializedVersion: 2
+      x: 477
+      y: 57
+      width: 200
+      height: 75
+  - _uniqueID: 4
+    _text: What are you doing?
+    _children:
+    - Good
+    _rect:
+      serializedVersion: 2
+      x: 228
+      y: 284
+      width: 200
+      height: 75
