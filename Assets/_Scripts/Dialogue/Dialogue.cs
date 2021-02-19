@@ -16,7 +16,10 @@ namespace RPG.Dialogue
         {
             if(_nodes.Count == 0)
             {
-                _nodes.Add(new DialogueNode());
+                DialogueNode rootNode = new DialogueNode();
+                //Create a unique string for the id
+                rootNode._uniqueID = System.Guid.NewGuid().ToString();
+                _nodes.Add(rootNode);
             }
 
             OnValidate();
@@ -52,5 +55,22 @@ namespace RPG.Dialogue
                 yield return _nodeLookup[child];
             }
         }
+
+        public void CreateNode(DialogueNode parentNode)
+        {
+            DialogueNode newNode = new DialogueNode();
+            newNode._uniqueID = System.Guid.NewGuid().ToString();
+
+            Vector2 newNodePosition = parentNode._rect.position;
+            newNodePosition.x += 100.0f;
+
+            newNode._rect.position = newNodePosition;
+
+            _nodes.Add(newNode);
+            parentNode._children.Add(newNode._uniqueID);
+
+            OnValidate();
+        }
+
     }
 }

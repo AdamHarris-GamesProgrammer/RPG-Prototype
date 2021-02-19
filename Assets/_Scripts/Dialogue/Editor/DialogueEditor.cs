@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -11,11 +12,11 @@ namespace RPG.Dialogue.Editor
     {
         static Dialogue _selectedDialogue = null;
 
-        GUIStyle _nodeStyle = null;
-
-        DialogueNode _draggingNode = null;
-
-        Vector2 _offset;
+        [NonSerialized]GUIStyle _nodeStyle = null;
+        [NonSerialized]GUIStyle _buttonStyle = null;
+        [NonSerialized]DialogueNode _draggingNode = null;
+        [NonSerialized]Vector2 _offset;
+        [NonSerialized]DialogueNode _creatingNode = null;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowEditorWindow()
@@ -46,6 +47,12 @@ namespace RPG.Dialogue.Editor
             _nodeStyle.padding = new RectOffset(5, 10, 5, 5);
             _nodeStyle.border = new RectOffset(12, 12, 12, 12);
             _nodeStyle.wordWrap = true;
+
+            
+            _buttonStyle = new GUIStyle(_nodeStyle);
+            _buttonStyle.normal.background = Texture2D.whiteTexture;
+            _buttonStyle.margin = new RectOffset(5, 5, 10, 10);
+            _buttonStyle.alignment = TextAnchor.MiddleCenter;
         }
 
         private void OnSelectionChange()
@@ -64,38 +71,6 @@ namespace RPG.Dialogue.Editor
 
         }
 
-        private void DrawNode(DialogueNode node)
-        {
-            GUILayout.BeginArea(node._rect, _nodeStyle);
-
-            //Outputs the node id as a label
-            EditorGUILayout.LabelField(string.Format("Node {0}", node._uniqueID), EditorStyles.whiteLabel);
-
-            //Checks for changes to implement undo
-            EditorGUI.BeginChangeCheck();
-
-            //Outputs the id of the node
-            string id = EditorGUILayout.TextField(node._uniqueID);
-
-            //Outputs the dialogue for the node
-            string newText = EditorGUILayout.TextField(node._text);
-
-            //Checks for changes
-            if (EditorGUI.EndChangeCheck())
-            {
-                Undo.RecordObject(_selectedDialogue, "Edit Dialogue Text");
-                //Changes the text 
-                node._text = newText;
-                node._uniqueID = id;
-            }
-
-            
-
-            
-
-            GUILayout.EndArea();
-        }
-
         private void OnGUI()
         {
             if(_selectedDialogue == null)
@@ -107,20 +82,27 @@ namespace RPG.Dialogue.Editor
                 ProcessEvents();
                 EditorGUILayout.LabelField(_selectedDialogue.name);
 
+                //Draw the connections first
                 foreach (DialogueNode node in _selectedDialogue.GetAllNodes())
                 {
                     DrawConnections(node);
                 }
 
+                //Then draw the nodes 
                 foreach (DialogueNode node in _selectedDialogue.GetAllNodes())
                 {
                     DrawNode(node);
                     
                 }
-            }
-            
 
-            
+                if(_creatingNode != null)
+                {
+                    Undo.RecordObject(_selectedDialogue, "Create Node");
+                    _selectedDialogue.CreateNode(_creatingNode);
+                    _creatingNode = null;
+
+                }
+            }
         }
 
         private void ProcessEvents()
@@ -165,9 +147,39 @@ namespace RPG.Dialogue.Editor
             return lastContainedNode;
         }
 
+        private void DrawNode(DialogueNode node)
+        {
+            GUILayout.BeginArea(node._rect, _nodeStyle);
+
+            //Checks for changes to implement undo
+            EditorGUI.BeginChangeCheck();
+
+            //Outputs the dialogue for the node
+            string newText = EditorGUILayout.TextField(node._text);
+
+            //Checks for changes
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(_selectedDialogue, "Edit Dialogue Text");
+                //Changes the text 
+                node._text = newText;
+            }
+
+            if(GUILayout.Button("+", _buttonStyle))
+            {
+                _creatingNode = node;
+            }
+
+            GUILayout.EndArea();
+        }
+
         private void DrawConnections(DialogueNode node)
         {
             Vector3 startPos = new Vector2(node._rect.xMax, node._rect.center.y);
+
+            bool hasChildren = node._children.Count > 0;
+
+            if (!hasChildren) return;
 
             foreach (DialogueNode childNode in _selectedDialogue.GetAllChildren(node))
             {

@@ -8,8 +8,8 @@ namespace RPG.Dialogue
     public class DialogueNode 
     {
         public string _uniqueID;
-        public string _text;
-        public string[] _children;
+        public string _text = "Enter Dialogue Text...";
+        public List<string> _children = new List<string>();
         public Rect _rect = new Rect(10,10,350,75);
     }
 }
