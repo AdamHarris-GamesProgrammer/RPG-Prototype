@@ -21,6 +21,9 @@ namespace RPG.Dialogue.Editor
         [NonSerialized] DialogueNode _deletingNode = null;
         [NonSerialized] DialogueNode _linkingParentNode = null;
 
+        [NonSerialized] bool _draggingCanvas = false;
+        [NonSerialized] Vector2 _draggingCanvasOffset;
+
         Vector2 _scrollPosition;
 
         [MenuItem("Window/Dialogue Editor")]
@@ -132,14 +135,16 @@ namespace RPG.Dialogue.Editor
                 //Get the selected node
                 _draggingNode = GetNodeAtPoint(Event.current.mousePosition);
 
-                if (_draggingNode == null) return;
+                if (_draggingNode == null)
+                {
+                    _draggingCanvas = true;
+                    _draggingCanvasOffset = Event.current.mousePosition;
+                }
+                else
+                {
+                    _offset = _draggingNode._rect.position - Event.current.mousePosition;
 
-                _offset = _draggingNode._rect.position - Event.current.mousePosition;
-
-            }
-            else if (Event.current.type == EventType.MouseUp && _draggingNode != null)
-            {
-                _draggingNode = null;
+                }
             }
             else if (Event.current.type == EventType.MouseDrag && _draggingNode != null)
             {
@@ -156,6 +161,25 @@ namespace RPG.Dialogue.Editor
 
                 GUI.changed = true;
 
+            }
+            else if (Event.current.type == EventType.MouseDrag && _draggingCanvas)
+            {
+                Vector2 newOffset = _draggingCanvasOffset - Event.current.mousePosition;
+
+                _scrollPosition += newOffset;
+
+                _scrollPosition.x = Mathf.Clamp(_scrollPosition.x, 0f, 4000f);
+                _scrollPosition.y = Mathf.Clamp(_scrollPosition.y, 0f, 4000f);
+
+                GUI.changed = true;
+            }
+            else if (Event.current.type == EventType.MouseUp && _draggingCanvas)
+            {
+                _draggingCanvas = false;
+            }
+            else if (Event.current.type == EventType.MouseUp && _draggingNode != null)
+            {
+                _draggingNode = null;
             }
         }
 
