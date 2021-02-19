@@ -16,41 +16,49 @@ MonoBehaviour:
   - _uniqueID: 1
     _text: 'Hello. how are you? '
     _children:
-    - 2
-    - 4
+    - c11e2cd8-0688-4730-a681-55b9a4d12da5
+    - 7a723328-d791-42f5-81a0-e4855f23aa91
+    - b2148e2c-46ab-4523-84c2-319ea75b293f
     _rect:
       serializedVersion: 2
-      x: -21
-      y: 200
+      x: 5
+      y: 94
       width: 200
       height: 75
-  - _uniqueID: 2
-    _text: What are you doing?
-    _children:
-    - 3
+  - _uniqueID: c11e2cd8-0688-4730-a681-55b9a4d12da5
+    _text: Can I help you with something?
+    _children: []
     _rect:
       serializedVersion: 2
-      x: 228
-      y: 119
+      x: 232
+      y: 180
       width: 200
       height: 75
-  - _uniqueID: 3
-    _text: Eating bread.
-    _children:
-    - Good
+  - _uniqueID: 7a723328-d791-42f5-81a0-e4855f23aa91
+    _text: Want to see my goods?
+    _children: []
     _rect:
       serializedVersion: 2
-      x: 477
-      y: 57
+      x: 234
+      y: 7
       width: 200
       height: 75
-  - _uniqueID: 4
-    _text: What are you doing?
+  - _uniqueID: b2148e2c-46ab-4523-84c2-319ea75b293f
+    _text: Can you do me a favour?
     _children:
-    - Good
+    - c40af69c-ee0e-432a-b3d2-b00aab1f1fad
     _rect:
       serializedVersion: 2
-      x: 228
-      y: 284
+      x: 232
+      y: 93
+      width: 200
+      height: 75
+  - _uniqueID: c40af69c-ee0e-432a-b3d2-b00aab1f1fad
+    _text: Enter Dialogue Text...
+    _children: []
+    _rect:
+      serializedVersion: 2
+      x: 496
+      y: 45
       width: 200
       height: 75
