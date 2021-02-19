@@ -66,8 +66,32 @@ namespace RPG.Dialogue
 
             newNode._rect.position = newNodePosition;
 
+            newNode._parentNode = parentNode;
+
             _nodes.Add(newNode);
             parentNode._children.Add(newNode._uniqueID);
+
+            OnValidate();
+        }
+
+        public void RemoveNode(DialogueNode deletedNode)
+        {
+            _nodes.Remove(deletedNode);
+
+            if(deletedNode._parentNode != null)
+            {
+                deletedNode._parentNode._children.Remove(deletedNode._uniqueID);
+            }
+
+            if(deletedNode._children.Count > 0)
+            {
+                foreach(DialogueNode childNode in GetAllChildren(deletedNode))
+                {
+                    childNode._parentNode = deletedNode._parentNode;
+                    deletedNode._parentNode._children.Add(childNode._uniqueID);
+                }
+            }
+
 
             OnValidate();
         }

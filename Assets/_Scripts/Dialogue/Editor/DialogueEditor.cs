@@ -17,6 +17,7 @@ namespace RPG.Dialogue.Editor
         [NonSerialized]DialogueNode _draggingNode = null;
         [NonSerialized]Vector2 _offset;
         [NonSerialized]DialogueNode _creatingNode = null;
+        [NonSerialized]DialogueNode _deletingNode = null;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowEditorWindow()
@@ -102,6 +103,13 @@ namespace RPG.Dialogue.Editor
                     _creatingNode = null;
 
                 }
+
+                if(_deletingNode != null)
+                {
+                    Undo.RecordObject(_selectedDialogue, "Delete Node");
+                    _selectedDialogue.RemoveNode(_deletingNode);
+                    _deletingNode = null;
+                }
             }
         }
 
@@ -165,10 +173,20 @@ namespace RPG.Dialogue.Editor
                 node._text = newText;
             }
 
-            if(GUILayout.Button("+", _buttonStyle))
+
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("+", _buttonStyle))
             {
                 _creatingNode = node;
             }
+            if (GUILayout.Button("-", _buttonStyle))
+            {
+                _deletingNode = node;
+            }
+
+            GUILayout.EndHorizontal();
 
             GUILayout.EndArea();
         }
