@@ -63,11 +63,19 @@ namespace RPG.Dialogue
             {
                 parentNode.AddChild(newNode.name);
                 Vector2 newNodePosition = parentNode.GetRectPosition();
-                newNodePosition.x += 100.0f;
+                newNodePosition.x += 300.0f;
 
                 newNode.SetRectPosition(newNodePosition);
                 newNode.SetParentNode(parentNode);
 
+                if (parentNode.IsPlayerSpeaking())
+                {
+                    newNode.SetPlayerSpeaking(false);
+                }
+                else
+                {
+                    newNode.SetPlayerSpeaking(true);
+                }
             }
 
             return newNode;
@@ -82,6 +90,9 @@ namespace RPG.Dialogue
         public void CreateNode(DialogueNode parentNode)
         {
             DialogueNode newNode = MakeNode(parentNode);
+
+
+
 
             Undo.RegisterCreatedObjectUndo(newNode, "Created Dialogue node");
             Undo.RecordObject(this, "Create Node");

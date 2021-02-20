@@ -11,7 +11,20 @@ namespace RPG.Dialogue
         [SerializeField] private List<string> _children = new List<string>();
         [SerializeField] private Rect _rect = new Rect(10,10,200,75);
         [SerializeField] private DialogueNode _parentNode = null;
+        
+        [SerializeField] bool isPlayerSpeaking = false;
 
+        public bool IsPlayerSpeaking()
+        {
+            return isPlayerSpeaking;
+        }
+
+        public void SetPlayerSpeaking(bool val)
+        {
+            Undo.RecordObject(this, "Set Speaker");
+            isPlayerSpeaking = val;
+            EditorUtility.SetDirty(this);
+        }
 
         public Rect GetRect()
         {

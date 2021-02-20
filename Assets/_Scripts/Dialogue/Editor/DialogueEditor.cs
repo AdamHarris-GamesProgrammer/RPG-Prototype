@@ -13,6 +13,7 @@ namespace RPG.Dialogue.Editor
         static Dialogue _selectedDialogue = null;
 
         [NonSerialized] GUIStyle _nodeStyle = null;
+        [NonSerialized] GUIStyle _playerNodeStyle = null;
         [NonSerialized] GUIStyle _buttonStyle = null;
         [NonSerialized] DialogueNode _draggingNode = null;
         [NonSerialized] Vector2 _offset;
@@ -60,6 +61,8 @@ namespace RPG.Dialogue.Editor
             _nodeStyle.border = new RectOffset(12, 12, 12, 12);
             _nodeStyle.wordWrap = true;
 
+            _playerNodeStyle = new GUIStyle(_nodeStyle);
+            _playerNodeStyle.normal.background = Texture2D.whiteTexture;
 
             _buttonStyle = new GUIStyle(_nodeStyle);
             _buttonStyle.normal.background = Texture2D.whiteTexture;
@@ -239,7 +242,14 @@ namespace RPG.Dialogue.Editor
 
         private void DrawNode(DialogueNode node)
         {
-            GUILayout.BeginArea(node.GetRect(), _nodeStyle);
+            if(node.IsPlayerSpeaking())
+            {
+                GUILayout.BeginArea(node.GetRect(), _playerNodeStyle);
+            }else
+            {
+                GUILayout.BeginArea(node.GetRect(), _nodeStyle);
+            }
+
 
             //Outputs the dialogue for the node
             node.SetText(EditorGUILayout.TextField(node.GetText()));
