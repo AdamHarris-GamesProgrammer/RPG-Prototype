@@ -9,7 +9,7 @@ namespace RPG.Dialogue
     {
         [SerializeField] private string _text = "Enter Dialogue Text...";
         [SerializeField] private List<string> _children = new List<string>();
-        [SerializeField] private Rect _rect = new Rect(10,10,200,75);
+        [SerializeField] private Rect _rect = new Rect(10,10,200,125);
         [SerializeField] private DialogueNode _parentNode = null;
         
         [SerializeField] bool isPlayerSpeaking = false;

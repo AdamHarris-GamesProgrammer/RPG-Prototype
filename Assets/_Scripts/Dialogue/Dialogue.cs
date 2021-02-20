@@ -72,10 +72,6 @@ namespace RPG.Dialogue
                 {
                     newNode.SetPlayerSpeaking(false);
                 }
-                else
-                {
-                    newNode.SetPlayerSpeaking(true);
-                }
             }
 
             return newNode;

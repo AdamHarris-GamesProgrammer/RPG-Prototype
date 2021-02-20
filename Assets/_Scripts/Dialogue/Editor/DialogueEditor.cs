@@ -15,7 +15,9 @@ namespace RPG.Dialogue.Editor
         [NonSerialized] GUIStyle _nodeStyle = null;
         [NonSerialized] GUIStyle _playerNodeStyle = null;
         [NonSerialized] GUIStyle _buttonStyle = null;
+        [NonSerialized] GUIStyle _textAreaStyle = null;
         [NonSerialized] DialogueNode _draggingNode = null;
+
         [NonSerialized] Vector2 _offset;
 
         [NonSerialized] DialogueNode _creatingNode = null;
@@ -64,6 +66,9 @@ namespace RPG.Dialogue.Editor
             _playerNodeStyle = new GUIStyle(_nodeStyle);
             _playerNodeStyle.normal.background = Texture2D.whiteTexture;
 
+
+            
+
             _buttonStyle = new GUIStyle(_nodeStyle);
             _buttonStyle.normal.background = Texture2D.whiteTexture;
             _buttonStyle.margin = new RectOffset(5, 5, 10, 10);
@@ -83,24 +88,29 @@ namespace RPG.Dialogue.Editor
 
         private void OnGUI()
         {
-            if (_selectedDialogue == null)
+            if(_textAreaStyle == null)
             {
-                EditorGUILayout.LabelField("No Dialogue Selected");
+                _textAreaStyle = new GUIStyle(GUI.skin.textArea);
+                _textAreaStyle.wordWrap = true;
             }
-            else
+            
+
+            _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+
+
+            Rect backgroundRect = GUILayoutUtility.GetRect(CANVAS_SIZE, CANVAS_SIZE);
+
+            Texture2D background = UnityEngine.Resources.Load("background") as Texture2D;
+
+            GUI.DrawTextureWithTexCoords(backgroundRect, background, new Rect(0, 0, CANVAS_SIZE / BACKGROUND_SIZE, CANVAS_SIZE / BACKGROUND_SIZE));
+
+
+
+            if (_selectedDialogue != null)
             {
-                _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
-
-                Rect backgroundRect = GUILayoutUtility.GetRect(CANVAS_SIZE, CANVAS_SIZE);
-
-                Texture2D background = UnityEngine.Resources.Load("background") as Texture2D;
-
                 ProcessEvents();
                 EditorGUILayout.LabelField(_selectedDialogue.name);
 
-
-                //GUI.DrawTexture(backgroundRect, background, ScaleMode.ScaleToFit);
-                GUI.DrawTextureWithTexCoords(backgroundRect, background, new Rect(0, 0, CANVAS_SIZE / BACKGROUND_SIZE, CANVAS_SIZE / BACKGROUND_SIZE));
 
                 //Draw the connections first
                 foreach (DialogueNode node in _selectedDialogue.GetAllNodes())
@@ -112,10 +122,7 @@ namespace RPG.Dialogue.Editor
                 foreach (DialogueNode node in _selectedDialogue.GetAllNodes())
                 {
                     DrawNode(node);
-
                 }
-
-                EditorGUILayout.EndScrollView();
 
                 if (_creatingNode != null)
                 {
@@ -129,9 +136,9 @@ namespace RPG.Dialogue.Editor
                     _selectedDialogue.RemoveNode(_deletingNode);
                     _deletingNode = null;
                 }
-
-
             }
+
+            EditorGUILayout.EndScrollView();
         }
 
         private void ProcessEvents()
@@ -252,7 +259,7 @@ namespace RPG.Dialogue.Editor
 
 
             //Outputs the dialogue for the node
-            node.SetText(EditorGUILayout.TextField(node.GetText()));
+            node.SetText(EditorGUILayout.TextArea(node.GetText(),_textAreaStyle ,GUILayout.ExpandHeight(true)));
 
 
             GUILayout.BeginHorizontal();
@@ -273,6 +280,8 @@ namespace RPG.Dialogue.Editor
             }
 
             GUILayout.EndHorizontal();
+
+            node.SetPlayerSpeaking(GUILayout.Toggle(node.IsPlayerSpeaking(), "Player Dialogue"));
 
             GUILayout.EndArea();
         }
