@@ -11,8 +11,19 @@ namespace RPG.Dialogue
         [SerializeField] private List<string> _children = new List<string>();
         [SerializeField] private Rect _rect = new Rect(10,10,200,125);
         [SerializeField] private DialogueNode _parentNode = null;
+        [SerializeField] private Vector2 _scrollPosition;
         
         [SerializeField] bool isPlayerSpeaking = false;
+
+        public Vector2 GetScrollPosition()
+        {
+            return _scrollPosition;
+        }
+
+        public void SetScrollPosition(Vector2 val)
+        {
+            _scrollPosition = val;
+        }
 
         public bool IsPlayerSpeaking()
         {

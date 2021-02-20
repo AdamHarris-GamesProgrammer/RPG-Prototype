@@ -16,11 +16,12 @@ MonoBehaviour:
   _children: []
   _rect:
     serializedVersion: 2
-    x: 124
-    y: 65
+    x: 89
+    y: 84
     width: 200
     height: 125
   _parentNode: {fileID: 0}
+  _scrollPosition: {x: 0, y: 0}
   isPlayerSpeaking: 0
 --- !u!114 &11400000
 MonoBehaviour:

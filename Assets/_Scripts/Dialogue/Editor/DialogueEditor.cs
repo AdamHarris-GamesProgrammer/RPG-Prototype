@@ -257,6 +257,8 @@ namespace RPG.Dialogue.Editor
                 GUILayout.BeginArea(node.GetRect(), _nodeStyle);
             }
 
+            node.SetScrollPosition(EditorGUILayout.BeginScrollView(node.GetScrollPosition()));
+
 
             //Outputs the dialogue for the node
             node.SetText(EditorGUILayout.TextArea(node.GetText(),_textAreaStyle ,GUILayout.ExpandHeight(true)));
@@ -281,7 +283,9 @@ namespace RPG.Dialogue.Editor
 
             GUILayout.EndHorizontal();
 
-            node.SetPlayerSpeaking(GUILayout.Toggle(node.IsPlayerSpeaking(), "Player Dialogue"));
+            node.SetPlayerSpeaking(GUILayout.Toggle(node.IsPlayerSpeaking(), "Player Dialogue", GUILayout.MaxWidth(110.0f)));
+
+            EditorGUILayout.EndScrollView();
 
             GUILayout.EndArea();
         }
