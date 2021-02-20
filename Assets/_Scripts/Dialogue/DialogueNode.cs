@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace RPG.Dialogue
 {
-    [System.Serializable]
-    public class DialogueNode 
+    public class DialogueNode  : ScriptableObject
     {
-        public string _uniqueID;
         public string _text = "Enter Dialogue Text...";
         public List<string> _children = new List<string>();
         public Rect _rect = new Rect(10,10,200,75);

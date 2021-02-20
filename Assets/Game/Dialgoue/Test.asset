@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7286edb21b7f84ab7fcc50e6c362fc, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  _nodes:
+  - {fileID: 7961293186303510890}
+--- !u!114 &7961293186303510890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25ecb6d801746a40a7a685bc59f530c, type: 3}
+  m_Name: e6626f8b-07b8-40f8-babe-c92cfdad17ea
+  m_EditorClassIdentifier: 
+  _text: Enter Dialogue Text...
+  _children: []
+  _rect:
+    serializedVersion: 2
+    x: 10
+    y: 10
+    width: 200
+    height: 75
+  _parentNode: {fileID: 0}
