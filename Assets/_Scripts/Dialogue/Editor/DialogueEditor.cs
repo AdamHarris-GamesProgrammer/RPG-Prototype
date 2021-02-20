@@ -26,6 +26,10 @@ namespace RPG.Dialogue.Editor
 
         Vector2 _scrollPosition;
 
+
+        const float CANVAS_SIZE = 4000.0f;
+        const float BACKGROUND_SIZE = 50.0f;
+
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowEditorWindow()
         {
@@ -89,10 +93,16 @@ namespace RPG.Dialogue.Editor
             {
                 _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
-                GUILayoutUtility.GetRect(4000.0f, 4000.0f);
+                Rect backgroundRect = GUILayoutUtility.GetRect(CANVAS_SIZE, CANVAS_SIZE);
+
+                Texture2D background = UnityEngine.Resources.Load("background") as Texture2D;
 
                 ProcessEvents();
                 EditorGUILayout.LabelField(_selectedDialogue.name);
+
+
+                //GUI.DrawTexture(backgroundRect, background, ScaleMode.ScaleToFit);
+                GUI.DrawTextureWithTexCoords(backgroundRect, background, new Rect(0, 0, CANVAS_SIZE / background.width, CANVAS_SIZE / background.height));
 
                 //Draw the connections first
                 foreach (DialogueNode node in _selectedDialogue.GetAllNodes())
@@ -154,8 +164,8 @@ namespace RPG.Dialogue.Editor
 
                 Vector2 newPos = Event.current.mousePosition + _offset;
 
-                newPos.x = Mathf.Clamp(newPos.x, 0f, 4000f);
-                newPos.y = Mathf.Clamp(newPos.y, 0f, 4000f);
+                newPos.x = Mathf.Clamp(newPos.x, 0f, CANVAS_SIZE);
+                newPos.y = Mathf.Clamp(newPos.y, 0f, CANVAS_SIZE);
 
                 _draggingNode._rect.position = newPos;
 
@@ -168,8 +178,8 @@ namespace RPG.Dialogue.Editor
 
                 _scrollPosition += newOffset;
 
-                _scrollPosition.x = Mathf.Clamp(_scrollPosition.x, 0f, 4000f);
-                _scrollPosition.y = Mathf.Clamp(_scrollPosition.y, 0f, 4000f);
+                _scrollPosition.x = Mathf.Clamp(_scrollPosition.x, 0f, CANVAS_SIZE);
+                _scrollPosition.y = Mathf.Clamp(_scrollPosition.y, 0f, CANVAS_SIZE);
 
                 GUI.changed = true;
             }
