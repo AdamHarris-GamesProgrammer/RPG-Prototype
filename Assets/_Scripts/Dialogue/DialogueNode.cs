@@ -33,6 +33,7 @@ namespace RPG.Dialogue
         {
             Undo.RecordObject(this, "Move Node");
             _rect.position = val;
+            EditorUtility.SetDirty(this);
         }
 
         public List<string> GetChildren()
@@ -48,6 +49,7 @@ namespace RPG.Dialogue
         public void SetParentNode(DialogueNode val)
         {
             _parentNode = val;
+            EditorUtility.SetDirty(this);
         }
 
         public string GetText()
@@ -60,12 +62,14 @@ namespace RPG.Dialogue
         {
             Undo.RecordObject(this, "Add Dialogue Link");
             _children.Add(childID);
+            EditorUtility.SetDirty(this);
         }
 
         public void RemoveChild(string childID)
         {
             Undo.RecordObject(this, "Remove Dialogue Link");
             _children.Remove(childID);
+            EditorUtility.SetDirty(this);
         }
 
         public void SetText(string val)
@@ -75,6 +79,8 @@ namespace RPG.Dialogue
                 Undo.RecordObject(this, "Edit Dialogue Text");
                 _text = val;
             }
+
+            EditorUtility.SetDirty(this);
         }
 
         

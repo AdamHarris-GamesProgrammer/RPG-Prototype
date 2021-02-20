@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: 7df71c64-4a2e-4080-9ff4-2b36726105c4
   m_EditorClassIdentifier: 
   _text: Enter Dialogue Text...
-  _children: []
+  _children:
+  - 4d8828ae-b400-4792-9c07-ebf36b0ca6b8
   _rect:
     serializedVersion: 2
     x: 377
@@ -58,3 +59,25 @@ MonoBehaviour:
   _nodes:
   - {fileID: -1285443518901514547}
   - {fileID: -1692747392454441038}
+  - {fileID: 4118118024108977592}
+--- !u!114 &4118118024108977592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25ecb6d801746a40a7a685bc59f530c, type: 3}
+  m_Name: 4d8828ae-b400-4792-9c07-ebf36b0ca6b8
+  m_EditorClassIdentifier: 
+  _text: Hello ello
+  _children: []
+  _rect:
+    serializedVersion: 2
+    x: 610
+    y: 207
+    width: 200
+    height: 75
+  _parentNode: {fileID: -1692747392454441038}
