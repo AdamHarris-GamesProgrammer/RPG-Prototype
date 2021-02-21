@@ -16,6 +16,8 @@ namespace RPG.Dialogue.Editor
         [NonSerialized] GUIStyle _playerNodeStyle = null;
         [NonSerialized] GUIStyle _buttonStyle = null;
         [NonSerialized] GUIStyle _textAreaStyle = null;
+        [NonSerialized] GUIStyle _playerHeaderLabel = null;
+        [NonSerialized] GUIStyle _speakerHeaderLabel = null;
         [NonSerialized] DialogueNode _draggingNode = null;
 
         [NonSerialized] Vector2 _offset;
@@ -64,10 +66,16 @@ namespace RPG.Dialogue.Editor
             _nodeStyle.wordWrap = true;
 
             _playerNodeStyle = new GUIStyle(_nodeStyle);
-            _playerNodeStyle.normal.background = Texture2D.whiteTexture;
+            //_playerNodeStyle.normal.background = Texture2D.blackTexture;
 
+            _playerHeaderLabel = new GUIStyle(_nodeStyle);
+            _speakerHeaderLabel = new GUIStyle(_nodeStyle);
 
-            
+            _playerHeaderLabel.normal.background = UnityEngine.Resources.Load("player") as Texture2D;
+            _playerHeaderLabel.border = new RectOffset(0,0,0,10);
+
+            _speakerHeaderLabel.normal.background = UnityEngine.Resources.Load("speaker") as Texture2D;
+            _speakerHeaderLabel.border = new RectOffset(0,0,0,10);
 
             _buttonStyle = new GUIStyle(_nodeStyle);
             _buttonStyle.normal.background = Texture2D.whiteTexture;
@@ -252,10 +260,15 @@ namespace RPG.Dialogue.Editor
             if(node.IsPlayerSpeaking())
             {
                 GUILayout.BeginArea(node.GetRect(), _playerNodeStyle);
-            }else
+                GUILayout.Label("Player", _playerHeaderLabel);
+            }
+            else
             {
                 GUILayout.BeginArea(node.GetRect(), _nodeStyle);
+                GUILayout.Label("Speaker", _speakerHeaderLabel);
             }
+
+            
 
             node.SetScrollPosition(EditorGUILayout.BeginScrollView(node.GetScrollPosition()));
 
